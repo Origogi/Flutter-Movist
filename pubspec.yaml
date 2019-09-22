@@ -40,6 +40,12 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+   - assets/image_01.jpg
+   - assets/image_02.jpg
+   - assets/image_03.jpg
+   - assets/image_04.jpg
+
   fonts:
       - family: SF-Pro-Text-Regular
         fonts:
