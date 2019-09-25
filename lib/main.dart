@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_list/data.dart';
+import 'package:flutter_list/network/api.dart';
 import 'CustomIcon.dart';
 import 'dart:math';
 
@@ -24,6 +25,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     PageController controller = PageController(initialPage: images.length - 1);
+
+    NaverApi.getData(query : '어벤져스');
 
     controller.addListener(() {
       setState(() {
