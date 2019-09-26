@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter_list/network/data.dart';
 import 'package:http/http.dart' as http;
 
 class NaverApi {
@@ -14,7 +17,13 @@ class NaverApi {
       "X-Naver-Client-Secret": _NAVER_CLIENT_KEY
     });
 
-    print(response.body.toString());
+
+    Map responseMap = jsonDecode(response.body);
+
+    var naverApiResponse = NaverApiResponse.fromJson(responseMap);
+    print(naverApiResponse);
+
+
     return response.body.toString();
   }
 }
