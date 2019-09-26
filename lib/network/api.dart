@@ -9,7 +9,15 @@ class NaverApi {
 
   static final _URL = "https://openapi.naver.com/v1/search/movie.json";
 
-  static Future<String> getData({String query}) async {
+  static Map<String, NaverApiResponse> _cache = {};
+
+  static Future<NaverApiResponse> getData({String query}) async {
+    if (_cache[query] != null) {
+      print('use cache : $query');
+      return _cache[query];
+    }
+
+    print('HTTP GET : $query');
     http.Response response =
         await http.get(Uri.encodeFull('$_URL?query=$query/'), headers: {
       "Content-type": "application/json",
@@ -17,13 +25,10 @@ class NaverApi {
       "X-Naver-Client-Secret": _NAVER_CLIENT_KEY
     });
 
-
     Map responseMap = jsonDecode(response.body);
 
     var naverApiResponse = NaverApiResponse.fromJson(responseMap);
-    print(naverApiResponse);
-
-
-    return response.body.toString();
+    _cache[query] = naverApiResponse;
+    return _cache[query];
   }
 }

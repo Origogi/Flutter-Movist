@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_list/data.dart';
 import 'package:flutter_list/network/api.dart';
+import 'package:flutter_list/network/data.dart';
 import 'CustomIcon.dart';
 import 'dart:math';
 
@@ -20,19 +21,11 @@ var cardAspectRatio = 12.0 / 16.0;
 var widgetAspectRatio = cardAspectRatio * 1.2;
 
 class _MyAppState extends State<MyApp> {
-  var currentPage = images.length - 1.0;
 
   @override
   Widget build(BuildContext context) {
-    PageController controller = PageController(initialPage: images.length - 1);
 
-    NaverApi.getData(query : '어벤져스');
-
-    controller.addListener(() {
-      setState(() {
-        currentPage = controller.page;
-      });
-    });
+    print('My App build');
 
     return Scaffold(
       backgroundColor: Color(0xFF2d3447),
@@ -113,20 +106,13 @@ class _MyAppState extends State<MyApp> {
                 ],
               ),
             ),
-            Stack(
-              children: <Widget>[
-                CardControllWidget(currentPage),
-                Positioned.fill(
-                  child: PageView.builder(
-                    itemCount: images.length,
-                    controller: controller,
-                    reverse: true,
-                    itemBuilder: (context, index) {
-                      return Container();
-                    },
-                  ),
-                )
-              ],
+            FutureBuilder(
+              future: NaverApi.getData(query: '어벤져스'),
+              builder: (context, snapshot) {
+                if (snapshot.hasData != null) {
+                  return MyStack();
+                }
+              },
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -305,6 +291,47 @@ class CardControllWidget extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class MyStack extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return MyStackState();
+  }
+}
+
+class MyStackState extends State<MyStack> {
+
+  var currentPage = images.length - 1.0;
+
+  @override
+  Widget build(BuildContext context) {
+
+    PageController controller = PageController(initialPage: images.length - 1);
+
+    controller.addListener(() {
+      setState(() {
+        currentPage = controller.page;
+      });
+    });
+    print('My Stack build');
+
+    return Stack(
+      children: <Widget>[
+        CardControllWidget(currentPage),
+        Positioned.fill(
+          child: PageView.builder(
+            itemCount: images.length,
+            controller: controller,
+            reverse: true,
+            itemBuilder: (context, index) {
+              return Container();
+            },
+          ),
+        )
+      ],
     );
   }
 }
