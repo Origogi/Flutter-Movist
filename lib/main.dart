@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_list/data.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
-import 'CustomIcon.dart';
 import 'dart:math';
 
 void main() => runApp(MaterialApp(
@@ -13,6 +11,7 @@ void main() => runApp(MaterialApp(
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
+    MovieDBApi.getData(query: '어벤져스');
     return _MyAppState();
   }
 }
@@ -24,8 +23,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-
-    print('My App build');
 
     return Scaffold(
       backgroundColor: Color(0xFF2d3447),
@@ -62,7 +59,7 @@ class _MyAppState extends State<MyApp> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Trending',
+                  Text('영화',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 46.0,
@@ -109,8 +106,12 @@ class _MyAppState extends State<MyApp> {
             FutureBuilder(
               future: NaverApi.getData(query: '어벤져스'),
               builder: (context, snapshot) {
-                if (snapshot.hasData != null) {
-                  return MyStack();
+                if (snapshot.hasData) {
+                  NaverApiResponse response = snapshot.data as NaverApiResponse;
+                  return MyStack(response);
+                }
+                else {
+                  return Container();
                 }
               },
             ),
@@ -188,8 +189,9 @@ class CardControllWidget extends StatelessWidget {
   var currentPage;
   var padding = 20.0;
   var verticalInset = 20.0;
+  List<MovieData> movieDataList;
 
-  CardControllWidget(this.currentPage);
+  CardControllWidget(this.currentPage, this.movieDataList);
 
   @override
   Widget build(BuildContext context) {
@@ -211,7 +213,7 @@ class CardControllWidget extends StatelessWidget {
 
           List<Widget> cardList = List();
 
-          for (var i = 0; i < images.length; i++) {
+          for (var i = 0; i < movieDataList.length; i++) {
             var delta = i - currentPage;
             bool isOnRight = delta > 0;
 
@@ -240,7 +242,8 @@ class CardControllWidget extends StatelessWidget {
                     child: Stack(
                       fit: StackFit.expand,
                       children: <Widget>[
-                        Image.asset(images[i], fit: BoxFit.cover),
+                        // Image.asset('assets/image_01.jpg', fit: BoxFit.cover),
+                        Image.network(movieDataList[i].image, fit: BoxFit.fill),
                         Align(
                           alignment: Alignment.bottomLeft,
                           child: Column(
@@ -250,7 +253,7 @@ class CardControllWidget extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 16.0, vertical: 10.0),
-                                child: Text(title[i],
+                                child: Text(movieDataList[i].title,
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 25.0,
@@ -296,34 +299,44 @@ class CardControllWidget extends StatelessWidget {
 }
 
 class MyStack extends StatefulWidget {
+  NaverApiResponse naverApiResponse;
+
+  MyStack(this.naverApiResponse);
+
   @override
   State<StatefulWidget> createState() {
-    return MyStackState();
+    return MyStackState(naverApiResponse);
   }
 }
 
 class MyStackState extends State<MyStack> {
 
-  var currentPage = images.length - 1.0;
+  var currentPage;
+  NaverApiResponse naverApiResponse;
+
+  MyStackState(NaverApiResponse naverApiResponse) {
+    this.naverApiResponse = naverApiResponse;
+    print(naverApiResponse.toString());
+    currentPage = this.naverApiResponse.items.length - 1.0;
+  }
 
   @override
   Widget build(BuildContext context) {
 
-    PageController controller = PageController(initialPage: images.length - 1);
+    PageController controller = PageController(initialPage: naverApiResponse.items.length - 1);
 
     controller.addListener(() {
       setState(() {
         currentPage = controller.page;
       });
     });
-    print('My Stack build');
 
     return Stack(
       children: <Widget>[
-        CardControllWidget(currentPage),
+        CardControllWidget(currentPage, naverApiResponse.items),
         Positioned.fill(
           child: PageView.builder(
-            itemCount: images.length,
+            itemCount: naverApiResponse.items.length,
             controller: controller,
             reverse: true,
             itemBuilder: (context, index) {

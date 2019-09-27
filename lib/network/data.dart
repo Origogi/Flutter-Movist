@@ -29,7 +29,7 @@ class NaverApiResponse {
 
 @JsonSerializable()
 class MovieData {
-  String title;
+  String _title;
   String link;
   String image;
   String subtitle;
@@ -38,14 +38,28 @@ class MovieData {
   String actor;
   String userRating;
 
-  MovieData(this.title, this.link, this.image, this.subtitle, this.pubDate,
+  MovieData(this._title, this.link, this.image, this.subtitle, this.pubDate,
       this.director, this.actor, this.userRating);
 
   factory MovieData.fromJson(Map<String, dynamic> json) =>
       _$MovieDataFromJson(json);
 
+  String get title {
+    RegExp exp = RegExp(
+      "<[^>]*>",
+      multiLine: true,
+      caseSensitive: true
+    );
+
+    return _title.replaceAll(exp, '');
+  }
+
   @override
   String toString() {
     return '[ $title, $link, $image, $subtitle, $pubDate, $director, $actor, $userRating ]';
   }
+}
+
+@JsonSerializable()
+class MovieDBApiResponse {
 }
