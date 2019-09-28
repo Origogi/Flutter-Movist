@@ -6,40 +6,20 @@ part of 'data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-NaverApiResponse _$NaverApiResponseFromJson(Map<String, dynamic> json) {
-  return NaverApiResponse(
-      json['lastBuildDate'] as String,
-      (json['items'] as List)
-          ?.map((e) =>
-              e == null ? null : MovieData.fromJson(e as Map<String, dynamic>))
-          ?.toList());
+MovieDBApiResponse _$MovieDBApiResponseFromJson(Map<String, dynamic> json) {
+  return MovieDBApiResponse((json['results'] as List)
+      ?.map((e) => e == null ? null : Movie.fromJson(e as Map<String, dynamic>))
+      ?.toList());
 }
 
-Map<String, dynamic> _$NaverApiResponseToJson(NaverApiResponse instance) =>
-    <String, dynamic>{
-      'lastBuildDate': instance.lastBuildDate,
-      'items': instance.items
-    };
+Map<String, dynamic> _$MovieDBApiResponseToJson(MovieDBApiResponse instance) =>
+    <String, dynamic>{'results': instance.results};
 
-MovieData _$MovieDataFromJson(Map<String, dynamic> json) {
-  return MovieData(
-      json['title'] as String,
-      json['link'] as String,
-      json['image'] as String,
-      json['subtitle'] as String,
-      json['pubDate'] as String,
-      json['director'] as String,
-      json['actor'] as String,
-      json['userRating'] as String);
+Movie _$MovieFromJson(Map<String, dynamic> json) {
+  return Movie(json['title'] as String, json['poster_path'] as String);
 }
 
-Map<String, dynamic> _$MovieDataToJson(MovieData instance) => <String, dynamic>{
+Map<String, dynamic> _$MovieToJson(Movie instance) => <String, dynamic>{
       'title': instance.title,
-      'link': instance.link,
-      'image': instance.image,
-      'subtitle': instance.subtitle,
-      'pubDate': instance.pubDate,
-      'director': instance.director,
-      'actor': instance.actor,
-      'userRating': instance.userRating
+      'poster_path': instance.poster_path
     };

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_list/MovieDetailPage.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
 import 'dart:math';
@@ -11,7 +12,6 @@ void main() => runApp(MaterialApp(
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    MovieDBApi.getData(query: '어벤져스');
     return _MyAppState();
   }
 }
@@ -20,166 +20,79 @@ var cardAspectRatio = 12.0 / 16.0;
 var widgetAspectRatio = cardAspectRatio * 1.2;
 
 class _MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Color(0xFF2d3447),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 12, right: 12, top: 50, bottom: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(
-                      Icons.menu,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                    onPressed: () {},
+      body: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(
+                left: 12, right: 12, top: 50, bottom: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    Icons.more_horiz,
+                    color: Colors.white,
+                    size: 30,
                   ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.search,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                    onPressed: () {},
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text('영화',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 46.0,
-                          fontFamily: 'Calibre-Semibold',
-                          letterSpacing: 1.0)),
-                  IconButton(
-                    icon: Icon(
-                      Icons.more_horiz,
-                      color: Colors.white,
-                      size: 30.0,
-                    ),
-                    onPressed: () {},
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0),
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Color(0xFFff6e6e),
-                        borderRadius: BorderRadius.circular(20.0)),
-                    child: Center(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 22.0, vertical: 6.0),
-                        child: Text(
-                          'Animated',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                    size: 30,
                   ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Text('25+ stories',
-                      style: TextStyle(color: Colors.blueAccent))
-                ],
-              ),
+                  onPressed: () {},
+                )
+              ],
             ),
-            FutureBuilder(
-              future: NaverApi.getData(query: '어벤져스'),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text('최신 영화',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 46.0,
+                        fontFamily: 'Calibre-Semibold',
+                        letterSpacing: 1.0)),
+              ],
+            ),
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: FutureBuilder(
+              future: MovieDBApi.getData(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  NaverApiResponse response = snapshot.data as NaverApiResponse;
-                  return MyStack(response);
-                }
-                else {
-                  return Container();
+                  MovieDBApiResponse response =
+                      snapshot.data as MovieDBApiResponse;
+                  return FlatButton(
+                    child: MyStack(response),
+                    onPressed: () {
+                      print('hello');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MovieDetailsPage()),
+                      );
+                    },
+                  );
+                } else {
+                  return Padding(
+                      padding: EdgeInsets.all(100),
+                      child: CircularProgressIndicator());
                 }
               },
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text('Favourite',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 46.0,
-                          fontFamily: 'Calibre-Semibold',
-                          letterSpacing: 1.0)),
-                  IconButton(
-                    icon: Icon(
-                      Icons.more_horiz,
-                      color: Colors.white,
-                      size: 30.0,
-                    ),
-                    onPressed: () {},
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0),
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.blueAccent,
-                        borderRadius: BorderRadius.circular(20.0)),
-                    child: Center(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 22.0, vertical: 6.0),
-                        child: Text(
-                          'Lastest',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Text('9+ stories', style: TextStyle(color: Colors.blueAccent))
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(left: 18.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20.0),
-                    child: Image.asset('assets/image_02.jpg',
-                        width: 296.0, height: 222.0),
-                  ),
-                )
-              ],
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
@@ -189,12 +102,13 @@ class CardControllWidget extends StatelessWidget {
   var currentPage;
   var padding = 20.0;
   var verticalInset = 20.0;
-  List<MovieData> movieDataList;
+  List<Movie> movieDataList;
 
   CardControllWidget(this.currentPage, this.movieDataList);
 
   @override
   Widget build(BuildContext context) {
+    print('cardControl');
     return AspectRatio(
       aspectRatio: widgetAspectRatio,
       child: LayoutBuilder(
@@ -242,8 +156,8 @@ class CardControllWidget extends StatelessWidget {
                     child: Stack(
                       fit: StackFit.expand,
                       children: <Widget>[
-                        // Image.asset('assets/image_01.jpg', fit: BoxFit.cover),
-                        Image.network(movieDataList[i].image, fit: BoxFit.fill),
+                        Image.network(movieDataList[i].posterUrl,
+                            fit: BoxFit.fill),
                         Align(
                           alignment: Alignment.bottomLeft,
                           child: Column(
@@ -251,31 +165,20 @@ class CardControllWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 16.0, vertical: 10.0),
-                                child: Text(movieDataList[i].title,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 25.0,
-                                        fontFamily: 'SF-Pro-Text-Regular')),
-                              ),
-                              SizedBox(
-                                height: 10.0,
-                              ),
-                              Padding(
                                 padding: const EdgeInsets.only(
                                     left: 12.0, bottom: 12.0),
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 22.0, vertical: 6.0),
                                   decoration: BoxDecoration(
-                                      color: Colors.blueAccent,
+                                      color: Colors.black45,
                                       borderRadius:
                                           BorderRadius.circular(20.0)),
-                                  child: Text(
-                                    'Read Later',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
+                                  child: Text(movieDataList[i].title,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 25.0,
+                                          fontFamily: 'SF-Pro-Text-Regular')),
                                 ),
                               )
                             ],
@@ -299,31 +202,31 @@ class CardControllWidget extends StatelessWidget {
 }
 
 class MyStack extends StatefulWidget {
-  NaverApiResponse naverApiResponse;
+  MovieDBApiResponse apiResponse;
 
-  MyStack(this.naverApiResponse);
+  MyStack(this.apiResponse);
 
   @override
   State<StatefulWidget> createState() {
-    return MyStackState(naverApiResponse);
+    print('MyStack');
+    return MyStackState(apiResponse);
   }
 }
 
 class MyStackState extends State<MyStack> {
-
   var currentPage;
-  NaverApiResponse naverApiResponse;
+  MovieDBApiResponse apiResponse;
 
-  MyStackState(NaverApiResponse naverApiResponse) {
-    this.naverApiResponse = naverApiResponse;
-    print(naverApiResponse.toString());
-    currentPage = this.naverApiResponse.items.length - 1.0;
+  MyStackState(MovieDBApiResponse apiResponse) {
+    this.apiResponse = apiResponse;
+    print(apiResponse.toString());
+    currentPage = this.apiResponse.results.length - 1.0;
   }
 
   @override
   Widget build(BuildContext context) {
-
-    PageController controller = PageController(initialPage: naverApiResponse.items.length - 1);
+    PageController controller =
+        PageController(initialPage: apiResponse.results.length - 1);
 
     controller.addListener(() {
       setState(() {
@@ -333,10 +236,10 @@ class MyStackState extends State<MyStack> {
 
     return Stack(
       children: <Widget>[
-        CardControllWidget(currentPage, naverApiResponse.items),
+        CardControllWidget(currentPage, apiResponse.results),
         Positioned.fill(
           child: PageView.builder(
-            itemCount: naverApiResponse.items.length,
+            itemCount: apiResponse.results.length,
             controller: controller,
             reverse: true,
             itemBuilder: (context, index) {
