@@ -19,6 +19,8 @@ class MyApp extends StatefulWidget {
 var cardAspectRatio = 12.0 / 16.0;
 var widgetAspectRatio = cardAspectRatio * 1.2;
 
+double currentPage;
+
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
@@ -76,11 +78,10 @@ class _MyAppState extends State<MyApp> {
                   return FlatButton(
                     child: MyStack(response),
                     onPressed: () {
-                      print('hello');
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => MovieDetailsPage()),
+                            builder: (context) => MovieDetailsPage(response.results[currentPage.toInt()])),
                       );
                     },
                   );
@@ -143,7 +144,7 @@ class CardControllWidget extends StatelessWidget {
               start: start,
               textDirection: TextDirection.rtl,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(16.0),
+                borderRadius: BorderRadius.circular(14.0),
                 child: Container(
                   decoration: BoxDecoration(color: Colors.white, boxShadow: [
                     BoxShadow(
@@ -214,7 +215,7 @@ class MyStack extends StatefulWidget {
 }
 
 class MyStackState extends State<MyStack> {
-  var currentPage;
+  
   MovieDBApiResponse apiResponse;
 
   MyStackState(MovieDBApiResponse apiResponse) {

@@ -14,7 +14,6 @@ static Future<MovieDBApiResponse> getData() async {
         await http.get(Uri.encodeFull('$_URL?api_key=$_KEY&language=ko-KR&page=1/'), headers: {
       "Content-type": "application/json",
     });
-    print(response.body);
     Map responseMap = jsonDecode(response.body);
     var apiResponse = MovieDBApiResponse.fromJson(responseMap);
 
