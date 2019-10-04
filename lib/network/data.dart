@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 part 'data.g.dart';
-//flutter pub run build_runner build 
+//flutter pub run build_runner build
 
 @JsonSerializable()
 class MovieDBApiResponse {
@@ -9,7 +9,7 @@ class MovieDBApiResponse {
 
   MovieDBApiResponse(this.results);
 
-    factory MovieDBApiResponse.fromJson(Map<String, dynamic> json) =>
+  factory MovieDBApiResponse.fromJson(Map<String, dynamic> json) =>
       _$MovieDBApiResponseFromJson(json);
 }
 
@@ -21,19 +21,55 @@ class Movie {
   num vote_average;
   int vote_count;
   String overview;
+  List<int> genre_ids;
 
-
-  Movie(this.title, this.poster_path, this.backdrop_path, this.vote_average, this.vote_count, this.overview);
+  Movie(this.title, this.poster_path, this.backdrop_path, this.vote_average,
+      this.vote_count, this.overview);
 
   static final URL = "https://image.tmdb.org/t/p/w500";
   String get posterUrl => URL + poster_path;
   String get backDropUrl => URL + backdrop_path;
 
-    factory Movie.fromJson(Map<String, dynamic> json) =>
-      _$MovieFromJson(json);
+  factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
 
   @override
   String toString() {
-    return "[ $title, $poster_path, $backdrop_path, $vote_average, $vote_count, $overview";
+    return "[ $title, $poster_path, $backdrop_path, $vote_average, $vote_count, $overview, ${genre_ids.toString()} ]";
+  }
+}
+
+@JsonSerializable()
+class GenresApiResponse {
+  List<Genre> genres;
+
+  Map<int, String> get genresMap {
+
+    Map<int,String> map = {};
+
+    genres.forEach((genre) {
+      map[genre.id] = genre.name;
+    });
+
+    return map;
+  }
+
+  GenresApiResponse(this.genres);
+
+  factory GenresApiResponse.fromJson(Map<String, dynamic> json) =>
+      _$GenresApiResponseFromJson(json);
+}
+
+@JsonSerializable()
+class Genre {
+  int id;
+  String name;
+
+  Genre({this.id, this.name});
+
+  factory Genre.fromJson(Map<String, dynamic> json) => _$GenreFromJson(json);
+
+  @override
+  String toString() {
+    return "[ $id, $name]";
   }
 }

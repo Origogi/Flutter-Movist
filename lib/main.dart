@@ -81,7 +81,8 @@ class _MyAppState extends State<MyApp> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => MovieDetailsPage(response.results[currentPage.toInt()])),
+                            builder: (context) => MovieDetailsPage(
+                                response.results[currentPage.toInt()])),
                       );
                     },
                   );
@@ -159,15 +160,35 @@ class CardControllWidget extends StatelessWidget {
                       children: <Widget>[
                         Image.network(movieDataList[i].posterUrl,
                             fit: BoxFit.fill),
-                        Align(
-                          alignment: Alignment.bottomLeft,
+
+                        // SingleChildScrollView(
+                        //   child: Column(
+                        //     mainAxisSize: MainAxisSize.min,
+                        //     crossAxisAlignment: CrossAxisAlignment.start,
+                        //     children: <Widget>[
+                        //       Padding(
+                        //         padding: const EdgeInsets.only(
+                        //             left: 12.0, bottom: 12.0, top: 300),
+
+                        //           child: Text(movieDataList[i].title,
+                        //               style: TextStyle(
+                        //                   color: Colors.white,
+                        //                   fontSize: 25.0,
+                        //                   fontFamily: 'SF-Pro-Text-Regular')),
+                        //         ),
+
+                        //     ],
+                        //   ),
+                        // ),
+
+                        SingleChildScrollView(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 12.0, bottom: 12.0),
+                                    left: 12.0, bottom: 12.0,top: 300),
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 22.0, vertical: 6.0),
@@ -215,7 +236,6 @@ class MyStack extends StatefulWidget {
 }
 
 class MyStackState extends State<MyStack> {
-  
   MovieDBApiResponse apiResponse;
 
   MyStackState(MovieDBApiResponse apiResponse) {

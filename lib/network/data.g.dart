@@ -22,7 +22,8 @@ Movie _$MovieFromJson(Map<String, dynamic> json) {
       json['backdrop_path'] as String,
       json['vote_average'] as num,
       json['vote_count'] as int,
-      json['overview'] as String);
+      json['overview'] as String)
+    ..genre_ids = (json['genre_ids'] as List)?.map((e) => e as int)?.toList();
 }
 
 Map<String, dynamic> _$MovieToJson(Movie instance) => <String, dynamic>{
@@ -31,5 +32,22 @@ Map<String, dynamic> _$MovieToJson(Movie instance) => <String, dynamic>{
       'backdrop_path': instance.backdrop_path,
       'vote_average': instance.vote_average,
       'vote_count': instance.vote_count,
-      'overview': instance.overview
+      'overview': instance.overview,
+      'genre_ids': instance.genre_ids
     };
+
+GenresApiResponse _$GenresApiResponseFromJson(Map<String, dynamic> json) {
+  return GenresApiResponse((json['genres'] as List)
+      ?.map((e) => e == null ? null : Genre.fromJson(e as Map<String, dynamic>))
+      ?.toList());
+}
+
+Map<String, dynamic> _$GenresApiResponseToJson(GenresApiResponse instance) =>
+    <String, dynamic>{'genres': instance.genres};
+
+Genre _$GenreFromJson(Map<String, dynamic> json) {
+  return Genre(id: json['id'] as int, name: json['name'] as String);
+}
+
+Map<String, dynamic> _$GenreToJson(Genre instance) =>
+    <String, dynamic>{'id': instance.id, 'name': instance.name};

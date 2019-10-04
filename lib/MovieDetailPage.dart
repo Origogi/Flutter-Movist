@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
 import 'package:flutter_list/ui/ArcBannerImage.dart';
 import 'package:flutter_list/ui/Poster.dart';
@@ -35,28 +36,18 @@ class MovieDetailHeader extends StatelessWidget {
 
   MovieDetailHeader(this.movie);
 
-  List<Widget> _buildCategoryChips(TextTheme textTheme) {
-    List<String> category = ['Comic', 'Action'];
-    return category.map((category) {
+  List<Widget> _buildCategoryChips(List<String> genres, TextTheme textTheme) {
+    return genres.map((genre) {
       return Padding(
         padding: const EdgeInsets.only(right: 8.0),
         child: Chip(
-          label: Text(category),
+          label: Text(genre),
           labelStyle: textTheme.caption,
           backgroundColor: Colors.black12,
         ),
       );
     }).toList();
-    // return movie.categories.map((category) {
-    //   return Padding(
-    //     padding: const EdgeInsets.only(right: 8.0),
-    //     child: Chip(
-    //       label: Text(category),
-    //       labelStyle: textTheme.caption,
-    //       backgroundColor: Colors.black12,
-    //     ),
-    //   );
-    // }).toList();
+    
   }
 
   @override
@@ -75,7 +66,31 @@ class MovieDetailHeader extends StatelessWidget {
         ),
         RatingInformation(movie),
         SizedBox(height: 12.0),
-        Row(children: _buildCategoryChips(textTheme)),
+        FutureBuilder(
+              future: MovieDBApi.getGenres(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  GenresApiResponse apiResponse = snapshot.data;
+
+                  print(movie.genre_ids.toString());
+
+                  List<String> genres = movie.genre_ids.map((id) {
+                    return apiResponse.genresMap[id];
+                  }).toList();
+
+                  print(genres.toString());
+                  return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                    child: Row(children: _buildCategoryChips(genres, textTheme),),
+                  );
+                  
+                }
+                else {
+                  return Container();
+                }
+              }
+        ),
+                
       ],
     );
 
