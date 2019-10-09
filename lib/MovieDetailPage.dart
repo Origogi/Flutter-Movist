@@ -6,7 +6,6 @@ import 'package:flutter_list/ui/Poster.dart';
 import 'package:flutter_list/ui/RatingInformation.dart';
 import 'package:flutter_list/ui/Stroyline.dart';
 
-
 class MovieDetailsPage extends StatelessWidget {
   Movie movie;
   MovieDetailsPage(this.movie) {
@@ -18,7 +17,38 @@ class MovieDetailsPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            MovieDetailHeader(movie),
+            Stack(
+              children: <Widget>[
+                MovieDetailHeader(movie),
+                
+                Padding(
+                  padding: const EdgeInsets.only(top:25,left: 5, right: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      IconButton(
+                        icon: Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        onPressed: () => {Navigator.pop(context)},
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.favorite_border,
+                          color: Colors.red,
+                          size: 30,
+                        ),
+                        onPressed: () => {
+
+                        },
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
             SizedBox(height: 15.0),
             Padding(
               padding: const EdgeInsets.all(20.0),
@@ -47,7 +77,6 @@ class MovieDetailHeader extends StatelessWidget {
         ),
       );
     }).toList();
-    
   }
 
   @override
@@ -67,30 +96,28 @@ class MovieDetailHeader extends StatelessWidget {
         RatingInformation(movie),
         SizedBox(height: 12.0),
         FutureBuilder(
-              future: MovieDBApi.getGenres(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  GenresApiResponse apiResponse = snapshot.data;
+            future: MovieDBApi.getGenres(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                GenresApiResponse apiResponse = snapshot.data;
 
-                  print(movie.genre_ids.toString());
+                print(movie.genre_ids.toString());
 
-                  List<String> genres = movie.genre_ids.map((id) {
-                    return apiResponse.genresMap[id];
-                  }).toList();
+                List<String> genres = movie.genre_ids.map((id) {
+                  return apiResponse.genresMap[id];
+                }).toList();
 
-                  print(genres.toString());
-                  return SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                    child: Row(children: _buildCategoryChips(genres, textTheme),),
-                  );
-                  
-                }
-                else {
-                  return Container();
-                }
+                print(genres.toString());
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: _buildCategoryChips(genres, textTheme),
+                  ),
+                );
+              } else {
+                return Container();
               }
-        ),
-                
+            }),
       ],
     );
 
