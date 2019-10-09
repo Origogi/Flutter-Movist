@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 class MovieDBApi {
   static final _KEY = '2bafb8eb9137df7d37ed1fe043ad7596';
-  static final _URL_MOVIE_LIST = "https://api.themoviedb.org/3/movie/upcoming";
+  static final _URL_MOVIE_LIST = "https://api.themoviedb.org/3/movie/now_playing";
   static final _URL_GENRE_LIST =
       "https://api.themoviedb.org/3/genre/movie/list";
 
