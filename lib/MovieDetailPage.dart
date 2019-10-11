@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_list/model/FavoriteModel.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
 import 'package:flutter_list/ui/ArcBannerImage.dart';
 import 'package:flutter_list/ui/Poster.dart';
 import 'package:flutter_list/ui/RatingInformation.dart';
 import 'package:flutter_list/ui/Stroyline.dart';
+import 'package:provider/provider.dart';
 
 class MovieDetailsPage extends StatelessWidget {
   Movie movie;
@@ -20,9 +22,8 @@ class MovieDetailsPage extends StatelessWidget {
             Stack(
               children: <Widget>[
                 MovieDetailHeader(movie),
-                
                 Padding(
-                  padding: const EdgeInsets.only(top:25,left: 5, right: 5),
+                  padding: const EdgeInsets.only(top: 25, left: 5, right: 5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -34,16 +35,24 @@ class MovieDetailsPage extends StatelessWidget {
                         ),
                         onPressed: () => {Navigator.pop(context)},
                       ),
-                      IconButton(
+                      Consumer<FavoriteModel>(builder: (context, model, child) {
+                        return  IconButton(
                         icon: Icon(
-                          Icons.favorite_border,
+                          model.containMovieID(movie.id) ? Icons.favorite : Icons.favorite_border,
                           color: Colors.red,
                           size: 30,
                         ),
-                        onPressed: () => {
-
+                        onPressed: () {
+                          if (model.containMovieID(movie.id)) {
+                            model.removeMovieID(movie.id);
+                          }
+                          else {
+                            model.addMovieID(movie.id);
+                          }
                         },
-                      ),
+                      );
+                      }),
+                     
                     ],
                   ),
                 )
@@ -60,6 +69,9 @@ class MovieDetailsPage extends StatelessWidget {
     );
   }
 }
+
+  
+
 
 class MovieDetailHeader extends StatelessWidget {
   Movie movie;

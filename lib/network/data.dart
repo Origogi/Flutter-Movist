@@ -15,6 +15,7 @@ class MovieDBApiResponse {
 
 @JsonSerializable()
 class Movie {
+  int id;
   String title;
   String poster_path;
   String backdrop_path;
@@ -23,7 +24,7 @@ class Movie {
   String overview;
   List<int> genre_ids;
 
-  Movie(this.title, this.poster_path, this.backdrop_path, this.vote_average,
+  Movie(this.id, this.title, this.poster_path, this.backdrop_path, this.vote_average,
       this.vote_count, this.overview);
 
   static final URL = "https://image.tmdb.org/t/p/w500";
@@ -34,7 +35,7 @@ class Movie {
 
   @override
   String toString() {
-    return "[ $title, $poster_path, $backdrop_path, $vote_average, $vote_count, $overview, ${genre_ids.toString()} ]";
+    return "[ $id, $title, $poster_path, $backdrop_path, $vote_average, $vote_count, $overview, ${genre_ids.toString()} ]";
   }
 }
 

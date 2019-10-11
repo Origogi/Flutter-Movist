@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_list/MovieDetailPage.dart';
+import 'package:flutter_list/model/FavoriteModel.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
 import 'dart:math';
 
-void main() => runApp(MaterialApp(
-      home: MyApp(),
-      debugShowCheckedModeBanner: false,
-    ));
+import 'package:provider/provider.dart';
+
+void main() => runApp(
+      ChangeNotifierProvider<FavoriteModel>(
+          builder: (_) => FavoriteModel(),
+          child: MaterialApp(
+            home: MyApp(),
+            debugShowCheckedModeBanner: false,
+          )),
+    );
 
 class MyApp extends StatefulWidget {
   @override
@@ -93,7 +100,7 @@ class _MyAppState extends State<MyApp> {
                 }
               },
             ),
-          )
+          ),
         ],
       ),
     );
@@ -160,27 +167,6 @@ class CardControllWidget extends StatelessWidget {
                       children: <Widget>[
                         Image.network(movieDataList[i].posterUrl,
                             fit: BoxFit.fill),
-
-                        // SingleChildScrollView(
-                        //   child: Column(
-                        //     mainAxisSize: MainAxisSize.min,
-                        //     crossAxisAlignment: CrossAxisAlignment.start,
-                        //     children: <Widget>[
-                        //       Padding(
-                        //         padding: const EdgeInsets.only(
-                        //             left: 12.0, bottom: 12.0, top: 300),
-
-                        //           child: Text(movieDataList[i].title,
-                        //               style: TextStyle(
-                        //                   color: Colors.white,
-                        //                   fontSize: 25.0,
-                        //                   fontFamily: 'SF-Pro-Text-Regular')),
-                        //         ),
-
-                        //     ],
-                        //   ),
-                        // ),
-
                         SingleChildScrollView(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -188,7 +174,7 @@ class CardControllWidget extends StatelessWidget {
                             children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 12.0, bottom: 12.0,top: 300),
+                                    left: 12.0, bottom: 12.0, top: 300),
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 22.0, vertical: 6.0),

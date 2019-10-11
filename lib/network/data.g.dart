@@ -17,6 +17,7 @@ Map<String, dynamic> _$MovieDBApiResponseToJson(MovieDBApiResponse instance) =>
 
 Movie _$MovieFromJson(Map<String, dynamic> json) {
   return Movie(
+      json['id'] as int,
       json['title'] as String,
       json['poster_path'] as String,
       json['backdrop_path'] as String,
@@ -27,6 +28,7 @@ Movie _$MovieFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$MovieToJson(Movie instance) => <String, dynamic>{
+      'id': instance.id,
       'title': instance.title,
       'poster_path': instance.poster_path,
       'backdrop_path': instance.backdrop_path,
