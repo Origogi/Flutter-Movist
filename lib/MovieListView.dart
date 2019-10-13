@@ -9,12 +9,12 @@ class MovieListView extends StatelessWidget {
 
   MovieListView(this.movies);
 
-  int _imageHeight = 180;
+  double _imageHeight = 150;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 250,
       child: ListView.builder(
         padding: EdgeInsets.symmetric(horizontal: 30),
         scrollDirection: Axis.horizontal,
@@ -30,7 +30,7 @@ class MovieListView extends StatelessWidget {
             },
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-              width: 180,
+              width: _imageHeight * 0.9,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
@@ -40,12 +40,11 @@ class MovieListView extends StatelessWidget {
                         blurRadius: 6)
                   ]),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Poster(
-                  posterUrl: movies[index].posterUrl,
-                  height: 250,
-                ),
-              ),
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                    movies[index].posterUrl,
+                    fit: BoxFit.cover,
+                  )),
             ),
           );
         },

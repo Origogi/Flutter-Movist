@@ -33,26 +33,28 @@ class MovieDetailsPage extends StatelessWidget {
                           color: Colors.white,
                           size: 30,
                         ),
-                        onPressed: () => {Navigator.pop(context)},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
                       Consumer<FavoriteModel>(builder: (context, model, child) {
-                        return  IconButton(
-                        icon: Icon(
-                          model.containMovieID(movie.id) ? Icons.favorite : Icons.favorite_border,
-                          color: Colors.red,
-                          size: 30,
-                        ),
-                        onPressed: () {
-                          if (model.containMovieID(movie.id)) {
-                            model.removeMovieID(movie.id);
-                          }
-                          else {
-                            model.addMovieID(movie.id);
-                          }
-                        },
-                      );
+                        return IconButton(
+                          icon: Icon(
+                            model.containMovieID(movie.id)
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: Colors.red,
+                            size: 30,
+                          ),
+                          onPressed: () {
+                            if (model.containMovieID(movie.id)) {
+                              model.removeMovieID(movie.id);
+                            } else {
+                              model.addMovieID(movie.id);
+                            }
+                          },
+                        );
                       }),
-                     
                     ],
                   ),
                 )
@@ -69,9 +71,6 @@ class MovieDetailsPage extends StatelessWidget {
     );
   }
 }
-
-  
-
 
 class MovieDetailHeader extends StatelessWidget {
   Movie movie;
@@ -100,7 +99,8 @@ class MovieDetailHeader extends StatelessWidget {
       children: <Widget>[
         Text(
           movie.title,
-          style: textTheme.title,
+          style: (textTheme.title),
+          
         ),
         SizedBox(
           height: 8.0,
