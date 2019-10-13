@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_list/MovieDetailPage.dart';
+import 'package:flutter_list/MovieListView.dart';
 import 'package:flutter_list/model/FavoriteModel.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
@@ -33,50 +34,50 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF2d3447),
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(
-                left: 12, right: 12, top: 50, bottom: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    Icons.more_horiz,
-                    color: Colors.white,
-                    size: 30,
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 12, right: 12, top: 50, bottom: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(
+                      Icons.more_horiz,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                    onPressed: () {},
                   ),
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.search,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  onPressed: () {},
-                )
-              ],
+                  IconButton(
+                    icon: Icon(
+                      Icons.search,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                    onPressed: () {},
+                  )
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text('최신 영화',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 46.0,
-                        fontFamily: 'Calibre-Semibold',
-                        letterSpacing: 1.0)),
-              ],
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('최신 영화',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30.0,
+                          fontFamily: 'Calibre-Semibold',
+                          letterSpacing: 1.0)),
+                ],
+              ),
             ),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: FutureBuilder(
+            FutureBuilder(
               future: MovieDBApi.getData(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
@@ -100,8 +101,56 @@ class _MyAppState extends State<MyApp> {
                 }
               },
             ),
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('즐겨 찾기',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30.0,
+                          fontFamily: 'Calibre-Semibold',
+                          letterSpacing: 1.0)),
+                ],
+              ),
+            ),
+            Consumer<FavoriteModel>(builder: (context, model, child) {
+              if (model.isEmpty()) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 100),
+                  child: Center(
+                    
+                    child : Text('즐겨 찾기에 등록된 영화가 없습니다.',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15.0,
+                            fontFamily: 'SF-Pro-Text-Regular',
+                            letterSpacing: 1.0)),
+                  ),
+                );
+              }
+
+              return FutureBuilder(
+                future: MovieDBApi.getData(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    MovieDBApiResponse response =
+                        snapshot.data as MovieDBApiResponse;
+                    var favoriteMovieList = response.results.where((item) {
+                      return model.containMovieID(item.id);
+                    }).toList();
+                    return MovieListView(favoriteMovieList);
+                  } else {
+                    return Padding(
+                        padding: EdgeInsets.all(100),
+                        child: CircularProgressIndicator());
+                  }
+                },
+              );
+            }),
+          ],
+        ),
       ),
     );
   }
@@ -117,7 +166,6 @@ class CardControllWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('cardControl');
     return AspectRatio(
       aspectRatio: widgetAspectRatio,
       child: LayoutBuilder(

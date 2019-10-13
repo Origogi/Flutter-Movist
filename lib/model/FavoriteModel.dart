@@ -17,4 +17,8 @@ class FavoriteModel extends ChangeNotifier  {
   bool containMovieID(int id) {
     return _movieIDs.contains(id);
   }
+
+  bool isEmpty() {
+    return _movieIDs.isEmpty;
+  }
 }
