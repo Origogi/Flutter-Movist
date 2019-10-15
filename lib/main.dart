@@ -33,26 +33,20 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF2d3447),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 12, right: 12, top: 50, bottom: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  IconButton(
+      appBar: AppBar(
+        leading: IconButton(
                     icon: Icon(
-                      Icons.more_horiz,
+                      Icons.menu,
                       color: Colors.white,
                       size: 30,
                     ),
                     onPressed: () {},
                   ),
-                  IconButton(
+        title: Text('Movie DB'),
+        backgroundColor: Color(0xFF2d3447),
+        centerTitle : true,
+        actions: <Widget>[
+          IconButton(
                     icon: Icon(
                       Icons.search,
                       color: Colors.white,
@@ -60,9 +54,15 @@ class _MyAppState extends State<MyApp> {
                     ),
                     onPressed: () {},
                   )
-                ],
-              ),
-            ),
+        ],
+        
+      ),
+      backgroundColor: Color(0xFF2d3447),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: 20,),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Row(
@@ -83,9 +83,9 @@ class _MyAppState extends State<MyApp> {
                 if (snapshot.hasData) {
                   MovieDBApiResponse response =
                       snapshot.data as MovieDBApiResponse;
-                  return FlatButton(
+                  return GestureDetector(
                     child: MyStack(response),
-                    onPressed: () {
+                    onTapDown: (_) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -120,8 +120,7 @@ class _MyAppState extends State<MyApp> {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 100),
                   child: Center(
-                    
-                    child : Text('즐겨 찾기에 등록된 영화가 없습니다.',
+                    child: Text('즐겨 찾기에 등록된 영화가 없습니다.',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 15.0,
@@ -215,31 +214,7 @@ class CardControllWidget extends StatelessWidget {
                       children: <Widget>[
                         Image.network(movieDataList[i].posterUrl,
                             fit: BoxFit.fill),
-                        SingleChildScrollView(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 12.0, bottom: 12.0, top: 300),
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 22.0, vertical: 6.0),
-                                  decoration: BoxDecoration(
-                                      color: Colors.black45,
-                                      borderRadius:
-                                          BorderRadius.circular(20.0)),
-                                  child: Text(movieDataList[i].title,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 25.0,
-                                          fontFamily: 'SF-Pro-Text-Regular')),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
+                        
                       ],
                     ),
                   ),

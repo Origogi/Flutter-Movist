@@ -13,19 +13,23 @@ class Poster extends StatelessWidget {
   Widget build(BuildContext context) {
     var width = POSTER_RATIO * height;
 
-    return Material(
-      borderRadius: BorderRadius.circular(10.0),
-      elevation: 12.0,
-      child: Container(
-        width: width,
-        height: height,
-        child: Image.network(
-          posterUrl,
-          fit: BoxFit.cover,
-          width: width,
-          height: height,
-        ),
-      ),
-    );
+    return Container(
+              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              width: width,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black54,
+                        offset: Offset(0, 4),
+                        blurRadius: 6)
+                  ]),
+                  child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                    posterUrl,
+                    fit: BoxFit.cover,
+                  )),
+            );
   }
 }

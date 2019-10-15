@@ -39,7 +39,7 @@ class MovieListView extends StatelessWidget {
                         offset: Offset(0, 4),
                         blurRadius: 6)
                   ]),
-              child: ClipRRect(
+                  child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.network(
                     movies[index].posterUrl,

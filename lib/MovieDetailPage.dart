@@ -141,15 +141,15 @@ class MovieDetailHeader extends StatelessWidget {
         ),
         Positioned(
           bottom: 0.0,
-          left: 16.0,
-          right: 16.0,
+          left: 12.0,
+          right: 12.0,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Poster(posterUrl: movie.posterUrl, height: 180.0),
               SizedBox(
-                width: 16,
+                width: 6,
               ),
               Expanded(
                 child: movieInformation,
