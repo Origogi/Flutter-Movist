@@ -33,45 +33,39 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Sidebar(),
       appBar: AppBar(
-        leading: IconButton(
-                    icon: Icon(
-                      Icons.menu,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                    onPressed: () {},
-                  ),
         title: Text('Movie DB'),
         backgroundColor: Color(0xFF2d3447),
-        centerTitle : true,
+        centerTitle: true,
         actions: <Widget>[
           IconButton(
-                    icon: Icon(
-                      Icons.search,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                    onPressed: () {},
-                  )
+            icon: Icon(
+              Icons.search,
+              color: Colors.white,
+              size: 30,
+            ),
+            onPressed: () {},
+          )
         ],
-        
       ),
       backgroundColor: Color(0xFF2d3447),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
           children: <Widget>[
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 25,
+            ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('최신 영화',
+                  Text('Trending',
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 30.0,
+                          fontSize: 35.0,
                           fontFamily: 'Calibre-Semibold',
                           letterSpacing: 1.0)),
                 ],
@@ -106,7 +100,7 @@ class _MyAppState extends State<MyApp> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('즐겨 찾기',
+                  Text('My List',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 30.0,
@@ -214,7 +208,6 @@ class CardControllWidget extends StatelessWidget {
                       children: <Widget>[
                         Image.network(movieDataList[i].posterUrl,
                             fit: BoxFit.fill),
-                        
                       ],
                     ),
                   ),
@@ -278,6 +271,66 @@ class MyStackState extends State<MyStack> {
           ),
         )
       ],
+    );
+  }
+}
+
+class Sidebar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Container(
+        color: Color(0xFF2d3447),
+        padding: EdgeInsets.only(bottom: 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Text('Color Theme',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                    fontFamily: 'Calibre-Semibold',
+                    letterSpacing: 1.0)),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              
+              children: <Widget>[
+                new Container(
+                  height: 25,
+                  width: 25,
+                  decoration: new BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color(0xFF2d3447),
+                  border: new Border.all(
+                    color: Colors.white,
+                    width: 2.5,
+                  ),
+                  
+                )),
+                SizedBox(
+                  width: 30,
+                ),
+                new Container(
+                  height: 25,
+                  width: 25,
+
+                  decoration: new BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  border: new Border.all(
+                    color: Colors.white,
+                    width: 2.5,
+                  ),
+                  
+                ))
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }
