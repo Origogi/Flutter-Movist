@@ -276,61 +276,102 @@ class MyStackState extends State<MyStack> {
 }
 
 class Sidebar extends StatelessWidget {
+  final List<Color> colors = [Colors.white, Color(0xff242248), Colors.black];
+  final List<Color> borders = [Colors.black, Colors.white, Colors.white];
+  final List<String> themes = ['Light', 'Dark', 'Amoled'];
+
+
   @override
   Widget build(BuildContext context) {
+
+    var style = TextStyle(
+        color: Colors.white,
+        fontSize: 18.0,
+        fontFamily: 'Calibre-Semibold',
+        letterSpacing: 1.0);
+
     return Drawer(
       child: Container(
-        color: Color(0xFF2d3447),
-        padding: EdgeInsets.only(bottom: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Text('Color Theme',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                    fontFamily: 'Calibre-Semibold',
-                    letterSpacing: 1.0)),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              
-              children: <Widget>[
-                new Container(
-                  height: 25,
-                  width: 25,
-                  decoration: new BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color(0xFF2d3447),
-                  border: new Border.all(
-                    color: Colors.white,
-                    width: 2.5,
-                  ),
-                  
-                )),
-                SizedBox(
-                  width: 30,
+          color: Color(0xFF2d3447),
+          padding: EdgeInsets.only(bottom: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              ListTile(
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('Theme',
+                        // style: state.themeData.textTheme.body2,
+                        style: style),
+                  ],
                 ),
-                new Container(
-                  height: 25,
-                  width: 25,
-
-                  decoration: new BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                  border: new Border.all(
-                    color: Colors.white,
-                    width: 2.5,
+                subtitle: SizedBox(
+                  height: 100,
+                  child: Center(
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: 3,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Stack(
+                          children: <Widget>[
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    width: 50,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                            width: 2, color: borders[index]),
+                                        color: colors[index]),
+                                  ),
+                                ),
+                                Text(themes[index],
+                                    style: style)
+                              ],
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: InkWell(
+                                    onTap: () {},
+                                    child: Container(
+                                      width: 50,
+                                      height: 50,
+                                      // child: Theme.of(context).primaryColor ==
+                                      //         colors[index]
+                                      //     ? Icon(Icons.done,
+                                      //         color:
+                                      //             Theme.of(context).accentColor)
+                                      //     : Container(),
+                                      child: index == 0
+                                          ? Icon(Icons.done,
+                                              color:
+                                                  Theme.of(context).accentColor)
+                                          : Container(),
+                                    ),
+                                  ),
+                                ),
+                                Text(themes[index],
+                                    style: style)
+                              ],
+                            ),
+                          ],
+                        );
+                      },
+                    ),
                   ),
-                  
-                ))
-              ],
-            )
-          ],
-        ),
-      ),
+                ),
+              ),
+            ],
+          )),
     );
   }
 }
