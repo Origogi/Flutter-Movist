@@ -4,6 +4,7 @@ import 'package:flutter_list/MovieListView.dart';
 import 'package:flutter_list/model/FavoriteModel.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
+import 'package:flutter_list/ui/SideBar.dart';
 import 'dart:math';
 
 import 'package:provider/provider.dart';
@@ -45,7 +46,9 @@ class _MyAppState extends State<MyApp> {
               color: Colors.white,
               size: 30,
             ),
-            onPressed: () {},
+            onPressed: () {
+              return showSearch(context: context, delegate: DataSearch());
+            },
           )
         ],
       ),
@@ -275,103 +278,46 @@ class MyStackState extends State<MyStack> {
   }
 }
 
-class Sidebar extends StatelessWidget {
-  final List<Color> colors = [Colors.white, Color(0xff242248), Colors.black];
-  final List<Color> borders = [Colors.black, Colors.white, Colors.white];
-  final List<String> themes = ['Light', 'Dark', 'Amoled'];
-
+class DataSearch extends SearchDelegate<String> {
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(icon: Icon(Icons.clear), onPressed: () {}),
+    ];
+  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildLeading(BuildContext context) {
 
-    var style = TextStyle(
-        color: Colors.white,
-        fontSize: 18.0,
-        fontFamily: 'Calibre-Semibold',
-        letterSpacing: 1.0);
+    // TODO: implement buildLeading
+    return IconButton(
+      icon: AnimatedIcon(
+        icon: AnimatedIcons.menu_arrow,
+        progress: transitionAnimation,
+      ),
+      onPressed: () {},
+    );
+  }
 
-    return Drawer(
-      child: Container(
-          color: Color(0xFF2d3447),
-          padding: EdgeInsets.only(bottom: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              ListTile(
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text('Theme',
-                        // style: state.themeData.textTheme.body2,
-                        style: style),
-                  ],
-                ),
-                subtitle: SizedBox(
-                  height: 100,
-                  child: Center(
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemCount: 3,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Stack(
-                          children: <Widget>[
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    width: 50,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                            width: 2, color: borders[index]),
-                                        color: colors[index]),
-                                  ),
-                                ),
-                                Text(themes[index],
-                                    style: style)
-                              ],
-                            ),
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: InkWell(
-                                    onTap: () {},
-                                    child: Container(
-                                      width: 50,
-                                      height: 50,
-                                      // child: Theme.of(context).primaryColor ==
-                                      //         colors[index]
-                                      //     ? Icon(Icons.done,
-                                      //         color:
-                                      //             Theme.of(context).accentColor)
-                                      //     : Container(),
-                                      child: index == 0
-                                          ? Icon(Icons.done,
-                                              color:
-                                                  Theme.of(context).accentColor)
-                                          : Container(),
-                                    ),
-                                  ),
-                                ),
-                                Text(themes[index],
-                                    style: style)
-                              ],
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          )),
+  @override
+  Widget buildResults(BuildContext context) {
+    // TODO: implement buildResults
+    return Container(
+      color: Color(0xFF2d3447),
+      child: Center(
+        child: Text('Input words!!'),
+      ),
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // TODO: implement buildSuggestions
+    return Container(
+      color: Color(0xFF2d3447),
+      child: Center(
+        child: Text('Suggestion'),
+      ),
     );
   }
 }
