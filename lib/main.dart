@@ -279,6 +279,29 @@ class MyStackState extends State<MyStack> {
 }
 
 class DataSearch extends SearchDelegate<String> {
+  DataSearch({
+    String hintText = '',
+  }) : super(
+          searchFieldLabel: hintText,
+        );
+
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    assert(context != null);
+    final ThemeData theme = ThemeData(
+        hintColor: Colors.white,
+        cursorColor: Colors.white,
+        primaryColor: Color(0xFF2d3447),
+        textTheme: TextTheme(
+            title: TextStyle(
+                color: Colors.white,
+                fontSize: 20.0,
+                fontFamily: 'Calibre-Semibold',
+                letterSpacing: 1.0)));
+    assert(theme != null);
+    return theme;
+  }
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -288,14 +311,14 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildLeading(BuildContext context) {
-
-    // TODO: implement buildLeading
     return IconButton(
       icon: AnimatedIcon(
         icon: AnimatedIcons.menu_arrow,
         progress: transitionAnimation,
       ),
-      onPressed: () {},
+      onPressed: () {
+        close(context, null);
+      },
     );
   }
 
