@@ -14,10 +14,10 @@ https://developers.themoviedb.org/3
 ## TODO
 
 - [ ] 검색 기능 구현
-    - [x] SearchDelegate hint 제거
+    - [ ] SearchDelegate hint 제거
     - [ ] api연결
 - [ ] Theme 구현
-    - [ ] Theme class 연결
+    - [x] Theme class 연결
     - [ ] 버튼 눌렀을 때 변경
 - [ ] My List 구현
     - [x] Scoped 모델 
