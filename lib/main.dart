@@ -279,11 +279,6 @@ class MyStackState extends State<MyStack> {
 }
 
 class DataSearch extends SearchDelegate<String> {
-  DataSearch({
-    String hintText = '',
-  }) : super(
-          searchFieldLabel: hintText,
-        );
 
   @override
   ThemeData appBarTheme(BuildContext context) {
