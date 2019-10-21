@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_list/MovieDetailPage.dart';
 import 'package:flutter_list/MovieListView.dart';
+import 'package:flutter_list/constant/constant.dart';
 import 'package:flutter_list/model/FavoriteModel.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
@@ -9,10 +10,13 @@ import 'dart:math';
 
 import 'package:provider/provider.dart';
 
+final ThemeData themeData = kDarkTheme;
+
 void main() => runApp(
       ChangeNotifierProvider<FavoriteModel>(
           builder: (_) => FavoriteModel(),
           child: MaterialApp(
+            theme: themeData,
             home: MyApp(),
             debugShowCheckedModeBanner: false,
           )),
@@ -37,14 +41,11 @@ class _MyAppState extends State<MyApp> {
       drawer: Sidebar(),
       appBar: AppBar(
         title: Text('Movie DB'),
-        backgroundColor: Color(0xFF2d3447),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
             icon: Icon(
               Icons.search,
-              color: Colors.white,
-              size: 30,
             ),
             onPressed: () {
               return showSearch(context: context, delegate: DataSearch());
@@ -66,11 +67,7 @@ class _MyAppState extends State<MyApp> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text('Trending',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 35.0,
-                          fontFamily: 'Calibre-Semibold',
-                          letterSpacing: 1.0)),
+                      style:themeData.textTheme.headline),
                 ],
               ),
             ),
@@ -104,11 +101,7 @@ class _MyAppState extends State<MyApp> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text('My List',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30.0,
-                          fontFamily: 'Calibre-Semibold',
-                          letterSpacing: 1.0)),
+                      style: themeData.textTheme.headline),
                 ],
               ),
             ),
@@ -118,11 +111,7 @@ class _MyAppState extends State<MyApp> {
                   padding: const EdgeInsets.symmetric(vertical: 100),
                   child: Center(
                     child: Text('즐겨 찾기에 등록된 영화가 없습니다.',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15.0,
-                            fontFamily: 'SF-Pro-Text-Regular',
-                            letterSpacing: 1.0)),
+                        style: themeData.textTheme.body2),
                   ),
                 );
               }
@@ -319,7 +308,6 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
     return Container(
       color: Color(0xFF2d3447),
       child: Center(
@@ -330,7 +318,6 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
     return Container(
       color: Color(0xFF2d3447),
       child: Center(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_list/ui/Poster.dart';
 
 import 'MovieDetailPage.dart';
 import 'network/data.dart';

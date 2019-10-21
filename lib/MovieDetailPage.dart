@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_list/constant/constant.dart';
 import 'package:flutter_list/model/FavoriteModel.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
 import 'package:flutter_list/ui/ArcBannerImage.dart';
-import 'package:flutter_list/ui/Poster.dart';
 import 'package:flutter_list/ui/RatingInformation.dart';
 import 'package:flutter_list/ui/Stroyline.dart';
 import 'package:provider/provider.dart';
@@ -82,9 +82,16 @@ class MovieDetailHeader extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.only(right: 8.0),
         child: Chip(
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+                width: 1,
+                style: BorderStyle.solid,
+                color: kDarkTheme.accentColor),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
           label: Text(genre),
           labelStyle: textTheme.caption,
-          backgroundColor: Colors.black12,
+          backgroundColor: Colors.transparent,
         ),
       );
     }).toList();
@@ -99,8 +106,7 @@ class MovieDetailHeader extends StatelessWidget {
       children: <Widget>[
         Text(
           movie.title,
-          style: (textTheme.title),
-          
+          style: (textTheme.headline),
         ),
         SizedBox(
           height: 8.0,
@@ -136,7 +142,7 @@ class MovieDetailHeader extends StatelessWidget {
     return Stack(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(bottom: 140.0),
+          padding: const EdgeInsets.only(bottom: 160.0),
           child: ArcBannerImage(movie.backDropUrl),
         ),
         Positioned(
@@ -144,10 +150,27 @@ class MovieDetailHeader extends StatelessWidget {
           left: 12.0,
           right: 12.0,
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              Poster(posterUrl: movie.posterUrl, height: 180.0),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                width: 130,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black54,
+                          offset: Offset(0, 4),
+                          blurRadius: 6)
+                    ]),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      movie.posterUrl,
+                      fit: BoxFit.cover,
+                    )),
+              ),
               SizedBox(
                 width: 6,
               ),

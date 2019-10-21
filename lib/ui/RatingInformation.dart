@@ -29,7 +29,7 @@ class RatingInformation extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     var textTheme = theme.textTheme;
-    var ratingCaptionStyle = textTheme.caption.copyWith(color: Colors.black45);
+    var ratingCaptionStyle = textTheme.caption;
 
     var numberricRating = Column(
       crossAxisAlignment: CrossAxisAlignment.start,

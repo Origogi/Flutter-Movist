@@ -19,16 +19,13 @@ class StoryLine extends StatelessWidget {
         children: <Widget>[
           Text(
             '줄거리',
-            style: textTheme.subhead.copyWith(fontSize: 18),
+            style: textTheme.title,
           ),
           SizedBox(height: 8,),
 
           Text(
             !storyLine.isEmpty? storyLine : "상세 정보 없음",
-            style: textTheme.body1.copyWith(
-              color: Colors.black45,
-              fontSize : 16
-            ),
+            style: textTheme.body2,
           )
         ],
       ),

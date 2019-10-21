@@ -5,10 +5,8 @@ class Sidebar extends StatelessWidget {
   final List<Color> borders = [Colors.black, Colors.white, Colors.white];
   final List<String> themes = ['Light', 'Dark', 'Amoled'];
 
-
   @override
   Widget build(BuildContext context) {
-
     var style = TextStyle(
         color: Colors.white,
         fontSize: 18.0,
@@ -56,8 +54,7 @@ class Sidebar extends StatelessWidget {
                                         color: colors[index]),
                                   ),
                                 ),
-                                Text(themes[index],
-                                    style: style)
+                                Text(themes[index], style: style)
                               ],
                             ),
                             Column(
@@ -66,26 +63,20 @@ class Sidebar extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      print("tap");
+                                    },
                                     child: Container(
                                       width: 50,
                                       height: 50,
-                                      // child: Theme.of(context).primaryColor ==
-                                      //         colors[index]
-                                      //     ? Icon(Icons.done,
-                                      //         color:
-                                      //             Theme.of(context).accentColor)
-                                      //     : Container(),
-                                      child: index == 0
+                                      child: index == 1
                                           ? Icon(Icons.done,
-                                              color:
-                                                  Theme.of(context).accentColor)
+                                              color: Theme.of(context).accentColor)
                                           : Container(),
                                     ),
                                   ),
                                 ),
-                                Text(themes[index],
-                                    style: style)
+                                Text(themes[index], style: style)
                               ],
                             ),
                           ],
