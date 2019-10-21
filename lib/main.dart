@@ -270,21 +270,7 @@ class MyStackState extends State<MyStack> {
 class DataSearch extends SearchDelegate<String> {
 
   @override
-  ThemeData appBarTheme(BuildContext context) {
-    assert(context != null);
-    final ThemeData theme = ThemeData(
-        hintColor: Colors.white,
-        cursorColor: Colors.white,
-        primaryColor: Color(0xFF2d3447),
-        textTheme: TextTheme(
-            title: TextStyle(
-                color: Colors.white,
-                fontSize: 20.0,
-                fontFamily: 'Calibre-Semibold',
-                letterSpacing: 1.0)));
-    assert(theme != null);
-    return theme;
-  }
+  String get searchFieldLabel => '';
 
   @override
   List<Widget> buildActions(BuildContext context) {
