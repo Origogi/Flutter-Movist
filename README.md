@@ -14,7 +14,7 @@ https://developers.themoviedb.org/3
 ## TODO
 
 - [ ] 검색 기능 구현
-    - [ ] SearchDelegate hint 제거
+    - [x] SearchDelegate hint 제거
     - [ ] api연결
 - [ ] Theme 구현
     - [x] Theme class 연결
