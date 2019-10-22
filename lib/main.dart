@@ -5,8 +5,7 @@ import 'package:flutter_list/constant/constant.dart';
 import 'package:flutter_list/model/FavoriteModel.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
-import 'package:flutter_list/ui/SideBar.dart';
-import 'package:marquee/marquee.dart';
+import 'package:flutter_list/screens/SideBar.dart';
 import 'dart:math';
 
 import 'package:provider/provider.dart';
