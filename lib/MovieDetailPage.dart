@@ -60,7 +60,7 @@ class MovieDetailsPage extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: 15.0),
+          SizedBox(height: 10.0),
           Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,

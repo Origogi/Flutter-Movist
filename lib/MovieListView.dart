@@ -15,7 +15,7 @@ class MovieListView extends StatelessWidget {
     return Container(
       height: 250,
       child: ListView.builder(
-        padding: EdgeInsets.symmetric(horizontal: 30),
+        padding: EdgeInsets.symmetric(horizontal: 10),
         scrollDirection: Axis.horizontal,
         itemCount: movies.length,
         itemBuilder: (context, index) {
@@ -27,23 +27,34 @@ class MovieListView extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (context) => MovieDetailsPage(movies[index])));
             },
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-              width: _imageHeight * 0.9,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black54,
-                        offset: Offset(0, 4),
-                        blurRadius: 6)
-                  ]),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  width: _imageHeight * 0.7,
+                  height: _imageHeight,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black54,
+                            offset: Offset(0, 4),
+                            blurRadius: 6)
+                      ]),
                   child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    movies[index].posterUrl,
-                    fit: BoxFit.cover,
-                  )),
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        movies[index].posterUrl,
+                        fit: BoxFit.cover,
+                      )),
+                ),
+                Text(
+                  movies[index].title.length <= 4 ? movies[index].title : movies[index].title.substring(0,3) + "...",
+                  style : Theme.of(context).textTheme.body1
+                )
+              ],
             ),
           );
         },
