@@ -22,4 +22,5 @@ https://developers.themoviedb.org/3
 - [ ] My List 구현
     - [x] Scoped 모델 
     - [ ] System Property 이용
+- [ ] 로그인/로그 아웃 구현
 
