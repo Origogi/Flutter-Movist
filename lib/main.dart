@@ -53,7 +53,6 @@ class _MyAppState extends State<MyApp> {
           )
         ],
       ),
-      backgroundColor: Color(0xFF2d3447),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -271,9 +270,30 @@ class DataSearch extends SearchDelegate<String> {
   String get searchFieldLabel => '';
 
   @override
+  ThemeData appBarTheme(BuildContext context) {
+
+    ThemeData themeData = Theme.of(context);
+
+    assert(context != null);
+    final ThemeData theme = themeData.copyWith(
+        iconTheme: themeData.iconTheme,
+        cursorColor: themeData.accentColor,
+        primaryColor: themeData.backgroundColor,
+        canvasColor: Colors.white,
+        appBarTheme: themeData.appBarTheme,
+        textTheme: TextTheme(
+          title: themeData.textTheme.title,
+        ));
+        
+    assert(theme != null);
+    return theme;
+  }
+
+  @override
   List<Widget> buildActions(BuildContext context) {
+
     return [
-      IconButton(icon: Icon(Icons.clear), onPressed: () {}),
+      IconButton(icon: Icon(Icons.clear,color : Theme.of(context).iconTheme.color), onPressed: () {}),
     ];
   }
 
@@ -283,6 +303,7 @@ class DataSearch extends SearchDelegate<String> {
       icon: AnimatedIcon(
         icon: AnimatedIcons.menu_arrow,
         progress: transitionAnimation,
+        color: Theme.of(context).iconTheme.color,
       ),
       onPressed: () {
         close(context, null);
@@ -293,9 +314,8 @@ class DataSearch extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     return Container(
-      color: Color(0xFF2d3447),
       child: Center(
-        child: Text('Input words!!'),
+        child: Text('Input words!!' , style : Theme.of(context).textTheme.title),
       ),
     );
   }
@@ -303,9 +323,8 @@ class DataSearch extends SearchDelegate<String> {
   @override
   Widget buildSuggestions(BuildContext context) {
     return Container(
-      color: Color(0xFF2d3447),
       child: Center(
-        child: Text('Suggestion'),
+        child: Text('Sugestion' , style : Theme.of(context).textTheme.title),
       ),
     );
   }

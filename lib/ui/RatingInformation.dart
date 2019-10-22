@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_list/network/data.dart';
 
-
 class RatingInformation extends StatelessWidget {
 
   final Movie movie;

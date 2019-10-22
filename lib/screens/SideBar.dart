@@ -5,17 +5,15 @@ class Sidebar extends StatelessWidget {
   final List<Color> borders = [Colors.black, Colors.white, Colors.white];
   final List<String> themes = ['Light', 'Dark', 'Amoled'];
 
+
+
   @override
   Widget build(BuildContext context) {
-    var style = TextStyle(
-        color: Colors.white,
-        fontSize: 18.0,
-        fontFamily: 'Calibre-Semibold',
-        letterSpacing: 1.0);
+    var style = Theme.of(context).textTheme;
 
     return Drawer(
       child: Container(
-          color: Color(0xFF2d3447),
+        color: Theme.of(context).backgroundColor,
           padding: EdgeInsets.only(bottom: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -25,8 +23,7 @@ class Sidebar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text('Theme',
-                        // style: state.themeData.textTheme.body2,
-                        style: style),
+                        style: style.title),
                   ],
                 ),
                 subtitle: SizedBox(
@@ -54,7 +51,7 @@ class Sidebar extends StatelessWidget {
                                         color: colors[index]),
                                   ),
                                 ),
-                                Text(themes[index], style: style)
+                                Text(themes[index], style: style.caption)
                               ],
                             ),
                             Column(
@@ -76,7 +73,7 @@ class Sidebar extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                Text(themes[index], style: style)
+                                Text(themes[index], style: style.caption)
                               ],
                             ),
                           ],
