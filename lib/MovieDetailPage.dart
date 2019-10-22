@@ -6,6 +6,7 @@ import 'package:flutter_list/network/data.dart';
 import 'package:flutter_list/ui/ArcBannerImage.dart';
 import 'package:flutter_list/ui/RatingInformation.dart';
 import 'package:flutter_list/ui/Stroyline.dart';
+import 'package:marquee/marquee.dart';
 import 'package:provider/provider.dart';
 
 class MovieDetailsPage extends StatelessWidget {
@@ -16,57 +17,60 @@ class MovieDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                MovieDetailHeader(movie),
-                Padding(
-                  padding: const EdgeInsets.only(top: 25, left: 5, right: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      IconButton(
+      body: Column(
+        children: <Widget>[
+          Stack(
+            children: <Widget>[
+              MovieDetailHeader(movie),
+              Padding(
+                padding: const EdgeInsets.only(top: 25, left: 5, right: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    Consumer<FavoriteModel>(builder: (context, model, child) {
+                      return IconButton(
                         icon: Icon(
-                          Icons.arrow_back_ios,
-                          color: Colors.white,
+                          model.containMovieID(movie.id)
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          color: Colors.red,
                           size: 30,
                         ),
                         onPressed: () {
-                          Navigator.pop(context);
+                          if (model.containMovieID(movie.id)) {
+                            model.removeMovieID(movie.id);
+                          } else {
+                            model.addMovieID(movie.id);
+                          }
                         },
-                      ),
-                      Consumer<FavoriteModel>(builder: (context, model, child) {
-                        return IconButton(
-                          icon: Icon(
-                            model.containMovieID(movie.id)
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                            color: Colors.red,
-                            size: 30,
-                          ),
-                          onPressed: () {
-                            if (model.containMovieID(movie.id)) {
-                              model.removeMovieID(movie.id);
-                            } else {
-                              model.addMovieID(movie.id);
-                            }
-                          },
-                        );
-                      }),
-                    ],
-                  ),
-                )
-              ],
+                      );
+                    }),
+                  ],
+                ),
+              )
+            ],
+          ),
+          SizedBox(height: 15.0),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: StoryLine(movie.overview),
+              ),
             ),
-            SizedBox(height: 15.0),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: StoryLine(movie.overview),
-            ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
@@ -104,15 +108,12 @@ class MovieDetailHeader extends StatelessWidget {
     var movieInformation = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          movie.title,
-          style: (textTheme.headline),
-        ),
+        _getTitleWidget(textTheme, movie.title),
         SizedBox(
-          height: 8.0,
+          height: 5.0,
         ),
         RatingInformation(movie),
-        SizedBox(height: 12.0),
+        SizedBox(height: 5.0),
         FutureBuilder(
             future: MovieDBApi.getGenres(),
             builder: (context, snapshot) {
@@ -126,14 +127,20 @@ class MovieDetailHeader extends StatelessWidget {
                 }).toList();
 
                 print(genres.toString());
-                return SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: _buildCategoryChips(genres, textTheme),
+                return SizedBox(
+                  height: 70,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: _buildCategoryChips(genres, textTheme),
+                    ),
                   ),
                 );
               } else {
-                return Container();
+                return SizedBox(
+                  height: 70,
+                );
               }
             }),
       ],
@@ -142,7 +149,7 @@ class MovieDetailHeader extends StatelessWidget {
     return Stack(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(bottom: 160.0),
+          padding: const EdgeInsets.only(bottom: 170.0),
           child: ArcBannerImage(movie.backDropUrl),
         ),
         Positioned(
@@ -150,7 +157,7 @@ class MovieDetailHeader extends StatelessWidget {
           left: 12.0,
           right: 12.0,
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Container(
@@ -182,5 +189,32 @@ class MovieDetailHeader extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget _getTitleWidget(TextTheme textTheme, String title) {
+    if (title.trim().length > 8) {
+      return Container(
+        width: 200,
+        height: 40,
+        child: Marquee(
+          text: movie.title,
+          style: (textTheme.headline),
+          scrollAxis: Axis.horizontal,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          blankSpace: 20.0,
+          velocity: 100.0,
+          pauseAfterRound: Duration(seconds: 1),
+          accelerationDuration: Duration(seconds: 1),
+          accelerationCurve: Curves.linear,
+          decelerationDuration: Duration(milliseconds: 1000),
+          decelerationCurve: Curves.easeOut,
+        ),
+      );
+    } else {
+      return Text(
+        title,
+        style: (textTheme.headline),
+      );
+    }
   }
 }

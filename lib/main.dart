@@ -6,6 +6,7 @@ import 'package:flutter_list/model/FavoriteModel.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
 import 'package:flutter_list/ui/SideBar.dart';
+import 'package:marquee/marquee.dart';
 import 'dart:math';
 
 import 'package:provider/provider.dart';
@@ -58,6 +59,7 @@ class _MyAppState extends State<MyApp> {
         scrollDirection: Axis.vertical,
         child: Column(
           children: <Widget>[
+
             SizedBox(
               height: 25,
             ),
@@ -66,8 +68,7 @@ class _MyAppState extends State<MyApp> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Trending',
-                      style:themeData.textTheme.headline),
+                  Text('Trending', style: themeData.textTheme.headline),
                 ],
               ),
             ),
@@ -100,8 +101,7 @@ class _MyAppState extends State<MyApp> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('My List',
-                      style: themeData.textTheme.headline),
+                  Text('My List', style: themeData.textTheme.headline),
                 ],
               ),
             ),
@@ -268,7 +268,6 @@ class MyStackState extends State<MyStack> {
 }
 
 class DataSearch extends SearchDelegate<String> {
-
   @override
   String get searchFieldLabel => '';
 

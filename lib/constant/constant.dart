@@ -21,12 +21,12 @@ ThemeData _buildDarkTheme() {
         fontFamily: fontFamilty,
         fontWeight: FontWeight.normal,
         color: Colors.white,
-        fontSize: 16),
+        fontSize: 14),
     caption: TextStyle(
         fontFamily: fontFamilty,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.bold,
         color: Colors.white,
-        fontSize: 12),
+        fontSize: 14),
   );
 
   return base.copyWith(
