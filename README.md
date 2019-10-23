@@ -1,6 +1,6 @@
 # Flutter Movie app
 
-Show movie list and detail movie infomations
+Show movie list and detail movie infomation
 
 ## REST API
 
