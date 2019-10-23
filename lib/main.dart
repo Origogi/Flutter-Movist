@@ -10,19 +10,21 @@ import 'dart:math';
 
 import 'package:provider/provider.dart';
 
-
 void main() {
-final ThemeData themeData = kAmoledTheme;
+  final ThemeData themeData = kAmoledTheme;
 
- runApp(
-      ChangeNotifierProvider<FavoriteState>(
-          builder: (_) => FavoriteState(),
-          child: MaterialApp(
-            theme: themeData,
-            home: MyApp(),
-            debugShowCheckedModeBanner: false,
-          )),
-    );
+
+  runApp(
+    MultiProvider(
+        providers: [
+          ChangeNotifierProvider(builder: (_) => FavoriteState()),
+        ],
+        child: MaterialApp(
+          theme: themeData,
+          home: MyApp(),
+          debugShowCheckedModeBanner: false,
+        )),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -40,7 +42,6 @@ double currentPage;
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-
     ThemeData themeData = Theme.of(context);
 
     return Scaffold(
@@ -63,7 +64,6 @@ class _MyAppState extends State<MyApp> {
         scrollDirection: Axis.vertical,
         child: Column(
           children: <Widget>[
-
             SizedBox(
               height: 25,
             ),
@@ -277,7 +277,6 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   ThemeData appBarTheme(BuildContext context) {
-
     ThemeData themeData = Theme.of(context);
 
     return themeData;
@@ -285,9 +284,10 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   List<Widget> buildActions(BuildContext context) {
-
     return [
-      IconButton(icon: Icon(Icons.clear,color : Theme.of(context).iconTheme.color), onPressed: () {}),
+      IconButton(
+          icon: Icon(Icons.clear, color: Theme.of(context).iconTheme.color),
+          onPressed: () {}),
     ];
   }
 
@@ -309,7 +309,7 @@ class DataSearch extends SearchDelegate<String> {
   Widget buildResults(BuildContext context) {
     return Container(
       child: Center(
-        child: Text('Input words!!' , style : Theme.of(context).textTheme.title),
+        child: Text('Input words!!', style: Theme.of(context).textTheme.title),
       ),
     );
   }
@@ -318,7 +318,7 @@ class DataSearch extends SearchDelegate<String> {
   Widget buildSuggestions(BuildContext context) {
     return Container(
       child: Center(
-        child: Text('Sugestion' , style : Theme.of(context).textTheme.title),
+        child: Text('Sugestion', style: Theme.of(context).textTheme.title),
       ),
     );
   }
