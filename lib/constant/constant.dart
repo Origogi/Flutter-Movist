@@ -21,7 +21,7 @@ ThemeData _buildDarkTheme() {
     title: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.bold,
-        color: Colors.black,
+        color: Colors.white,
         fontSize: 20),
     body1: TextStyle(
         fontFamily: fontFamilty,
@@ -41,21 +41,22 @@ ThemeData _buildDarkTheme() {
   );
 
   return base.copyWith(
-      cursorColor: darkColor,
       scaffoldBackgroundColor: darkColor,
-      primaryColor: purpleColor,
+      primaryColor: darkColor,
       accentColor: purpleColor,
       canvasColor: Colors.transparent,
       highlightColor: darkColor,
       backgroundColor: darkColor,
       splashColor: darkColor,
-      primaryIconTheme: IconThemeData(color: Colors.black),
+      primaryIconTheme: IconThemeData(color: Colors.white),
       focusColor: darkColor,
       appBarTheme: AppBarTheme(
           textTheme: textTheme,
           color: darkColor,
+          
           iconTheme: IconThemeData(color: Colors.white)),
       textTheme: textTheme,
+      
       iconTheme: IconThemeData(color: Colors.white));
 }
 
@@ -93,7 +94,6 @@ ThemeData _buildAmoledTheme() {
   );
 
   return base.copyWith(
-      cursorColor: amoledColor,
       scaffoldBackgroundColor: amoledColor,
       primaryColor: amoledColor,
       accentColor: purpleColor,

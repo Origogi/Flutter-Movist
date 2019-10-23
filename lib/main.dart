@@ -11,27 +11,29 @@ import 'dart:math';
 import 'package:provider/provider.dart';
 
 void main() {
-  final ThemeData themeData = kAmoledTheme;
-
 
   runApp(
     MultiProvider(
         providers: [
           ChangeNotifierProvider(builder: (_) => FavoriteState()),
+          ChangeNotifierProvider(builder: (_) => ThemeState()),
         ],
-        child: MaterialApp(
-          theme: themeData,
-          home: MyApp(),
-          debugShowCheckedModeBanner: false,
-        )),
+        child: MyApp()),
   );
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   @override
-  State<StatefulWidget> createState() {
-    return _MyAppState();
+  Widget build(BuildContext context) {
+    ThemeData themeData = Provider.of<ThemeState>(context).currentTheme;
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: themeData,
+      home: _MyAppState(),
+    );
   }
+  
 }
 
 var cardAspectRatio = 12.0 / 16.0;
@@ -39,7 +41,7 @@ var widgetAspectRatio = cardAspectRatio * 1.2;
 
 double currentPage;
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
@@ -47,6 +49,7 @@ class _MyAppState extends State<MyApp> {
     return Scaffold(
       drawer: Sidebar(),
       appBar: AppBar(
+        
         title: Text('Movie DB'),
         centerTitle: true,
         actions: <Widget>[
@@ -284,20 +287,26 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   List<Widget> buildActions(BuildContext context) {
+    ThemeData themeData = Theme.of(context);
+
+
     return [
       IconButton(
-          icon: Icon(Icons.clear, color: Theme.of(context).iconTheme.color),
+          icon: Icon(Icons.clear, color: themeData.iconTheme.color),
           onPressed: () {}),
     ];
   }
 
   @override
   Widget buildLeading(BuildContext context) {
+    ThemeData themeData = Theme.of(context);
+
+
     return IconButton(
       icon: AnimatedIcon(
         icon: AnimatedIcons.menu_arrow,
         progress: transitionAnimation,
-        color: Theme.of(context).iconTheme.color,
+        color: themeData.iconTheme.color,
       ),
       onPressed: () {
         close(context, null);
@@ -307,18 +316,25 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
+    ThemeData themeData = Theme.of(context);
+
+
     return Container(
+      color: themeData.backgroundColor,
       child: Center(
-        child: Text('Input words!!', style: Theme.of(context).textTheme.title),
+        child: Text('Input words!!', style: themeData.textTheme.title),
       ),
     );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    ThemeData themeData = Theme.of(context);
+
     return Container(
+      color: themeData.backgroundColor,
       child: Center(
-        child: Text('Sugestion', style: Theme.of(context).textTheme.title),
+        child: Text('Sugestion', style: themeData.textTheme.title),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class Sidebar extends StatelessWidget {
   final List<Color> colors = [Colors.white, Color(0xff242248), Colors.black];
   final List<Color> borders = [Colors.black, Colors.white, Colors.white];
@@ -9,11 +10,11 @@ class Sidebar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var style = Theme.of(context).textTheme;
+    ThemeData themeData = Theme.of(context);
 
     return Drawer(
       child: Container(
-        color: Theme.of(context).backgroundColor,
+        color: themeData.backgroundColor,
           padding: EdgeInsets.only(bottom: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -23,7 +24,7 @@ class Sidebar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text('Theme',
-                        style: style.title),
+                        style: themeData.textTheme.title),
                   ],
                 ),
                 subtitle: SizedBox(
@@ -51,7 +52,7 @@ class Sidebar extends StatelessWidget {
                                         color: colors[index]),
                                   ),
                                 ),
-                                Text(themes[index], style: style.caption)
+                                Text(themes[index], style: themeData.textTheme.caption)
                               ],
                             ),
                             Column(
@@ -73,7 +74,7 @@ class Sidebar extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                Text(themes[index], style: style.caption)
+                                Text(themes[index], style: themeData.textTheme.caption)
                               ],
                             ),
                           ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_list/constant/constant.dart';
 
 class FavoriteState extends ChangeNotifier  {
 
@@ -20,5 +21,27 @@ class FavoriteState extends ChangeNotifier  {
 
   bool isEmpty() {
     return _movieIDs.isEmpty;
+  }
+}
+
+
+class ThemeState extends ChangeNotifier  {
+
+  Map<String, ThemeData> _map = {
+    'light':  kLightTheme,
+    'dark' : kDarkTheme,
+    'amoled' : kAmoledTheme
+  };
+
+  ThemeData currentTheme = kLightTheme;
+
+  void changedTheme(String key) {
+    
+    ThemeData updatedThemeData = _map[key];
+
+    if (updatedThemeData != null) {
+      currentTheme = updatedThemeData;
+      notifyListeners();
+    }
   }
 }
