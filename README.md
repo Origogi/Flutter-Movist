@@ -1,10 +1,12 @@
-# Flutter Lastest Movie List
+# Flutter Movie app
 
 Show movie list and detail movie infomation
 
 ## REST API
 
 https://developers.themoviedb.org/3
+
+## Function
 
 
 ## Screenshot
