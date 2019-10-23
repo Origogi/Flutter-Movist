@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class FavoriteModel extends ChangeNotifier  {
+class FavoriteState extends ChangeNotifier  {
 
   Set<int> _movieIDs = {};
 

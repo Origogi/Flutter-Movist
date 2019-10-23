@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_list/constant/constant.dart';
-import 'package:flutter_list/model/FavoriteModel.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
+import 'package:flutter_list/state/states.dart';
 import 'package:flutter_list/ui/ArcBannerImage.dart';
 import 'package:flutter_list/ui/RatingInformation.dart';
 import 'package:flutter_list/ui/Stroyline.dart';
@@ -37,20 +37,20 @@ class MovieDetailsPage extends StatelessWidget {
                         Navigator.pop(context);
                       },
                     ),
-                    Consumer<FavoriteModel>(builder: (context, model, child) {
+                    Consumer<FavoriteState>(builder: (context, state, child) {
                       return IconButton(
                         icon: Icon(
-                          model.containMovieID(movie.id)
+                          state.containMovieID(movie.id)
                               ? Icons.favorite
                               : Icons.favorite_border,
                           color: Colors.red,
                           size: 30,
                         ),
                         onPressed: () {
-                          if (model.containMovieID(movie.id)) {
-                            model.removeMovieID(movie.id);
+                          if (state.containMovieID(movie.id)) {
+                            state.removeMovieID(movie.id);
                           } else {
-                            model.addMovieID(movie.id);
+                            state.addMovieID(movie.id);
                           }
                         },
                       );
@@ -126,7 +126,6 @@ class MovieDetailHeader extends StatelessWidget {
                   return apiResponse.genresMap[id];
                 }).toList();
 
-                print(genres.toString());
                 return SizedBox(
                   height: 70,
                   child: SingleChildScrollView(
@@ -198,7 +197,7 @@ class MovieDetailHeader extends StatelessWidget {
         height: 40,
         child: Marquee(
           text: movie.title,
-          style: (textTheme.headline),
+          style: (textTheme.title),
           scrollAxis: Axis.horizontal,
           crossAxisAlignment: CrossAxisAlignment.start,
           blankSpace: 20.0,
@@ -213,7 +212,7 @@ class MovieDetailHeader extends StatelessWidget {
     } else {
       return Text(
         title,
-        style: (textTheme.headline),
+        style: (textTheme.title),
       );
     }
   }

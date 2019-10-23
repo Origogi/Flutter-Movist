@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 
 final String fontFamilty = 'Calibre-Semibold';
 
+
+final Color darkColor = Color(0xFF2d3447);
+final Color purpleColor = Color(0xff8468DD);
+final Color amoledColor = Colors.black;
+
+
 final ThemeData kDarkTheme = _buildDarkTheme();
 
 ThemeData _buildDarkTheme() {
@@ -12,11 +18,16 @@ ThemeData _buildDarkTheme() {
         fontWeight: FontWeight.bold,
         color: Colors.white,
         fontSize: 24),
+    title: TextStyle(
+        fontFamily: fontFamilty,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+        fontSize: 20),
     body1: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.bold,
         color: Colors.white,
-        fontSize: 18),
+        fontSize: 16),
     body2: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.normal,
@@ -30,23 +41,76 @@ ThemeData _buildDarkTheme() {
   );
 
   return base.copyWith(
-      cursorColor: Color(0xFF2d3447),
-      scaffoldBackgroundColor: Color(0xFF2d3447),
-      primaryColor: Color(0xff8468DD),
-      accentColor: Color(0xff8468DD),
+      cursorColor: darkColor,
+      scaffoldBackgroundColor: darkColor,
+      primaryColor: purpleColor,
+      accentColor: purpleColor,
       canvasColor: Colors.transparent,
-      highlightColor: Color(0xFF2d3447),
-      backgroundColor: Color(0xFF2d3447),
-      splashColor: Color(0xFF2d3447),
+      highlightColor: darkColor,
+      backgroundColor: darkColor,
+      splashColor: darkColor,
       primaryIconTheme: IconThemeData(color: Colors.black),
-      focusColor: Color(0xFF2d3447),
+      focusColor: darkColor,
       appBarTheme: AppBarTheme(
           textTheme: textTheme,
-          color: Color(0xFF2d3447),
+          color: darkColor,
           iconTheme: IconThemeData(color: Colors.white)),
       textTheme: textTheme,
       iconTheme: IconThemeData(color: Colors.white));
 }
+
+
+final ThemeData kAmoledTheme = _buildAmoledTheme();
+
+ThemeData _buildAmoledTheme() {
+  final ThemeData base = ThemeData.dark();
+  final TextTheme textTheme = TextTheme(
+    headline: TextStyle(
+        fontFamily: fontFamilty,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+        fontSize: 24),
+    title: TextStyle(
+        fontFamily: fontFamilty,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+        fontSize: 20),
+    body1: TextStyle(
+        fontFamily: fontFamilty,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+        fontSize: 16),
+    body2: TextStyle(
+        fontFamily: fontFamilty,
+        fontWeight: FontWeight.normal,
+        color: Colors.white,
+        fontSize: 14),
+    caption: TextStyle(
+        fontFamily: fontFamilty,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+        fontSize: 14),
+  );
+
+  return base.copyWith(
+      cursorColor: amoledColor,
+      scaffoldBackgroundColor: amoledColor,
+      primaryColor: amoledColor,
+      accentColor: purpleColor,
+      canvasColor: Colors.transparent,
+      highlightColor: amoledColor,
+      backgroundColor: amoledColor,
+      splashColor: amoledColor,
+      primaryIconTheme: IconThemeData(color: Colors.black),
+      focusColor: amoledColor,
+      appBarTheme: AppBarTheme(
+          textTheme: textTheme,
+          color: amoledColor,
+          iconTheme: IconThemeData(color: Colors.white)),
+      textTheme: textTheme,
+      iconTheme: IconThemeData(color: Colors.white));
+}
+
 
 final ThemeData kLightTheme = _buildLightTheme();
 
@@ -54,29 +118,26 @@ ThemeData _buildLightTheme() {
   final ThemeData base = ThemeData.light();
 
   TextTheme textTheme = TextTheme(
-    
-    
     headline: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.bold,
         color: Colors.black,
         fontSize: 24),
-
-        title: TextStyle(
+    title: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.bold,
         color: Colors.black,
-        fontSize: 20),    
+        fontSize: 20),
     body1: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.bold,
         color: Colors.black,
-        fontSize: 18),
+        fontSize: 16),
     body2: TextStyle(
         fontFamily: fontFamilty,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.normal,
         color: Colors.black,
-        fontSize: 16),
+        fontSize: 14),
     caption: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.bold,
@@ -85,14 +146,12 @@ ThemeData _buildLightTheme() {
   );
 
   return base.copyWith(
+      backgroundColor: Colors.white,
       primaryColor: Colors.white,
-      accentColor: Color(0xff8468DD),
+      accentColor: purpleColor,
       canvasColor: Colors.white,
       primaryIconTheme: IconThemeData(color: Colors.black),
       primaryTextTheme: textTheme,
       textTheme: textTheme,
-      appBarTheme: AppBarTheme(
-        textTheme: textTheme,
-        color: Colors.white
-      ));
+      appBarTheme: AppBarTheme(textTheme: textTheme, color: Colors.white));
 }

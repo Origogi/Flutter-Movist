@@ -19,7 +19,7 @@ class StoryLine extends StatelessWidget {
         children: <Widget>[
           Text(
             '줄거리',
-            style: textTheme.title,
+            style: textTheme.body1,
           ),
           SizedBox(height: 8,),
 

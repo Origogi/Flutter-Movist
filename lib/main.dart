@@ -2,25 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_list/MovieDetailPage.dart';
 import 'package:flutter_list/MovieListView.dart';
 import 'package:flutter_list/constant/constant.dart';
-import 'package:flutter_list/model/FavoriteModel.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
 import 'package:flutter_list/screens/SideBar.dart';
+import 'package:flutter_list/state/states.dart';
 import 'dart:math';
 
 import 'package:provider/provider.dart';
 
-final ThemeData themeData = kDarkTheme;
 
-void main() => runApp(
-      ChangeNotifierProvider<FavoriteModel>(
-          builder: (_) => FavoriteModel(),
+void main() {
+final ThemeData themeData = kAmoledTheme;
+
+ runApp(
+      ChangeNotifierProvider<FavoriteState>(
+          builder: (_) => FavoriteState(),
           child: MaterialApp(
             theme: themeData,
             home: MyApp(),
             debugShowCheckedModeBanner: false,
           )),
     );
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -37,6 +40,9 @@ double currentPage;
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+
+    ThemeData themeData = Theme.of(context);
+
     return Scaffold(
       drawer: Sidebar(),
       appBar: AppBar(
@@ -103,13 +109,13 @@ class _MyAppState extends State<MyApp> {
                 ],
               ),
             ),
-            Consumer<FavoriteModel>(builder: (context, model, child) {
-              if (model.isEmpty()) {
+            Consumer<FavoriteState>(builder: (context, state, child) {
+              if (state.isEmpty()) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 100),
                   child: Center(
                     child: Text('즐겨 찾기에 등록된 영화가 없습니다.',
-                        style: themeData.textTheme.body2),
+                        style: themeData.textTheme.body1),
                   ),
                 );
               }
@@ -121,7 +127,7 @@ class _MyAppState extends State<MyApp> {
                     MovieDBApiResponse response =
                         snapshot.data as MovieDBApiResponse;
                     var favoriteMovieList = response.results.where((item) {
-                      return model.containMovieID(item.id);
+                      return state.containMovieID(item.id);
                     }).toList();
                     return MovieListView(favoriteMovieList);
                   } else {
@@ -274,19 +280,7 @@ class DataSearch extends SearchDelegate<String> {
 
     ThemeData themeData = Theme.of(context);
 
-    assert(context != null);
-    final ThemeData theme = themeData.copyWith(
-        iconTheme: themeData.iconTheme,
-        cursorColor: themeData.accentColor,
-        primaryColor: themeData.backgroundColor,
-        canvasColor: Colors.white,
-        appBarTheme: themeData.appBarTheme,
-        textTheme: TextTheme(
-          title: themeData.textTheme.title,
-        ));
-        
-    assert(theme != null);
-    return theme;
+    return themeData;
   }
 
   @override

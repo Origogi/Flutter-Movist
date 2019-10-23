@@ -21,9 +21,8 @@ class RatingInformation extends StatelessWidget {
       stars.add(star);
     }
     return Row(children: stars,);
-
-
   }
+  
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
