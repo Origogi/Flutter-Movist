@@ -6,7 +6,7 @@ Show movie list and detail movie infomation
 
 https://developers.themoviedb.org/3
 
-## Function
+## Functions
 
 
 ## Screenshot
