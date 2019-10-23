@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_list/network/data.dart';
+import 'package:flutter_list/pages/movie_detail_page.dart';
 
-import 'MovieDetailPage.dart';
-import 'network/data.dart';
 
 class MovieListView extends StatelessWidget {
   List<Movie> movies;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_list/MovieDetailPage.dart';
-import 'package:flutter_list/MovieListView.dart';
 import 'package:flutter_list/constant/constant.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
-import 'package:flutter_list/screens/SideBar.dart';
+import 'package:flutter_list/pages/movie_detail_page.dart';
 import 'package:flutter_list/state/states.dart';
+import 'package:flutter_list/widgets/MovieListView.dart';
+import 'package:flutter_list/widgets/side_menu.dart';
 import 'dart:math';
 
 import 'package:provider/provider.dart';

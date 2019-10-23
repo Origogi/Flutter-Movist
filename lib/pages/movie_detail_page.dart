@@ -3,9 +3,10 @@ import 'package:flutter_list/constant/constant.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
 import 'package:flutter_list/state/states.dart';
-import 'package:flutter_list/ui/ArcBannerImage.dart';
-import 'package:flutter_list/ui/RatingInformation.dart';
-import 'package:flutter_list/ui/Stroyline.dart';
+import 'package:flutter_list/widgets/ArcBannerImage.dart';
+import 'package:flutter_list/widgets/RatingInformation.dart';
+import 'package:flutter_list/widgets/Stroyline.dart';
+
 import 'package:marquee/marquee.dart';
 import 'package:provider/provider.dart';
 
