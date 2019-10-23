@@ -25,7 +25,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ThemeData themeData = Provider.of<ThemeState>(context).currentTheme;
+    ThemeData themeData = Provider.of<ThemeState>(context).themeData;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,

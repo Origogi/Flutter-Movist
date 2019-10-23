@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_list/state/states.dart';
+import 'package:provider/provider.dart';
 
 
 class Sidebar extends StatelessWidget {
   final List<Color> colors = [Colors.white, Color(0xff242248), Colors.black];
   final List<Color> borders = [Colors.black, Colors.white, Colors.white];
   final List<String> themes = ['Light', 'Dark', 'Amoled'];
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -62,12 +62,13 @@ class Sidebar extends StatelessWidget {
                                   padding: const EdgeInsets.all(8.0),
                                   child: InkWell(
                                     onTap: () {
-                                      print("tap");
+                                      print("tap : " + index.toString());
+                                      Provider.of<ThemeState>(context).changeTheme(themes[index]);
                                     },
                                     child: Container(
                                       width: 50,
                                       height: 50,
-                                      child: index == 1
+                                      child: Provider.of<ThemeState>(context).themeKey == themes[index]
                                           ? Icon(Icons.done,
                                               color: Theme.of(context).accentColor)
                                           : Container(),

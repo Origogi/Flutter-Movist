@@ -28,20 +28,20 @@ class FavoriteState extends ChangeNotifier  {
 class ThemeState extends ChangeNotifier  {
 
   Map<String, ThemeData> _map = {
-    'light':  kLightTheme,
-    'dark' : kDarkTheme,
-    'amoled' : kAmoledTheme
+    'Light':  kLightTheme,
+    'Dark' : kDarkTheme,
+    'Amoled' : kAmoledTheme
   };
 
-  ThemeData currentTheme = kLightTheme;
+  ThemeData _currentTheme = kLightTheme;
 
-  void changedTheme(String key) {
-    
-    ThemeData updatedThemeData = _map[key];
+  ThemeData get themeData => _map[_key];
+  String get themeKey => _key;
 
-    if (updatedThemeData != null) {
-      currentTheme = updatedThemeData;
-      notifyListeners();
-    }
+  String _key = 'Light';  
+
+  void changeTheme(String key) {
+    _key = key;
+    notifyListeners();
   }
 }
