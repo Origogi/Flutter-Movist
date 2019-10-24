@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_list/network/data.dart';
+import 'package:flutter_list/widgets/movie_list.dart';
 
 class MoviesListPage extends StatelessWidget {
-  final List<Movie> movies;
+  final Future<List<Movie>> movies;
   final String title;
-  
-  MoviesListPage({this.movies, this.title});
+
+  MoviesListPage({this.title, this.movies});
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +17,24 @@ class MoviesListPage extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
-              Navigator.pop(context);
+            Navigator.pop(context);
           },
         ),
       ),
-      body: Container(),
+      body: Container(
+        child: FutureBuilder(
+            future: movies,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+              
+                return VerticalMovieList(snapshot.data);
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            }),
+      ),
     );
   }
-
 }

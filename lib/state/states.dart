@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_list/constant/constant.dart';
+import 'package:flutter_list/network/data.dart';
 
 class FavoriteState extends ChangeNotifier  {
 
-  Set<int> _movieIDs = {};
+  Map<int, Movie> _movieMap = {};
 
-  void addMovieID(int id) {
-    _movieIDs.add(id);
+  void addMovie(int id, Movie movie) {
+    _movieMap[id] = movie;
     notifyListeners();
   }
 
   void removeMovieID(int id) {
-    _movieIDs.remove(id);
+    _movieMap[id] = null;
     notifyListeners();
   }
 
   bool containMovieID(int id) {
-    return _movieIDs.contains(id);
+    return _movieMap[id] != null;
   }
 
   bool isEmpty() {
-    return _movieIDs.isEmpty;
+    return _movieMap.isEmpty;
   }
 }
 

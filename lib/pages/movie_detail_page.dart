@@ -54,7 +54,7 @@ class MovieDetailsPage extends StatelessWidget {
                           if (state.containMovieID(movie.id)) {
                             state.removeMovieID(movie.id);
                           } else {
-                            state.addMovieID(movie.id);
+                            state.addMovie(movie.id, movie);
                           }
                         },
                       );
@@ -85,8 +85,8 @@ class MovieDetailHeader extends StatelessWidget {
 
   MovieDetailHeader(this.movie);
 
-  List<Widget> _buildCategoryChips(BuildContext context, List<String> genres, TextTheme textTheme) {
-    return genres.map((genre) {
+  List<Widget> _buildCategoryChips(BuildContext context,List<int> genresIDs, Map<int, String> genres, TextTheme textTheme) {
+    return genresIDs.map((id) {
       return Padding(
         padding: const EdgeInsets.only(right: 8.0),
         child: InkWell(
@@ -95,8 +95,8 @@ class MovieDetailHeader extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => MoviesListPage(
-                              title: '장르 : $genre',
-                              movies: null,
+                              title: '장르 : ${genres[id]}',
+                              movies: MovieDBApi.getRelatedGenreMovies(id),
                             ),
                         )
             );
@@ -109,7 +109,7 @@ class MovieDetailHeader extends StatelessWidget {
                   color: kDarkTheme.accentColor),
               borderRadius: BorderRadius.circular(20.0),
             ),
-            label: Text(genre),
+            label: Text(genres[id]),
             labelStyle: textTheme.caption,
             backgroundColor: Colors.transparent,
           ),
@@ -139,9 +139,16 @@ class MovieDetailHeader extends StatelessWidget {
 
                 print(movie.genre_ids.toString());
 
-                List<String> genres = movie.genre_ids.map((id) {
-                  return apiResponse.genresMap[id];
-                }).toList();
+                // List<String> genres = movie.genre_ids.map((id) {
+                //   return apiResponse.genresMap[id];
+                // }).toList();
+
+                Map<int, String> genresMap = {};
+
+                for (int id in movie.genre_ids) {
+                  genresMap[id] = apiResponse.genresMap[id];
+                }
+
 
                 return SizedBox(
                   height: 70,
@@ -149,7 +156,7 @@ class MovieDetailHeader extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: _buildCategoryChips(context, genres, textTheme),
+                      children: _buildCategoryChips(context,movie.genre_ids, apiResponse.genresMap, textTheme),
                     ),
                   ),
                 );

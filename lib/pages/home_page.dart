@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => MoviesListPage(
                               title: 'Trending',
-                              movies: null,
+                              movies: MovieDBApi.getPlayNow(),
                             ),
                         )
                       );
@@ -100,6 +100,7 @@ class HomePage extends StatelessWidget {
                   Text('My List', style: themeData.textTheme.headline),
                   IconButton(
                     icon: Icon(Icons.more_horiz, size: 30,),
+                    
                     onPressed: () {
 
                       Navigator.push(
