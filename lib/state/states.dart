@@ -38,7 +38,7 @@ class ThemeState extends ChangeNotifier  {
   ThemeData get themeData => _map[_key];
   String get themeKey => _key;
 
-  String _key = 'Light';  
+  String _key = 'Dark';  
 
   void changeTheme(String key) {
     _key = key;

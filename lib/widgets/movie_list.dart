@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_list/network/data.dart';
 import 'package:flutter_list/pages/movie_detail_page.dart';
 
-
-class MovieListView extends StatelessWidget {
+class HorizontalMovieList extends StatelessWidget {
   List<Movie> movies;
 
-  MovieListView(this.movies);
-
-  double _imageHeight = 150;
+  HorizontalMovieList(this.movies);
 
   @override
   Widget build(BuildContext context) {
+    double _imageHeight = 150;
+
     return Container(
       height: 250,
       child: ListView.builder(
@@ -51,9 +50,10 @@ class MovieListView extends StatelessWidget {
                       )),
                 ),
                 Text(
-                  movies[index].title.length <= 4 ? movies[index].title : movies[index].title.substring(0,3) + "...",
-                  style : Theme.of(context).textTheme.body1
-                )
+                    movies[index].title.length <= 4
+                        ? movies[index].title
+                        : movies[index].title.substring(0, 3) + "...",
+                    style: Theme.of(context).textTheme.body1)
               ],
             ),
           );

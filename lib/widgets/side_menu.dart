@@ -3,7 +3,7 @@ import 'package:flutter_list/state/states.dart';
 import 'package:provider/provider.dart';
 
 
-class Sidebar extends StatelessWidget {
+class SideMenu extends StatelessWidget {
   final List<Color> colors = [Colors.white, Color(0xff242248), Colors.black];
   final List<Color> borders = [Colors.black, Colors.white, Colors.white];
   final List<String> themes = ['Light', 'Dark', 'Amoled'];
