@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
+import 'package:flutter_list/pages/movies_list_page.dart';
 import 'package:flutter_list/state/states.dart';
 import 'package:flutter_list/widgets/movie_list.dart';
 import 'package:flutter_list/widgets/side_menu.dart';
@@ -23,7 +24,6 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       drawer: SideMenu(),
       appBar: AppBar(
-        
         title: Text('Movie DB'),
         centerTitle: true,
         actions: <Widget>[
@@ -50,6 +50,21 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text('Trending', style: themeData.textTheme.headline),
+                  IconButton(
+                    icon: Icon(Icons.more_horiz, size: 30,),
+                    onPressed: () {
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MoviesListPage(
+                              title: 'Trending',
+                              movies: null,
+                            ),
+                        )
+                      );
+                     },
+                  )
                 ],
               ),
             ),
@@ -61,7 +76,7 @@ class HomePage extends StatelessWidget {
                       snapshot.data as MovieDBApiResponse;
                   return GestureDetector(
                     child: MyStack(response),
-                    onTapDown: (_) {
+                    onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -83,6 +98,21 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text('My List', style: themeData.textTheme.headline),
+                  IconButton(
+                    icon: Icon(Icons.more_horiz, size: 30,),
+                    onPressed: () {
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MoviesListPage(
+                              title: 'My List',
+                              movies: null,
+                            ),
+                        )
+                      );
+                     },
+                  )
                 ],
               ),
             ),
@@ -122,14 +152,13 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class MovieListView {
-}
+class MovieListView {}
 
 class CardControllWidget extends StatelessWidget {
   var currentPage;
   var padding = 20.0;
   var verticalInset = 20.0;
-  List<Movie> movieDataList;
+  final List<Movie> movieDataList;
 
   CardControllWidget(this.currentPage, this.movieDataList);
 
@@ -202,13 +231,12 @@ class CardControllWidget extends StatelessWidget {
 }
 
 class MyStack extends StatefulWidget {
-  MovieDBApiResponse apiResponse;
+  final MovieDBApiResponse apiResponse;
 
   MyStack(this.apiResponse);
 
   @override
   State<StatefulWidget> createState() {
-    print('MyStack');
     return MyStackState(apiResponse);
   }
 }

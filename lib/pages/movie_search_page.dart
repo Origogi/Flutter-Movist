@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class MovieSearchPage extends SearchDelegate<String> {
@@ -16,7 +15,6 @@ class MovieSearchPage extends SearchDelegate<String> {
   List<Widget> buildActions(BuildContext context) {
     ThemeData themeData = Theme.of(context);
 
-
     return [
       IconButton(
           icon: Icon(Icons.clear, color: themeData.iconTheme.color),
@@ -27,7 +25,6 @@ class MovieSearchPage extends SearchDelegate<String> {
   @override
   Widget buildLeading(BuildContext context) {
     ThemeData themeData = Theme.of(context);
-
 
     return IconButton(
       icon: AnimatedIcon(
@@ -45,7 +42,6 @@ class MovieSearchPage extends SearchDelegate<String> {
   Widget buildResults(BuildContext context) {
     ThemeData themeData = Theme.of(context);
 
-
     return Container(
       color: themeData.backgroundColor,
       child: Center(
@@ -61,8 +57,19 @@ class MovieSearchPage extends SearchDelegate<String> {
     return Container(
       color: themeData.backgroundColor,
       child: Center(
-        child: Text('Sugestion', style: themeData.textTheme.title),
-      ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon(
+            Icons.search,
+            size: 55,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text('영화 이름을 입력해 주세요.', style: themeData.textTheme.body1)
+        ],
+      )),
     );
   }
 }

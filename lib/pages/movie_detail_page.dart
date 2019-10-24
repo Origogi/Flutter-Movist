@@ -11,8 +11,10 @@ import 'package:flutter_list/widgets/story_line.dart';
 import 'package:marquee/marquee.dart';
 import 'package:provider/provider.dart';
 
+import 'movies_list_page.dart';
+
 class MovieDetailsPage extends StatelessWidget {
-  Movie movie;
+  final Movie movie;
   MovieDetailsPage(this.movie) {
     print(movie.toString());
   }
@@ -79,25 +81,38 @@ class MovieDetailsPage extends StatelessWidget {
 }
 
 class MovieDetailHeader extends StatelessWidget {
-  Movie movie;
+  final Movie movie;
 
   MovieDetailHeader(this.movie);
 
-  List<Widget> _buildCategoryChips(List<String> genres, TextTheme textTheme) {
+  List<Widget> _buildCategoryChips(BuildContext context, List<String> genres, TextTheme textTheme) {
     return genres.map((genre) {
       return Padding(
         padding: const EdgeInsets.only(right: 8.0),
-        child: Chip(
-          shape: RoundedRectangleBorder(
-            side: BorderSide(
-                width: 1,
-                style: BorderStyle.solid,
-                color: kDarkTheme.accentColor),
-            borderRadius: BorderRadius.circular(20.0),
+        child: InkWell(
+          onTap: () {
+            Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MoviesListPage(
+                              title: '장르 : $genre',
+                              movies: null,
+                            ),
+                        )
+            );
+          },
+          child: Chip(
+            shape: RoundedRectangleBorder(
+              side: BorderSide(
+                  width: 1,
+                  style: BorderStyle.solid,
+                  color: kDarkTheme.accentColor),
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            label: Text(genre),
+            labelStyle: textTheme.caption,
+            backgroundColor: Colors.transparent,
           ),
-          label: Text(genre),
-          labelStyle: textTheme.caption,
-          backgroundColor: Colors.transparent,
         ),
       );
     }).toList();
@@ -134,7 +149,7 @@ class MovieDetailHeader extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: _buildCategoryChips(genres, textTheme),
+                      children: _buildCategoryChips(context, genres, textTheme),
                     ),
                   ),
                 );
