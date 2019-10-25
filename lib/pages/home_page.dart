@@ -14,8 +14,6 @@ import 'movie_search_page.dart';
 var cardAspectRatio = 12.0 / 16.0;
 var widgetAspectRatio = cardAspectRatio * 1.2;
 
-double currentPage;
-
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -51,40 +49,29 @@ class HomePage extends StatelessWidget {
                 children: <Widget>[
                   Text('Trending', style: themeData.textTheme.headline),
                   IconButton(
-                    icon: Icon(Icons.more_horiz, size: 30,),
+                    icon: Icon(
+                      Icons.more_horiz,
+                      size: 30,
+                    ),
                     onPressed: () {
-
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
+                          context,
+                          MaterialPageRoute(
                             builder: (context) => MoviesListPage(
                               title: 'Trending',
                               movies: MovieDBApi.getPlayNow(),
                             ),
-                        )
-                      );
-                     },
+                          ));
+                    },
                   )
                 ],
               ),
             ),
             FutureBuilder(
-              future: MovieDBApi.getData(),
+              future: MovieDBApi.getPlayNow(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  MovieDBApiResponse response =
-                      snapshot.data as MovieDBApiResponse;
-                  return GestureDetector(
-                    child: MyStack(response),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MovieDetailsPage(
-                                response.results[currentPage.toInt()])),
-                      );
-                    },
-                  );
+                  return MovieCoverFlow(snapshot.data);
                 } else {
                   return Padding(
                       padding: EdgeInsets.all(100),
@@ -99,20 +86,20 @@ class HomePage extends StatelessWidget {
                 children: <Widget>[
                   Text('My List', style: themeData.textTheme.headline),
                   IconButton(
-                    icon: Icon(Icons.more_horiz, size: 30,),
-                    
+                    icon: Icon(
+                      Icons.more_horiz,
+                      size: 30,
+                    ),
                     onPressed: () {
-
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
+                          context,
+                          MaterialPageRoute(
                             builder: (context) => MoviesListPage(
                               title: 'My List',
                               movies: null,
                             ),
-                        )
-                      );
-                     },
+                          ));
+                    },
                   )
                 ],
               ),
@@ -129,12 +116,11 @@ class HomePage extends StatelessWidget {
               }
 
               return FutureBuilder(
-                future: MovieDBApi.getData(),
+                future: MovieDBApi.getPlayNow(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    MovieDBApiResponse response =
-                        snapshot.data as MovieDBApiResponse;
-                    var favoriteMovieList = response.results.where((item) {
+
+                    var favoriteMovieList = snapshot.data.where((item) {
                       return state.containMovieID(item.id);
                     }).toList();
                     return HorizontalMovieList(favoriteMovieList);
@@ -153,7 +139,6 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class MovieListView {}
 
 class CardControllWidget extends StatelessWidget {
   var currentPage;
@@ -231,30 +216,29 @@ class CardControllWidget extends StatelessWidget {
   }
 }
 
-class MyStack extends StatefulWidget {
-  final MovieDBApiResponse apiResponse;
+class MovieCoverFlow extends StatefulWidget {
+  final List<Movie> movies;
 
-  MyStack(this.apiResponse);
+  MovieCoverFlow(this.movies);
 
   @override
   State<StatefulWidget> createState() {
-    return MyStackState(apiResponse);
+    return MovieCoverFlowState(movies: movies);
   }
 }
 
-class MyStackState extends State<MyStack> {
-  MovieDBApiResponse apiResponse;
+class MovieCoverFlowState extends State<MovieCoverFlow> {
+  final List<Movie> movies;
 
-  MyStackState(MovieDBApiResponse apiResponse) {
-    this.apiResponse = apiResponse;
-    print(apiResponse.toString());
-    currentPage = this.apiResponse.results.length - 1.0;
+  double currentPage;
+
+  MovieCoverFlowState({this.movies}) {
+    currentPage = movies.length - 1.0;
   }
 
   @override
   Widget build(BuildContext context) {
-    PageController controller =
-        PageController(initialPage: apiResponse.results.length - 1);
+    PageController controller = PageController(initialPage: movies.length - 1);
 
     controller.addListener(() {
       setState(() {
@@ -262,20 +246,29 @@ class MyStackState extends State<MyStack> {
       });
     });
 
-    return Stack(
-      children: <Widget>[
-        CardControllWidget(currentPage, apiResponse.results),
-        Positioned.fill(
-          child: PageView.builder(
-            itemCount: apiResponse.results.length,
-            controller: controller,
-            reverse: true,
-            itemBuilder: (context, index) {
-              return Container();
-            },
-          ),
-        )
-      ],
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MovieDetailsPage(movies[currentPage.toInt()]),
+            ));
+      },
+      child: Stack(
+        children: <Widget>[
+          CardControllWidget(currentPage, movies),
+          Positioned.fill(
+            child: PageView.builder(
+              itemCount: movies.length,
+              controller: controller,
+              reverse: true,
+              itemBuilder: (context, index) {
+                return Container();
+              },
+            ),
+          )
+        ],
+      ),
     );
   }
 }

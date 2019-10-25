@@ -139,7 +139,7 @@ class VerticalMovieList extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: FadeInImage(
-                            image: NetworkImage(movies[index].backDropUrl),
+                            image: NetworkImage(movies[index].posterUrl),
                             fit: BoxFit.cover,
                             placeholder:
                                 AssetImage('assets/images/loading.gif'),
