@@ -85,22 +85,24 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text('My List', style: themeData.textTheme.headline),
-                  IconButton(
-                    icon: Icon(
-                      Icons.more_horiz,
-                      size: 30,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MoviesListPage(
-                              title: 'My List',
-                              movies: null,
-                            ),
-                          ));
-                    },
-                  )
+                  Consumer<FavoriteState>(builder: (context, state, child) {
+                    return IconButton(
+                        icon: Icon(
+                          Icons.more_horiz,
+                          size: 30,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MoviesListPage(
+                                  title: 'My List',
+                                  movies: MovieDBApi.getDetailMovies(
+                                      state.movieIDs),
+                                ),
+                              ));
+                        });
+                  }),
                 ],
               ),
             ),
@@ -115,15 +117,15 @@ class HomePage extends StatelessWidget {
                 );
               }
 
+              List<int> movieIDs = [];
+
+              state.movieIDs.forEach((id) => movieIDs.add(id));
+
               return FutureBuilder(
-                future: MovieDBApi.getPlayNow(),
+                future: MovieDBApi.getDetailMovies(movieIDs),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-
-                    var favoriteMovieList = snapshot.data.where((item) {
-                      return state.containMovieID(item.id);
-                    }).toList();
-                    return HorizontalMovieList(favoriteMovieList);
+                    return HorizontalMovieList(snapshot.data);
                   } else {
                     return Padding(
                         padding: EdgeInsets.all(100),
@@ -138,7 +140,6 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
 
 class CardControllWidget extends StatelessWidget {
   var currentPage;
@@ -251,7 +252,8 @@ class MovieCoverFlowState extends State<MovieCoverFlow> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => MovieDetailsPage(movies[currentPage.toInt()]),
+              builder: (context) =>
+                  MovieDetailsPage(movies[currentPage.toInt()]),
             ));
       },
       child: Stack(

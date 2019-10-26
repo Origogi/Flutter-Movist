@@ -7,8 +7,6 @@ import 'package:flutter_list/widgets/ArcBannerImage.dart';
 import 'package:flutter_list/widgets/rating_information.dart';
 
 import 'package:flutter_list/widgets/story_line.dart';
-
-import 'package:marquee/marquee.dart';
 import 'package:provider/provider.dart';
 
 import 'movies_list_page.dart';
@@ -54,7 +52,7 @@ class MovieDetailsPage extends StatelessWidget {
                           if (state.containMovieID(movie.id)) {
                             state.removeMovieID(movie.id);
                           } else {
-                            state.addMovie(movie.id, movie);
+                            state.addMovie(movie.id);
                           }
                         },
                       );
@@ -85,21 +83,21 @@ class MovieDetailHeader extends StatelessWidget {
 
   MovieDetailHeader(this.movie);
 
-  List<Widget> _buildCategoryChips(BuildContext context,List<int> genresIDs, Map<int, String> genres, TextTheme textTheme) {
+  List<Widget> _buildCategoryChips(BuildContext context, List<int> genresIDs,
+      Map<int, String> genres, TextTheme textTheme) {
     return genresIDs.map((id) {
       return Padding(
         padding: const EdgeInsets.only(right: 8.0),
         child: InkWell(
           onTap: () {
             Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MoviesListPage(
-                              title: '장르 : ${genres[id]}',
-                              movies: MovieDBApi.getRelatedGenreMovies(id),
-                            ),
-                        )
-            );
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MoviesListPage(
+                    title: '장르 : ${genres[id]}',
+                    movies: MovieDBApi.getRelatedGenreMovies(id),
+                  ),
+                ));
           },
           child: Chip(
             shape: RoundedRectangleBorder(
@@ -139,16 +137,11 @@ class MovieDetailHeader extends StatelessWidget {
 
                 print(movie.genre_ids.toString());
 
-                // List<String> genres = movie.genre_ids.map((id) {
-                //   return apiResponse.genresMap[id];
-                // }).toList();
-
                 Map<int, String> genresMap = {};
 
                 for (int id in movie.genre_ids) {
                   genresMap[id] = apiResponse.genresMap[id];
                 }
-
 
                 return SizedBox(
                   height: 70,
@@ -156,7 +149,8 @@ class MovieDetailHeader extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: _buildCategoryChips(context,movie.genre_ids, apiResponse.genresMap, textTheme),
+                      children: _buildCategoryChips(context, movie.genre_ids,
+                          apiResponse.genresMap, textTheme),
                     ),
                   ),
                 );
@@ -215,29 +209,10 @@ class MovieDetailHeader extends StatelessWidget {
   }
 
   Widget _getTitleWidget(TextTheme textTheme, String title) {
-    if (title.trim().length > 8) {
-      return Container(
-        width: 200,
-        height: 40,
-        child: Marquee(
-          text: movie.title,
-          style: (textTheme.title),
-          scrollAxis: Axis.horizontal,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          blankSpace: 20.0,
-          velocity: 100.0,
-          pauseAfterRound: Duration(seconds: 1),
-          accelerationDuration: Duration(seconds: 1),
-          accelerationCurve: Curves.linear,
-          decelerationDuration: Duration(milliseconds: 1000),
-          decelerationCurve: Curves.easeOut,
-        ),
-      );
-    } else {
-      return Text(
-        title,
-        style: (textTheme.title),
-      );
-    }
+    return Text(
+      title,
+      style: (textTheme.title),
+      overflow: TextOverflow.ellipsis,
+    );
   }
 }

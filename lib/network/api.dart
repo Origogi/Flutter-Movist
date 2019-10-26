@@ -18,9 +18,41 @@ class MovieDBApi {
         '&with_genres=$genreId';
   }
 
-    static String movieDetailsUrl(int movieId) {
+  static String movieDetailsUrl(int movieId) {
     return 'https://api.themoviedb.org/3/movie/$movieId?api_key=$_KEY&append_to_response=credits,'
         'images';
+  }
+
+
+ static Future<Movie> getDetailMovie(int id) async {
+
+    http.Response response = await http.get(
+        Uri.encodeFull(movieDetailsUrl(id)),
+        headers: {
+          "Content-type": "application/json",
+        });
+    Map responseMap = jsonDecode(response.body);
+    var movie = Movie.fromJson(responseMap);
+
+    return movie;
+  }
+
+   static Future<List<Movie>> getDetailMovies(List<int> IDs) async {
+
+    List<Movie> movies = [];
+
+    // bug
+    for (int id in IDs) {
+      http.Response response = await http.get(
+        Uri.encodeFull(movieDetailsUrl(id)),
+        headers: {
+          "Content-type": "application/json",
+        });
+      Map responseMap = jsonDecode(response.body);
+      var movie = Movie.fromJson(responseMap);
+      movies.add(movie);
+    }
+    return movies;
   }
 
   static Future<List<Movie>> getRelatedGenreMovies(int id) async {
