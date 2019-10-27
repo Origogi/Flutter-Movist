@@ -73,9 +73,9 @@ class HomePage extends StatelessWidget {
                 if (snapshot.hasData) {
                   return MovieCoverFlow(snapshot.data);
                 } else {
-                  return Padding(
-                      padding: EdgeInsets.all(100),
-                      child: CircularProgressIndicator());
+                  return Container(
+                      height: 460,
+                      child: Center(child: CircularProgressIndicator()));
                 }
               },
             ),
@@ -198,8 +198,11 @@ class CardControllWidget extends StatelessWidget {
                     child: Stack(
                       fit: StackFit.expand,
                       children: <Widget>[
-                        Image.network(movieDataList[i].posterUrl,
-                            fit: BoxFit.fill),
+                        FadeInImage(
+                            image: NetworkImage(movieDataList[i].posterUrl),
+                            fit: BoxFit.cover,
+                            placeholder: AssetImage('assets/images/loading.gif'),
+                          ),
                       ],
                     ),
                   ),
