@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_list/network/cache.dart';
 import 'package:flutter_list/network/data.dart';
 import 'package:http/http.dart' as http;
 
@@ -20,11 +21,15 @@ class MovieDBApi {
 
   static String movieDetailsUrl(int movieId) {
     return 'https://api.themoviedb.org/3/movie/$movieId?api_key=$_KEY&append_to_response=credits,'
-        'images';
+        'images'
+        '&language=ko-KR';
   }
 
 
  static Future<Movie> getDetailMovie(int id) async {
+   if (CacheData.getMovieCache(id) != null) {
+     return CacheData.getMovieCache(id);
+   }
 
     http.Response response = await http.get(
         Uri.encodeFull(movieDetailsUrl(id)),
@@ -34,6 +39,8 @@ class MovieDBApi {
     Map responseMap = jsonDecode(response.body);
     var movie = Movie.fromJson(responseMap);
 
+    CacheData.setMovieCache(movie);
+
     return movie;
   }
 
@@ -41,8 +48,12 @@ class MovieDBApi {
 
     List<Movie> movies = [];
 
-    // bug
     for (int id in IDs) {
+      if (CacheData.getMovieCache(id) != null) {
+        movies.add(CacheData.getMovieCache(id));
+        continue;
+      }
+
       http.Response response = await http.get(
         Uri.encodeFull(movieDetailsUrl(id)),
         headers: {
@@ -83,7 +94,10 @@ class MovieDBApi {
 
 
 
-  static Future<GenresApiResponse> getGenres() async {
+  static Future<Map<int, String>> getGenres() async {
+    if(CacheData.getGanreCache() != null && CacheData.getGanreCache().isNotEmpty ) {
+      return CacheData.getGanreCache();
+    }
 
     http.Response response = await http.get(
         Uri.encodeFull('$_URL_GENRE_LIST?api_key=$_KEY&language=ko-KR&page=1/'),
@@ -93,7 +107,10 @@ class MovieDBApi {
 
     Map responseMap = jsonDecode(response.body);
     var apiResponse = GenresApiResponse.fromJson(responseMap);
+    print(apiResponse.genresMap);
 
-    return apiResponse;
+    CacheData.setGanreCache(apiResponse.genresMap);
+
+    return apiResponse.genresMap;
   }
 }

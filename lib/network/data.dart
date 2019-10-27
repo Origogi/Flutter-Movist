@@ -23,6 +23,7 @@ class Movie {
   int vote_count;
   String overview;
   List<int> genre_ids;
+  List<Genre> genres;
 
   Movie(this.id, this.title, this.poster_path, this.backdrop_path, this.vote_average,
       this.vote_count, this.overview);

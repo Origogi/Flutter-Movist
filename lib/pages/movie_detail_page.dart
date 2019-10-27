@@ -13,8 +13,10 @@ import 'movies_list_page.dart';
 
 class MovieDetailsPage extends StatelessWidget {
   final Movie movie;
+
+
   MovieDetailsPage(this.movie) {
-    print(movie.toString());
+    print(movie.title);
   }
   @override
   Widget build(BuildContext context) {
@@ -84,7 +86,9 @@ class MovieDetailHeader extends StatelessWidget {
   MovieDetailHeader(this.movie);
 
   List<Widget> _buildCategoryChips(BuildContext context, List<int> genresIDs,
-      Map<int, String> genres, TextTheme textTheme) {
+      Map<int, String> genresMap, TextTheme textTheme) {
+
+
     return genresIDs.map((id) {
       return Padding(
         padding: const EdgeInsets.only(right: 8.0),
@@ -94,7 +98,7 @@ class MovieDetailHeader extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => MoviesListPage(
-                    title: '장르 : ${genres[id]}',
+                    title: '장르 : ${genresMap[id]}',
                     movies: MovieDBApi.getRelatedGenreMovies(id),
                   ),
                 ));
@@ -107,7 +111,7 @@ class MovieDetailHeader extends StatelessWidget {
                   color: kDarkTheme.accentColor),
               borderRadius: BorderRadius.circular(20.0),
             ),
-            label: Text(genres[id]),
+            label: Text(genresMap[id]),
             labelStyle: textTheme.caption,
             backgroundColor: Colors.transparent,
           ),
@@ -123,7 +127,11 @@ class MovieDetailHeader extends StatelessWidget {
     var movieInformation = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _getTitleWidget(textTheme, movie.title),
+        Text(
+          movie.title,
+          style: (textTheme.title),
+          overflow: TextOverflow.ellipsis,
+        ),
         SizedBox(
           height: 5.0,
         ),
@@ -133,14 +141,17 @@ class MovieDetailHeader extends StatelessWidget {
             future: MovieDBApi.getGenres(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                GenresApiResponse apiResponse = snapshot.data;
 
+                Map<int, String> genresMap = snapshot.data;
                 print(movie.genre_ids.toString());
 
-                Map<int, String> genresMap = {};
+                List<int> movieRelatedGenres= [];
 
-                for (int id in movie.genre_ids) {
-                  genresMap[id] = apiResponse.genresMap[id];
+                if (movie.genre_ids != null) {
+                  movieRelatedGenres = movie.genre_ids;
+                }
+                else {
+                  movieRelatedGenres = movie.genres.map((genre)=>genre.id).toList();
                 }
 
                 return SizedBox(
@@ -149,8 +160,8 @@ class MovieDetailHeader extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: _buildCategoryChips(context, movie.genre_ids,
-                          apiResponse.genresMap, textTheme),
+                      children: _buildCategoryChips(
+                          context, movieRelatedGenres , genresMap, textTheme),
                     ),
                   ),
                 );
