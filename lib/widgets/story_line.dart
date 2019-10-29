@@ -26,7 +26,7 @@ class StoryLine extends StatelessWidget {
             height: 8,
           ),
           Text(
-            movie.overview != null ? movie.overview : "상세 정보 없음",
+            movie.overview.isNotEmpty ? movie.overview : "상세 정보 없음",
             style: textTheme.body2,
           )
         ],
