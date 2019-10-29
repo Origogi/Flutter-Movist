@@ -9,7 +9,9 @@ https://developers.themoviedb.org/3
 
 ## 2. Functions
 
-<img src="https://user-images.githubusercontent.com/35194820/66217070-95758000-e701-11e9-9f80-3343668e4baf.gif" width="30%">   <img src="https://user-images.githubusercontent.com/35194820/66218371-04ec6f00-e704-11e9-8b1f-4d4e2c4ba392.png" width="30%">   <img src="https://user-images.githubusercontent.com/35194820/66217585-8e02a680-e702-11e9-8d5e-08ea2cbf449e.png" width="30%">
+<img src="https://user-images.githubusercontent.com/35194820/67774702-32c59900-faa1-11e9-918c-7a9f08f1651a.gif" width="30%">   <img src="https://user-images.githubusercontent.com/35194820/67773701-7ae3bc00-fa9f-11e9-8232-82752169a3a6.png" width="30%">   <img src="https://user-images.githubusercontent.com/35194820/67773702-7b7c5280-fa9f-11e9-918e-522ebdbbd41c.png" width="30%">
+
+<img src="https://user-images.githubusercontent.com/35194820/67773704-7b7c5280-fa9f-11e9-9e68-ca0cea474356.png" width="30%">   <img src="https://user-images.githubusercontent.com/35194820/67773705-7b7c5280-fa9f-11e9-9bec-fd6fedef95ba.png" width="30%">   <img src="https://user-images.githubusercontent.com/35194820/67773707-7b7c5280-fa9f-11e9-8311-a4ec3ec0b052.png" width="30%">
 
 ## 3. TODO
 
