@@ -34,7 +34,8 @@ class HorizontalMovieList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                       width: _imageHeight * 0.7,
                       height: _imageHeight,
                       decoration: BoxDecoration(
@@ -50,7 +51,8 @@ class HorizontalMovieList extends StatelessWidget {
                           child: FadeInImage(
                             image: NetworkImage(movies[index].posterUrl),
                             fit: BoxFit.cover,
-                            placeholder: AssetImage('assets/images/loading.gif'),
+                            placeholder:
+                                AssetImage('assets/images/loading.gif'),
                           ))),
                   Text(movies[index].title,
                       overflow: TextOverflow.ellipsis,
@@ -78,7 +80,7 @@ class VerticalMovieList extends StatelessWidget {
         itemCount: movies.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(5.0),
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -87,7 +89,7 @@ class VerticalMovieList extends StatelessWidget {
                         builder: (context) => MovieDetailsPage(movies[index])));
               },
               child: Container(
-                height: 150,
+                height: 170,
                 child: Stack(
                   children: <Widget>[
                     Padding(
@@ -101,9 +103,10 @@ class VerticalMovieList extends StatelessWidget {
                               width: 2,
                               color: Theme.of(context).accentColor,
                             )),
-                        height: 100,
+                        height: 110,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 118.0, top: 8.0),
+                          padding:
+                              const EdgeInsets.only(left: 125.0, top: 10.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -113,21 +116,36 @@ class VerticalMovieList extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.symmetric(vertical: 8),
                                 child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
                                       '${movies[index].vote_average}',
                                       style:
-                                          Theme.of(context).textTheme.caption,
+                                          Theme.of(context).textTheme.headline,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
                                     ),
                                     Icon(
                                       Icons.star,
-                                      color: Colors.green,
+                                      color: Theme.of(context).accentColor,
                                     ),
                                   ],
                                 ),
-                              )
+                              ),
+                              Row(children: <Widget>[
+                              Text(
+                                '개봉 날짜 : ',
+                                style: Theme.of(context).textTheme.body1,
+                              ),
+                              Text(
+                                movies[index].release_date,
+                                style: Theme.of(context).textTheme.body1,
+                              )  
+                              ],)
+                              
                             ],
                           ),
                         ),
@@ -136,11 +154,21 @@ class VerticalMovieList extends StatelessWidget {
                     Positioned(
                       top: 0,
                       left: 8,
-                      child: SizedBox(
+                      child: Container(
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black54,
+                                  offset: Offset(0, 4),
+                                  blurRadius: 6)
+                            ]),
                         width: 100,
                         height: 125,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
+                          borderRadius: BorderRadius.circular(10),
                           child: FadeInImage(
                             image: NetworkImage(movies[index].posterUrl),
                             fit: BoxFit.cover,

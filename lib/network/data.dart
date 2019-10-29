@@ -24,6 +24,7 @@ class Movie {
   String overview;
   List<int> genre_ids;
   List<Genre> genres;
+  String release_date;
 
   Movie(this.id, this.title, this.poster_path, this.backdrop_path, this.vote_average,
       this.vote_count, this.overview);

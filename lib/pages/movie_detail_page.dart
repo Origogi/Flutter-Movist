@@ -3,7 +3,8 @@ import 'package:flutter_list/constant/constant.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
 import 'package:flutter_list/state/states.dart';
-import 'package:flutter_list/widgets/ArcBannerImage.dart';
+import 'package:flutter_list/widgets/arc_banner_image.dart';
+import 'package:flutter_list/widgets/poster.dart';
 import 'package:flutter_list/widgets/rating_information.dart';
 
 import 'package:flutter_list/widgets/story_line.dart';
@@ -13,7 +14,6 @@ import 'movies_list_page.dart';
 
 class MovieDetailsPage extends StatelessWidget {
   final Movie movie;
-
 
   MovieDetailsPage(this.movie) {
     print(movie.title);
@@ -51,11 +51,22 @@ class MovieDetailsPage extends StatelessWidget {
                           size: 30,
                         ),
                         onPressed: () {
+                          var content;
                           if (state.containMovieID(movie.id)) {
                             state.removeMovieID(movie.id);
+                            content = Text("'나의 즐겨찾기'에서 삭제 되었습니다.");
                           } else {
                             state.addMovie(movie.id);
+                            content = Text("'나의 즐겨찾기'에 추가 되었습니다.");
                           }
+
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                            content: content,
+                            action: SnackBarAction(
+                              label: '확인',
+                              onPressed: (){},
+                            ),
+                          ));
                         },
                       );
                     }),
@@ -64,13 +75,12 @@ class MovieDetailsPage extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: 10.0),
           Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: StoryLine(movie.overview),
+                child: StoryLine(movie),
               ),
             ),
           )
@@ -87,8 +97,6 @@ class MovieDetailHeader extends StatelessWidget {
 
   List<Widget> _buildCategoryChips(BuildContext context, List<int> genresIDs,
       Map<int, String> genresMap, TextTheme textTheme) {
-
-
     return genresIDs.map((id) {
       return Padding(
         padding: const EdgeInsets.only(right: 8.0),
@@ -136,22 +144,27 @@ class MovieDetailHeader extends StatelessWidget {
           height: 5.0,
         ),
         RatingInformation(movie),
+        SizedBox(
+          height: 5.0,
+        ),
+        Row(
+          children: <Widget>[Text('개봉 날짜 : '), Text(movie.release_date)],
+        ),
         SizedBox(height: 5.0),
         FutureBuilder(
             future: MovieDBApi.getGenres(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-
                 Map<int, String> genresMap = snapshot.data;
                 print(movie.genre_ids.toString());
 
-                List<int> movieRelatedGenres= [];
+                List<int> movieRelatedGenres = [];
 
                 if (movie.genre_ids != null) {
                   movieRelatedGenres = movie.genre_ids;
-                }
-                else {
-                  movieRelatedGenres = movie.genres.map((genre)=>genre.id).toList();
+                } else {
+                  movieRelatedGenres =
+                      movie.genres.map((genre) => genre.id).toList();
                 }
 
                 return SizedBox(
@@ -161,7 +174,7 @@ class MovieDetailHeader extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: _buildCategoryChips(
-                          context, movieRelatedGenres , genresMap, textTheme),
+                          context, movieRelatedGenres, genresMap, textTheme),
                     ),
                   ),
                 );
@@ -188,23 +201,8 @@ class MovieDetailHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                width: 130,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black54,
-                          offset: Offset(0, 4),
-                          blurRadius: 6)
-                    ]),
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      movie.posterUrl,
-                      fit: BoxFit.cover,
-                    )),
+              Poster(
+                imageUrl: movie.posterUrl,
               ),
               SizedBox(
                 width: 6,

@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Trending', style: themeData.textTheme.headline),
+                  Text('현재 상영작', style: themeData.textTheme.headline),
                   IconButton(
                     icon: Icon(
                       Icons.more_horiz,
@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) => MoviesListPage(
-                              title: 'Trending',
+                              title: '현재 상영작',
                               movies: MovieDBApi.getPlayNow(),
                             ),
                           ));
@@ -84,7 +84,7 @@ class HomePage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('My List', style: themeData.textTheme.headline),
+                  Text('나의 즐겨찾기', style: themeData.textTheme.headline),
                   Consumer<FavoriteState>(builder: (context, state, child) {
                     return IconButton(
                         icon: Icon(

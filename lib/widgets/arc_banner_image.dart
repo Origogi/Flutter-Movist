@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/cupertino.dart';
 
 class ArcBannerImage extends StatelessWidget {
@@ -10,12 +8,21 @@ class ArcBannerImage extends StatelessWidget {
   Widget build(BuildContext context) {
     var sreenWidth = MediaQuery.of(context).size.width;
     return ClipPath(
-      clipper: ArcClipper(),
-      child: Image.network(imageUrl, width: sreenWidth, height: 230.0, fit: BoxFit.cover,),
-    );
-  }}
+        clipper: ArcClipper(),
+        // child: Image.network(imageUrl, width: sreenWidth, height: 230.0, fit: BoxFit.cover,),
+        child: Container(
+          width: sreenWidth,
+          height: 230,
+          child: FadeInImage(
+            image: NetworkImage(imageUrl),
+            fit: BoxFit.cover,
+            placeholder: AssetImage('assets/images/loading.gif'),
+          ),
+        ));
+  }
+}
 
-  class ArcClipper extends CustomClipper<Path> {
+class ArcClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     var path = Path();
