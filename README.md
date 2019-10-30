@@ -24,7 +24,7 @@ https://developers.themoviedb.org/3
 - [ ] My List 구현
     - [x] Scoped 모델 
     - [ ] System Property 이용
-- [ ] Category 구현
+- [x] Category 구현
 - [ ] 애니메이션
     - [ ] Hero
     - [ ] ListAnimation

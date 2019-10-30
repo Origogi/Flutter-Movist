@@ -89,13 +89,14 @@ class VerticalMovieList extends StatelessWidget {
                         builder: (context) => MovieDetailsPage(movies[index])));
               },
               child: Container(
-                height: 170,
+                // height: 170,
                 child: Stack(
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(top: 40.0),
                       child: Container(
                         width: double.infinity,
+                        // height: 110,
                         decoration: BoxDecoration(
                             color: Theme.of(context).primaryColor,
                             borderRadius: BorderRadius.circular(8.0),
@@ -103,10 +104,9 @@ class VerticalMovieList extends StatelessWidget {
                               width: 2,
                               color: Theme.of(context).accentColor,
                             )),
-                        height: 110,
                         child: Padding(
                           padding:
-                              const EdgeInsets.only(left: 125.0, top: 10.0),
+                              const EdgeInsets.only(left: 125.0, top: 10.0, bottom: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -116,7 +116,8 @@ class VerticalMovieList extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
@@ -135,24 +136,26 @@ class VerticalMovieList extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              Row(children: <Widget>[
-                              Text(
-                                '개봉 날짜 : ',
-                                style: Theme.of(context).textTheme.body1,
-                              ),
-                              Text(
-                                movies[index].release_date,
-                                style: Theme.of(context).textTheme.body1,
-                              )  
-                              ],)
-                              
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    '개봉 날짜 : ',
+                                    style: Theme.of(context).textTheme.body1,
+                                  ),
+                                  Text(
+                                    movies[index].release_date,
+                                    style: Theme.of(context).textTheme.body1,
+                                  )
+                                ],
+                              )
                             ],
                           ),
                         ),
                       ),
                     ),
                     Positioned(
-                      top: 0,
+                      // top: 5,
                       left: 8,
                       child: Container(
                         margin:
@@ -166,7 +169,7 @@ class VerticalMovieList extends StatelessWidget {
                                   blurRadius: 6)
                             ]),
                         width: 100,
-                        height: 125,
+                        height: 140,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: FadeInImage(
