@@ -15,9 +15,9 @@ https://developers.themoviedb.org/3
 
 ## 3. TODO
 
-- [ ] 검색 기능 구현
+- [x] 검색 기능 구현
     - [x] SearchDelegate hint 제거
-    - [ ] api연결
+    - [x] api연결
 - [x] Theme 구현
     - [x] Theme class 연결
     - [x] 버튼 눌렀을 때 변경
