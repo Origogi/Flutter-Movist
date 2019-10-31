@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
                   Text('현재 상영작', style: themeData.textTheme.headline),
                   IconButton(
                     icon: Icon(
-                      Icons.more_horiz,
+                      Icons.view_list,
                       size: 30,
                     ),
                     onPressed: () {
@@ -88,7 +88,7 @@ class HomePage extends StatelessWidget {
                   Consumer<FavoriteState>(builder: (context, state, child) {
                     return IconButton(
                         icon: Icon(
-                          Icons.more_horiz,
+                          Icons.view_list,
                           size: 30,
                         ),
                         onPressed: () {

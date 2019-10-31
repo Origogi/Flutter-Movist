@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_list/network/api.dart';
+import 'package:flutter_list/network/data.dart';
+import 'package:flutter_list/widgets/movie_list.dart';
 
 class MovieSearchPage extends SearchDelegate<String> {
   @override
@@ -43,11 +46,35 @@ class MovieSearchPage extends SearchDelegate<String> {
     ThemeData themeData = Theme.of(context);
 
     return Container(
-      color: themeData.backgroundColor,
-      child: Center(
-        child: Text('Input words!!', style: themeData.textTheme.title),
-      ),
-    );
+        child: FutureBuilder(
+      future: MovieDBApi.searchMovies(query),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          List movies = snapshot.data;
+
+          if (movies == null || movies.isEmpty) {
+            return Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  Icons.block,
+                  size: 55,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text("'$query'를 찾을 수 없습니다.", style: themeData.textTheme.body1)
+              ],
+            ));
+          }
+
+          return VerticalMovieList(snapshot.data);
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
+    ));
   }
 
   @override
@@ -58,7 +85,7 @@ class MovieSearchPage extends SearchDelegate<String> {
       color: themeData.backgroundColor,
       child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Icon(
             Icons.search,

@@ -105,8 +105,8 @@ class VerticalMovieList extends StatelessWidget {
                               color: Theme.of(context).accentColor,
                             )),
                         child: Padding(
-                          padding:
-                              const EdgeInsets.only(left: 125.0, top: 10.0, bottom: 10),
+                          padding: const EdgeInsets.only(
+                              left: 125.0, top: 10.0, bottom: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[

@@ -7,17 +7,25 @@ class ArcBannerImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var sreenWidth = MediaQuery.of(context).size.width;
+
+    dynamic image;
+
+    if (imageUrl.isEmpty) {
+      image = Image.asset('assets/images/loading.gif', fit: BoxFit.fill,);
+    } else {
+      image = FadeInImage(
+        image: NetworkImage(imageUrl),
+        fit: BoxFit.cover,
+        placeholder: AssetImage('assets/images/loading.gif'),
+      );
+    }
+
     return ClipPath(
         clipper: ArcClipper(),
-        // child: Image.network(imageUrl, width: sreenWidth, height: 230.0, fit: BoxFit.cover,),
         child: Container(
           width: sreenWidth,
           height: 230,
-          child: FadeInImage(
-            image: NetworkImage(imageUrl),
-            fit: BoxFit.cover,
-            placeholder: AssetImage('assets/images/loading.gif'),
-          ),
+          child: image,
         ));
   }
 }

@@ -26,12 +26,24 @@ class Movie {
   List<Genre> genres;
   String release_date;
 
-  Movie(this.id, this.title, this.poster_path, this.backdrop_path, this.vote_average,
-      this.vote_count, this.overview);
+  Movie(this.id, this.title, this.poster_path, this.backdrop_path,
+      this.vote_average, this.vote_count, this.overview);
 
   static final URL = "https://image.tmdb.org/t/p/w500";
-  String get posterUrl => URL + poster_path;
-  String get backDropUrl => URL + backdrop_path;
+  String get posterUrl {
+    if (poster_path == null) {
+      return '';
+    }
+
+    return URL + poster_path;
+  }
+  String get backDropUrl {
+    if (backdrop_path == null) {
+      return '';
+    }
+
+    return URL + backdrop_path;
+  }
 
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
 
@@ -46,8 +58,7 @@ class GenresApiResponse {
   List<Genre> genres;
 
   Map<int, String> get genresMap {
-
-    Map<int,String> map = {};
+    Map<int, String> map = {};
 
     genres.forEach((genre) {
       map[genre.id] = genre.name;
