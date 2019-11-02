@@ -96,9 +96,8 @@ class HomePage extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => MoviesListPage(
-                                  title: 'My List',
-                                  movies: MovieDBApi.getDetailMovies(
-                                      state.movieIDs),
+                                  title: '나의 즐겨찾기',
+                                  movies: typeCastToFuture(state.getMovies()) ,
                                 ),
                               ));
                         });
@@ -115,29 +114,19 @@ class HomePage extends StatelessWidget {
                         style: themeData.textTheme.body1),
                   ),
                 );
+                
+
               }
-
-              List<int> movieIDs = [];
-
-              state.movieIDs.forEach((id) => movieIDs.add(id));
-
-              return FutureBuilder(
-                future: MovieDBApi.getDetailMovies(movieIDs),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return HorizontalMovieList(snapshot.data);
-                  } else {
-                    return Padding(
-                        padding: EdgeInsets.all(100),
-                        child: CircularProgressIndicator());
-                  }
-                },
-              );
+              return new HorizontalMovieList(state.getMovies());
             }),
           ],
         ),
       ),
     );
+  }
+
+  Future<T> typeCastToFuture<T>(T t) async {
+    return t;
   }
 }
 
@@ -199,10 +188,10 @@ class CardControllWidget extends StatelessWidget {
                       fit: StackFit.expand,
                       children: <Widget>[
                         FadeInImage(
-                            image: NetworkImage(movieDataList[i].posterUrl),
-                            fit: BoxFit.cover,
-                            placeholder: AssetImage('assets/images/loading.gif'),
-                          ),
+                          image: NetworkImage(movieDataList[i].posterUrl),
+                          fit: BoxFit.cover,
+                          placeholder: AssetImage('assets/images/loading.gif'),
+                        ),
                       ],
                     ),
                   ),

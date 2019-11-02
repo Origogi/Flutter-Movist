@@ -64,6 +64,7 @@ class MovieDBApi {
   }
 
   static Future<List<Movie>> getDetailMovies(List<int> IDs) async {
+    print('getDetailMovies : ' + IDs.toString());
     List<Movie> movies = [];
 
     for (int id in IDs) {

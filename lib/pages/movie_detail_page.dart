@@ -44,7 +44,7 @@ class MovieDetailsPage extends StatelessWidget {
                     Consumer<FavoriteState>(builder: (context, state, child) {
                       return IconButton(
                         icon: Icon(
-                          state.containMovieID(movie.id)
+                          state.containMovie(movie.id)
                               ? Icons.favorite
                               : Icons.favorite_border,
                           color: Colors.red,
@@ -52,11 +52,11 @@ class MovieDetailsPage extends StatelessWidget {
                         ),
                         onPressed: () {
                           var content;
-                          if (state.containMovieID(movie.id)) {
-                            state.removeMovieID(movie.id);
+                          if (state.containMovie(movie.id)) {
+                            state.removeMovie(movie.id);
                             content = Text("'나의 즐겨찾기'에서 삭제 되었습니다.");
                           } else {
-                            state.addMovie(movie.id);
+                            state.addMovie(movie.id, movie);
                             content = Text("'나의 즐겨찾기'에 추가 되었습니다.");
                           }
 

@@ -6,7 +6,6 @@ Show movie list and detail movie infomation
 
 https://developers.themoviedb.org/3
 
-
 ## 2. Functions
 
 <img src="https://user-images.githubusercontent.com/35194820/67774702-32c59900-faa1-11e9-918c-7a9f08f1651a.gif" width="30%">   <img src="https://user-images.githubusercontent.com/35194820/67773701-7ae3bc00-fa9f-11e9-8232-82752169a3a6.png" width="30%">   <img src="https://user-images.githubusercontent.com/35194820/67773702-7b7c5280-fa9f-11e9-918e-522ebdbbd41c.png" width="30%">
