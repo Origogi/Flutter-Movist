@@ -32,3 +32,13 @@ https://developers.themoviedb.org/3
 - [ ] Movie Detail 화면 완성
     - [ ] Actor 정보 List 추가
 - [ ] Actor detail view 추가
+
+### Commit Note
+
+- 9/22 Stack Cover flow 구현 (First commit)
+- 9/28 Movie DB API 연동
+- 10/3 Detail Page 구현
+- 10/13 즐겨찾기 기능 구현
+- 10/18 Theme 변경 기능 구현
+- 10/31 검색 기능 구현
+- 11/2 Preference 구현
