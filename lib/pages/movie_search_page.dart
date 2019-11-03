@@ -21,7 +21,9 @@ class MovieSearchPage extends SearchDelegate<String> {
     return [
       IconButton(
           icon: Icon(Icons.clear, color: themeData.iconTheme.color),
-          onPressed: () {}),
+          onPressed: () {
+            query = '';
+          }),
     ];
   }
 

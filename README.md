@@ -20,11 +20,15 @@ https://developers.themoviedb.org/3
 - [x] Theme 구현
     - [x] Theme class 연결
     - [x] 버튼 눌렀을 때 변경
-- [ ] My List 구현
-    - [x] Scoped 모델 
-    - [ ] System Property 이용
+- [x] My List 구현
+    - [x] Scoped 모델
+    - [x] System Property 이용
 - [x] Category 구현
 - [ ] 애니메이션
     - [ ] Hero
     - [ ] ListAnimation
-
+- [ ] 메인 화면 완성
+    - [ ] Top Rating List 추가
+- [ ] Movie Detail 화면 완성
+    - [ ] Actor 정보 List 추가
+- [ ] Actor detail view 추가

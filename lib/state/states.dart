@@ -6,51 +6,64 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoriteState extends ChangeNotifier {
   Map<String, Movie> _movieMap = {};
+  bool isLoaded = false;
 
   FavoriteState() {
-    readPreference();
+    readPreference().then((List<int> ids) {
+      if (ids.isNotEmpty) {
+        MovieDBApi.getDetailMovies(ids).then((List<Movie> movies) {
+          movies.forEach((movie) {
+            _movieMap[movie.id.toString()] = movie;
+            isLoaded = true;
+            notifyListeners();
+          });
+        });
+      } else {
+        isLoaded = true;
+        notifyListeners();
+      }
+    });
   }
 
-  void readPreference() async {
+  Future<List<int>> readPreference() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    // prefs.remove('ids');
-
     if (prefs.containsKey('ids')) {
-      // List<String> ids = prefs.getStringList('ids');
-      // print('ids : ' + ids.toString());
-
       List<int> ids = prefs.getStringList('ids').map(int.parse).toList();
-
-      MovieDBApi.getDetailMovies(ids).then((List<Movie> movies) {
-        print(movies.toString());
-        movies.forEach((movie) {
-          _movieMap[movie.id.toString()] = movie;
-          });
-        print(_movieMap.toString());
-        notifyListeners();
-      });
+      return ids;
+    } else {
+      return [];
     }
   }
 
-  void writePreperence() async {
+  Future<void> writePreference(List<String> ids) async {
+    print('write preference : ' + ids.toString());
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> ids = _movieMap.keys.map((item) => item.toString()).toList();
     prefs.setStringList('ids', ids);
   }
 
   void addMovie(int id, Movie movie) {
     print('add id : $id');
+
     _movieMap[id.toString()] = movie;
-    writePreperence();
-    notifyListeners();
+
+    print(_movieMap.length);
+
+    writePreference(_movieMap.keys.toList()).then((_) {
+      notifyListeners();
+    });
   }
 
   void removeMovie(int id) {
     print('remove id : $id');
-    _movieMap[id.toString()] = null;
-    writePreperence();
-    notifyListeners();
+
+    _movieMap.remove(id.toString());
+
+    print(_movieMap.length);
+
+    writePreference(_movieMap.keys.toList()).then((_) {
+      notifyListeners();
+    });
   }
 
   List<Movie> getMovies() {

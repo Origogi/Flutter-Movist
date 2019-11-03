@@ -97,7 +97,7 @@ class HomePage extends StatelessWidget {
                               MaterialPageRoute(
                                 builder: (context) => MoviesListPage(
                                   title: '나의 즐겨찾기',
-                                  movies: typeCastToFuture(state.getMovies()) ,
+                                  movies: typeCastToFuture(state.getMovies()),
                                 ),
                               ));
                         });
@@ -106,6 +106,16 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Consumer<FavoriteState>(builder: (context, state, child) {
+              print('my favotite consumer : ' + state.isLoaded.toString());
+              if (false == state.isLoaded) {
+                return SizedBox(
+                  height: 200,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+
               if (state.isEmpty()) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 100),
@@ -114,8 +124,6 @@ class HomePage extends StatelessWidget {
                         style: themeData.textTheme.body1),
                   ),
                 );
-                
-
               }
               return new HorizontalMovieList(state.getMovies());
             }),
