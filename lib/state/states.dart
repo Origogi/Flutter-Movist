@@ -91,8 +91,32 @@ class ThemeState extends ChangeNotifier {
 
   String _key = 'Dark';
 
+  ThemeState() {
+    readPreference().then((theme) {
+      _key = theme;
+      notifyListeners();
+    });
+  }
+
   void changeTheme(String key) {
     _key = key;
-    notifyListeners();
+    writePreference(_key).then((_) {
+      notifyListeners();
+    });
+  }
+
+  Future<String> readPreference() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if (prefs.containsKey('theme')) {
+      return prefs.getString('theme');
+    }
+    return 'Dark';
+  }
+
+  Future<void> writePreference(String theme) async {
+    print('write preference : ' + theme);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('theme', theme);
   }
 }
