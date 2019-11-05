@@ -17,7 +17,6 @@ class StoryLine extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           
-         
           Text(
             '줄거리',
             style: textTheme.body1,
