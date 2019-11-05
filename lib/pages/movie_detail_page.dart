@@ -14,8 +14,9 @@ import 'movies_list_page.dart';
 
 class MovieDetailsPage extends StatelessWidget {
   final Movie movie;
+  final String heroID;
 
-  MovieDetailsPage(this.movie) {
+  MovieDetailsPage({this.movie, this.heroID}) {
     print(movie.title);
   }
   @override
@@ -25,7 +26,7 @@ class MovieDetailsPage extends StatelessWidget {
         children: <Widget>[
           Stack(
             children: <Widget>[
-              MovieDetailHeader(movie),
+              MovieDetailHeader(movie, heroID),
               Padding(
                 padding: const EdgeInsets.only(top: 25, left: 5, right: 5),
                 child: Row(
@@ -64,7 +65,7 @@ class MovieDetailsPage extends StatelessWidget {
                             content: content,
                             action: SnackBarAction(
                               label: '확인',
-                              onPressed: (){},
+                              onPressed: () {},
                             ),
                           ));
                         },
@@ -92,8 +93,9 @@ class MovieDetailsPage extends StatelessWidget {
 
 class MovieDetailHeader extends StatelessWidget {
   final Movie movie;
+  final String heroID;
 
-  MovieDetailHeader(this.movie);
+  MovieDetailHeader(this.movie, this.heroID);
 
   List<Widget> _buildCategoryChips(BuildContext context, List<int> genresIDs,
       Map<int, String> genresMap, TextTheme textTheme) {
@@ -201,8 +203,11 @@ class MovieDetailHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              Poster(
-                imageUrl: movie.posterUrl,
+              Hero(
+                tag: heroID,
+                child: Poster(
+                  imageUrl: movie.posterUrl,
+                ),
               ),
               SizedBox(
                 width: 6,

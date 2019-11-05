@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_list/network/data.dart';
 import 'package:flutter_list/pages/movie_detail_page.dart';
+import 'package:flutter_list/util/util.dart';
 
 class HorizontalMovieList extends StatelessWidget {
   final List<Movie> movies;
@@ -21,10 +22,11 @@ class HorizontalMovieList extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               print(index);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MovieDetailsPage(movies[index])));
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                Movie movie = movies[index];
+                return MovieDetailsPage(
+                    movie: movie, heroID: HeroID.make(movie.id));
+              }));
             },
             child: Container(
               width: _imageHeight * 0.8,
@@ -33,27 +35,30 @@ class HorizontalMovieList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      width: _imageHeight * 0.7,
-                      height: _imageHeight,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black54,
-                                offset: Offset(0, 4),
-                                blurRadius: 6)
-                          ]),
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: FadeInImage(
-                            image: NetworkImage(movies[index].posterUrl),
-                            fit: BoxFit.cover,
-                            placeholder:
-                                AssetImage('assets/images/loading.gif'),
-                          ))),
+                  Hero(
+                    tag: HeroID.make(movies[index].id),
+                    child: Container(
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        width: _imageHeight * 0.7,
+                        height: _imageHeight,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black54,
+                                  offset: Offset(0, 4),
+                                  blurRadius: 6)
+                            ]),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: FadeInImage(
+                              image: NetworkImage(movies[index].posterUrl),
+                              fit: BoxFit.cover,
+                              placeholder:
+                                  AssetImage('assets/images/loading.gif'),
+                            ))),
+                  ),
                   Text(movies[index].title,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.body1)
@@ -83,10 +88,11 @@ class VerticalMovieList extends StatelessWidget {
             padding: const EdgeInsets.all(5.0),
             child: GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MovieDetailsPage(movies[index])));
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  Movie movie = movies[index];
+                  return MovieDetailsPage(
+                      movie: movie, heroID: HeroID.make(movie.id));
+                }));
               },
               child: Container(
                 // height: 170,
@@ -157,26 +163,29 @@ class VerticalMovieList extends StatelessWidget {
                     Positioned(
                       // top: 5,
                       left: 8,
-                      child: Container(
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                        decoration: BoxDecoration(
+                      child: Hero(
+                        tag: HeroID.make(movies[index].id),
+                        child: Container(
+                          margin:
+                              EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.black54,
+                                    offset: Offset(0, 4),
+                                    blurRadius: 6)
+                              ]),
+                          width: 100,
+                          height: 140,
+                          child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black54,
-                                  offset: Offset(0, 4),
-                                  blurRadius: 6)
-                            ]),
-                        width: 100,
-                        height: 140,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: FadeInImage(
-                            image: NetworkImage(movies[index].posterUrl),
-                            fit: BoxFit.cover,
-                            placeholder:
-                                AssetImage('assets/images/loading.gif'),
+                            child: FadeInImage(
+                              image: NetworkImage(movies[index].posterUrl),
+                              fit: BoxFit.cover,
+                              placeholder:
+                                  AssetImage('assets/images/loading.gif'),
+                            ),
                           ),
                         ),
                       ),

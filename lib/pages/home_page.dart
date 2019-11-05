@@ -5,6 +5,7 @@ import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
 import 'package:flutter_list/pages/movies_list_page.dart';
 import 'package:flutter_list/state/states.dart';
+import 'package:flutter_list/util/util.dart';
 import 'package:flutter_list/widgets/movie_list.dart';
 import 'package:flutter_list/widgets/side_menu.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,6 @@ class HomePage extends StatefulWidget {
   State<StatefulWidget> createState() {
     return new HomePageState();
   }
-
 }
 
 class HomePageState extends State<HomePage> {
@@ -194,26 +194,30 @@ class CardControllWidget extends StatelessWidget {
               bottom: padding + verticalInset * max(-delta, 0.0),
               start: start,
               textDirection: TextDirection.rtl,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(14.0),
-                child: Container(
-                  decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                    BoxShadow(
-                        color: Colors.black,
-                        offset: Offset(3.9, 6.0),
-                        blurRadius: 10.0)
-                  ]),
-                  child: AspectRatio(
-                    aspectRatio: cardAspectRatio,
-                    child: Stack(
-                      fit: StackFit.expand,
-                      children: <Widget>[
-                        FadeInImage(
-                          image: NetworkImage(movieDataList[i].posterUrl),
-                          fit: BoxFit.cover,
-                          placeholder: AssetImage('assets/images/loading.gif'),
-                        ),
-                      ],
+              child: Hero(
+                tag: HeroID.make(movieDataList[i].id),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(14.0),
+                  child: Container(
+                    decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                      BoxShadow(
+                          color: Colors.black,
+                          offset: Offset(3.9, 6.0),
+                          blurRadius: 10.0)
+                    ]),
+                    child: AspectRatio(
+                      aspectRatio: cardAspectRatio,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: <Widget>[
+                          FadeInImage(
+                            image: NetworkImage(movieDataList[i].posterUrl),
+                            fit: BoxFit.cover,
+                            placeholder:
+                                AssetImage('assets/images/loading.gif'),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -262,12 +266,10 @@ class MovieCoverFlowState extends State<MovieCoverFlow> {
 
     return InkWell(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  MovieDetailsPage(movies[currentPage.toInt()]),
-            ));
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          Movie movie = movies[currentPage.toInt()];
+          return MovieDetailsPage(movie: movie, heroID: HeroID.make(movie.id));
+        }));
       },
       child: Stack(
         children: <Widget>[
