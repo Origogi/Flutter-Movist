@@ -3,14 +3,14 @@ import 'package:flutter_list/constant/constant.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
 import 'package:flutter_list/state/states.dart';
+import 'package:flutter_list/util/util.dart';
 import 'package:flutter_list/widgets/arc_banner_image.dart';
+import 'package:flutter_list/widgets/category_chips.dart';
 import 'package:flutter_list/widgets/poster.dart';
 import 'package:flutter_list/widgets/rating_information.dart';
 
 import 'package:flutter_list/widgets/story_line.dart';
 import 'package:provider/provider.dart';
-
-import 'movies_list_page.dart';
 
 class MovieDetailsPage extends StatelessWidget {
   final Movie movie;
@@ -97,39 +97,6 @@ class MovieDetailHeader extends StatelessWidget {
 
   MovieDetailHeader(this.movie, this.heroID);
 
-  List<Widget> _buildCategoryChips(BuildContext context, List<int> genresIDs,
-      Map<int, String> genresMap, TextTheme textTheme) {
-    return genresIDs.map((id) {
-      return Padding(
-        padding: const EdgeInsets.only(right: 8.0),
-        child: InkWell(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MoviesListPage(
-                    title: '장르 : ${genresMap[id]}',
-                    movies: MovieDBApi.getRelatedGenreMovies(id),
-                  ),
-                ));
-          },
-          child: Chip(
-            shape: RoundedRectangleBorder(
-              side: BorderSide(
-                  width: 1,
-                  style: BorderStyle.solid,
-                  color: kDarkTheme.accentColor),
-              borderRadius: BorderRadius.circular(20.0),
-            ),
-            label: Text(genresMap[id]),
-            labelStyle: textTheme.caption,
-            backgroundColor: Colors.transparent,
-          ),
-        ),
-      );
-    }).toList();
-  }
-
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
@@ -173,11 +140,7 @@ class MovieDetailHeader extends StatelessWidget {
                   height: 70,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: _buildCategoryChips(
-                          context, movieRelatedGenres, genresMap, textTheme),
-                    ),
+                    child: CategoryChips(movieRelatedGenres, genresMap),
                   ),
                 );
               } else {
@@ -193,7 +156,10 @@ class MovieDetailHeader extends StatelessWidget {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(bottom: 170.0),
-          child: ArcBannerImage(movie.backDropUrl),
+          child: Hero(
+            tag: HeroID.make(movie.id, 'backdrop'),
+            child: ArcBannerImage(movie.backDropUrl)),
+            
         ),
         Positioned(
           bottom: 0.0,
