@@ -4,7 +4,7 @@ final String fontFamilty = 'goyang-R';
 
 
 final Color darkColor = Color(0xFF2d3447);
-final Color purpleColor = Color(0xff8468DD);
+final Color purpleColor = Colors.blue[300];
 final Color amoledColor = Colors.black;
 
 final List<String> themes = ['Light', 'Dark', 'Amoled'];
