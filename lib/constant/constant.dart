@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-final String fontFamilty = 'Calibre-Semibold';
+final String fontFamilty = 'goyang-R';
 
 
 final Color darkColor = Color(0xFF2d3447);

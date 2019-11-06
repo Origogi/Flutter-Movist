@@ -41,4 +41,10 @@ flutter:
       - family: Calibre-Semibold
         fonts:
           - asset: assets/Calibre Semibold.otf
+      - family: Goyang-L
+        fonts:
+          - asset: assets/goyang_L.ttf
+      - family: Goyang-R
+        fonts:
+          - asset: assets/goyang_R.ttf
 

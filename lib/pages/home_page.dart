@@ -1,12 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_list/constant/constant.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
 import 'package:flutter_list/pages/movies_list_page.dart';
 import 'package:flutter_list/state/states.dart';
 import 'package:flutter_list/util/util.dart';
 import 'package:flutter_list/widgets/movie_list.dart';
+import 'package:flutter_list/widgets/rating_information.dart';
 import 'package:flutter_list/widgets/side_menu.dart';
 import 'package:provider/provider.dart';
 import 'movie_detail_page.dart';
@@ -51,12 +53,13 @@ class HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(
-              height: 25,
+              height: 5,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -92,8 +95,11 @@ class HomePageState extends State<HomePage> {
                 }
               },
             ),
+            SizedBox(
+              height: 20,
+            ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -131,7 +137,7 @@ class HomePageState extends State<HomePage> {
                     );
                   }
                 }),
-                Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -177,7 +183,8 @@ class HomePageState extends State<HomePage> {
                   ),
                 );
               }
-              return new HorizontalMovieList(movies : state.getMovies(), name : 'favorite');
+              return new HorizontalMovieList(
+                  movies: state.getMovies(), name: 'favorite');
             }),
           ],
         ),
@@ -193,7 +200,7 @@ class HomePageState extends State<HomePage> {
 class CardControllWidget extends StatelessWidget {
   var currentPage;
   var padding = 20.0;
-  var verticalInset = 20.0;
+  var verticalInset = 10.0;
   final List<Movie> movieDataList;
 
   CardControllWidget(this.currentPage, this.movieDataList);
@@ -235,15 +242,17 @@ class CardControllWidget extends StatelessWidget {
               textDirection: TextDirection.rtl,
               child: Hero(
                 tag: HeroID.make(movieDataList[i].id, 'box_office'),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(14.0),
-                  child: Container(
-                    decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                      BoxShadow(
-                          color: Colors.black,
-                          offset: Offset(3.9, 6.0),
-                          blurRadius: 10.0)
-                    ]),
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black54,
+                            offset: Offset(0, 4),
+                            blurRadius: 6)
+                      ]),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(14.0),
                     child: AspectRatio(
                       aspectRatio: cardAspectRatio,
                       child: Stack(
@@ -288,9 +297,12 @@ class MovieCoverFlowState extends State<MovieCoverFlow> {
   final List<Movie> movies;
 
   double currentPage;
+  var _visible = true;
+  int _pageIndex = 0;
 
   MovieCoverFlowState({this.movies}) {
     currentPage = movies.length - 1.0;
+    _pageIndex = currentPage.toInt();
   }
 
   @override
@@ -300,32 +312,59 @@ class MovieCoverFlowState extends State<MovieCoverFlow> {
     controller.addListener(() {
       setState(() {
         currentPage = controller.page;
+
+        if (currentPage - currentPage.toInt() == 0) {
+          _visible = true;
+          _pageIndex = currentPage.toInt();
+        } else {
+          _visible = false;
+        }
       });
     });
 
     return InkWell(
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          Movie movie = movies[currentPage.toInt()];
-          return MovieDetailsPage(
-              movie: movie, heroID: HeroID.make(movie.id, 'box_office'));
-        }));
-      },
-      child: Stack(
-        children: <Widget>[
-          CardControllWidget(currentPage, movies),
-          Positioned.fill(
-            child: PageView.builder(
-              itemCount: movies.length,
-              controller: controller,
-              reverse: true,
-              itemBuilder: (context, index) {
-                return Container();
-              },
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            Movie movie = movies[currentPage.round()];
+            return MovieDetailsPage(
+                movie: movie, heroID: HeroID.make(movie.id, 'box_office'));
+          }));
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                CardControllWidget(currentPage, movies),
+                Positioned.fill(
+                  child: PageView.builder(
+                    itemCount: movies.length,
+                    controller: controller,
+                    reverse: true,
+                    itemBuilder: (context, index) {
+                      return Container();
+                    },
+                  ),
+                )
+              ],
             ),
-          )
-        ],
-      ),
-    );
+            AnimatedOpacity(
+              opacity: _visible ? 1.0 : 0.0,
+              duration: Duration(milliseconds: 250),
+              child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        '${movies[_pageIndex].title}',
+                        style: Theme.of(context).textTheme.title,
+                      ),
+                      RatingInformation(movies[_pageIndex], true)
+                    ],
+                  )),
+            ),
+          ],
+        ));
   }
 }

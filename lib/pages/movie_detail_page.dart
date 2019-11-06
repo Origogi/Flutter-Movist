@@ -145,7 +145,7 @@ class MovieDetailHeader extends StatelessWidget {
         SizedBox(
           height: 5.0,
         ),
-        RatingInformation(movie),
+        RatingInformation(movie, false),
         SizedBox(
           height: 5.0,
         ),

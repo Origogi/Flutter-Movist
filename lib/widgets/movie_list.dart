@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_list/network/data.dart';
 import 'package:flutter_list/pages/movie_detail_page.dart';
 import 'package:flutter_list/util/util.dart';
+import 'package:flutter_list/widgets/rating_information.dart';
 
 class HorizontalMovieList extends StatelessWidget {
   final List<Movie> movies;
@@ -98,11 +99,11 @@ class VerticalMovieList extends StatelessWidget {
                 }));
               },
               child: Container(
-                // height: 170,
+                height: 170,
                 child: Stack(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(top: 40.0),
+                      padding: const EdgeInsets.only(top:60.0),
                       child: Container(
                         width: double.infinity,
                         // height: 110,
@@ -118,6 +119,7 @@ class VerticalMovieList extends StatelessWidget {
                               left: 125.0, top: 10.0, bottom: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
                                 movies[index].title,
@@ -127,23 +129,7 @@ class VerticalMovieList extends StatelessWidget {
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 5),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      '${movies[index].vote_average}',
-                                      style:
-                                          Theme.of(context).textTheme.headline,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      color: Theme.of(context).accentColor,
-                                    ),
-                                  ],
-                                ),
+                                    child: RatingInformation(movies[index], false),
                               ),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -164,7 +150,7 @@ class VerticalMovieList extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      // top: 5,
+                      bottom: 5,
                       left: 8,
                       child: Hero(
                         tag: HeroID.make(movies[index].id, name),
