@@ -33,6 +33,13 @@ class MovieDBApi {
         '&page=1/';
   }
 
+  static String popularUrl() {
+    return 'https://api.themoviedb.org/3/movie/popular'
+        '?api_key=$_KEY'
+        '&language=ko-KR'
+        '&page=1/';
+  }
+
   static String getGenresUrl() {
     return 'https://api.themoviedb.org/3/genre/movie/list'
         '?api_key=$_KEY'
@@ -98,6 +105,17 @@ class MovieDBApi {
   static Future<List<Movie>> getPlayNow() async {
     http.Response response =
         await http.get(Uri.encodeFull(moviePlayNowUrl()), headers: {
+      "Content-type": "application/json",
+    });
+    Map responseMap = jsonDecode(response.body);
+    var apiResponse = MovieDBApiResponse.fromJson(responseMap);
+
+    return apiResponse.results;
+  }
+
+    static Future<List<Movie>> getTopRate() async {
+    http.Response response =
+        await http.get(Uri.encodeFull(popularUrl()), headers: {
       "Content-type": "application/json",
     });
     Map responseMap = jsonDecode(response.body);

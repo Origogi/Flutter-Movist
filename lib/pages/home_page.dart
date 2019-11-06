@@ -60,7 +60,7 @@ class HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('현재 상영작', style: themeData.textTheme.headline),
+                  Text('박스 오피스', style: themeData.textTheme.headline),
                   IconButton(
                     icon: Icon(
                       Icons.view_list,
@@ -71,8 +71,8 @@ class HomePageState extends State<HomePage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => MoviesListPage(
-                              title: '현재 상영작',
-                              movies: MovieDBApi.getPlayNow(),
+                              title: '박스 오피스',
+                              movies: MovieDBApi.getTopRate(),
                             ),
                           ));
                     },
@@ -81,10 +81,10 @@ class HomePageState extends State<HomePage> {
               ),
             ),
             FutureBuilder(
-              future: MovieDBApi.getPlayNow(),
+              future: MovieDBApi.getTopRate(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return MovieCoverFlow(snapshot.data);
+                  return MovieCoverFlow(snapshot.data.reversed.toList());
                 } else {
                   return Container(
                       height: 460,
@@ -93,6 +93,45 @@ class HomePageState extends State<HomePage> {
               },
             ),
             Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('현재 상영중', style: themeData.textTheme.headline),
+                  IconButton(
+                      icon: Icon(
+                        Icons.view_list,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MoviesListPage(
+                                title: '현재 상영중',
+                                movies: MovieDBApi.getPlayNow(),
+                              ),
+                            ));
+                      })
+                ],
+              ),
+            ),
+            FutureBuilder(
+                future: MovieDBApi.getPlayNow(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return new HorizontalMovieList(
+                        movies: snapshot.data, name: 'play_now');
+                  } else {
+                    return SizedBox(
+                      height: 200,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                }),
+                Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -195,7 +234,7 @@ class CardControllWidget extends StatelessWidget {
               start: start,
               textDirection: TextDirection.rtl,
               child: Hero(
-                tag: HeroID.make(movieDataList[i].id, 'running_now'),
+                tag: HeroID.make(movieDataList[i].id, 'box_office'),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(14.0),
                   child: Container(
@@ -268,7 +307,8 @@ class MovieCoverFlowState extends State<MovieCoverFlow> {
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           Movie movie = movies[currentPage.toInt()];
-          return MovieDetailsPage(movie: movie, heroID: HeroID.make(movie.id, 'running_now'));
+          return MovieDetailsPage(
+              movie: movie, heroID: HeroID.make(movie.id, 'box_office'));
         }));
       },
       child: Stack(
