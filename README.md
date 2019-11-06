@@ -25,7 +25,7 @@ https://developers.themoviedb.org/3
     - [x] System Property 이용
 - [x] Category 구현
 - [ ] 애니메이션
-    - [ ] Hero
+    - [x] Hero
     - [ ] ListAnimation
 - [ ] 메인 화면 완성
     - [ ] Top Rating List 추가

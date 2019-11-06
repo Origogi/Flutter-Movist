@@ -5,12 +5,14 @@ import 'package:flutter_list/util/util.dart';
 
 class HorizontalMovieList extends StatelessWidget {
   final List<Movie> movies;
+  final String name;
 
-  HorizontalMovieList(this.movies);
+  HorizontalMovieList({this.movies, this.name});
 
   @override
   Widget build(BuildContext context) {
     double _imageHeight = 180;
+
 
     return Container(
       height: 250,
@@ -25,7 +27,7 @@ class HorizontalMovieList extends StatelessWidget {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 Movie movie = movies[index];
                 return MovieDetailsPage(
-                    movie: movie, heroID: HeroID.make(movie.id));
+                    movie: movie, heroID: HeroID.make(movie.id, name));
               }));
             },
             child: Container(
@@ -36,7 +38,7 @@ class HorizontalMovieList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Hero(
-                    tag: HeroID.make(movies[index].id),
+                    tag: HeroID.make(movies[index].id, name),
                     child: Container(
                         margin:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -74,8 +76,9 @@ class HorizontalMovieList extends StatelessWidget {
 
 class VerticalMovieList extends StatelessWidget {
   final List<Movie> movies;
+  final String name;
 
-  VerticalMovieList(this.movies);
+  VerticalMovieList(this.movies, this.name);
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +94,7 @@ class VerticalMovieList extends StatelessWidget {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   Movie movie = movies[index];
                   return MovieDetailsPage(
-                      movie: movie, heroID: HeroID.make(movie.id));
+                      movie: movie, heroID: HeroID.make(movie.id, name));
                 }));
               },
               child: Container(
@@ -164,7 +167,7 @@ class VerticalMovieList extends StatelessWidget {
                       // top: 5,
                       left: 8,
                       child: Hero(
-                        tag: HeroID.make(movies[index].id),
+                        tag: HeroID.make(movies[index].id, name),
                         child: Container(
                           margin:
                               EdgeInsets.symmetric(horizontal: 5, vertical: 5),

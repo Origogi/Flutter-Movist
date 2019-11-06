@@ -138,7 +138,7 @@ class HomePageState extends State<HomePage> {
                   ),
                 );
               }
-              return new HorizontalMovieList(state.getMovies());
+              return new HorizontalMovieList(movies : state.getMovies(), name : 'favorite');
             }),
           ],
         ),
@@ -195,7 +195,7 @@ class CardControllWidget extends StatelessWidget {
               start: start,
               textDirection: TextDirection.rtl,
               child: Hero(
-                tag: HeroID.make(movieDataList[i].id),
+                tag: HeroID.make(movieDataList[i].id, 'running_now'),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(14.0),
                   child: Container(
@@ -268,7 +268,7 @@ class MovieCoverFlowState extends State<MovieCoverFlow> {
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           Movie movie = movies[currentPage.toInt()];
-          return MovieDetailsPage(movie: movie, heroID: HeroID.make(movie.id));
+          return MovieDetailsPage(movie: movie, heroID: HeroID.make(movie.id, 'running_now'));
         }));
       },
       child: Stack(

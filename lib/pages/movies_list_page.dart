@@ -27,7 +27,7 @@ class MoviesListPage extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
               
-                return VerticalMovieList(snapshot.data);
+                return VerticalMovieList(snapshot.data, 'vertical_list');
               } else {
                 return Center(
                   child: CircularProgressIndicator(),

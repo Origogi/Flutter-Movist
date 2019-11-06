@@ -71,7 +71,7 @@ class MovieSearchPage extends SearchDelegate<String> {
             ));
           }
 
-          return VerticalMovieList(snapshot.data);
+          return VerticalMovieList(snapshot.data, 'search');
         } else {
           return Center(child: CircularProgressIndicator());
         }
