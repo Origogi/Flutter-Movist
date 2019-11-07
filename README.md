@@ -12,7 +12,11 @@ https://developers.themoviedb.org/3
 
 <img src="https://user-images.githubusercontent.com/35194820/67773704-7b7c5280-fa9f-11e9-9e68-ca0cea474356.png" width="30%">   <img src="https://user-images.githubusercontent.com/35194820/67773705-7b7c5280-fa9f-11e9-9bec-fd6fedef95ba.png" width="30%">   <img src="https://user-images.githubusercontent.com/35194820/67773707-7b7c5280-fa9f-11e9-8311-a4ec3ec0b052.png" width="30%">
 
-## 3. TODO
+## 3. Font
+
+[고양 일산체](http://www.goyang.go.kr/www/www05/www05_3/www05_3_6/www05_3_6_tab3.jsp)
+
+## 4. TODO
 
 - [x] 검색 기능 구현
     - [x] SearchDelegate hint 제거
