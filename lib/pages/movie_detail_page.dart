@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_list/constant/constant.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
 import 'package:flutter_list/state/states.dart';
@@ -188,11 +187,5 @@ class MovieDetailHeader extends StatelessWidget {
     );
   }
 
-  Widget _getTitleWidget(TextTheme textTheme, String title) {
-    return Text(
-      title,
-      style: (textTheme.title),
-      overflow: TextOverflow.ellipsis,
-    );
-  }
+
 }

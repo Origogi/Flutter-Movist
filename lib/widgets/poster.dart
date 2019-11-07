@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Poster extends StatelessWidget {
-  String imageUrl;
+  final String imageUrl;
   Poster({this.imageUrl});
 
   @override

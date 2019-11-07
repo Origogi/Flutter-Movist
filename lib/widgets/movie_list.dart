@@ -1,8 +1,14 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/network/data.dart';
 import 'package:flutter_list/pages/movie_detail_page.dart';
 import 'package:flutter_list/util/util.dart';
 import 'package:flutter_list/widgets/rating_information.dart';
+
+import 'backdrop_image.dart';
+import 'category_chips.dart';
 
 class HorizontalMovieList extends StatelessWidget {
   final List<Movie> movies;
@@ -13,7 +19,6 @@ class HorizontalMovieList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double _imageHeight = 180;
-
 
     return Container(
       height: 250,
@@ -103,7 +108,7 @@ class VerticalMovieList extends StatelessWidget {
                 child: Stack(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(top:60.0),
+                      padding: const EdgeInsets.only(top: 60.0),
                       child: Container(
                         width: double.infinity,
                         // height: 110,
@@ -129,7 +134,7 @@ class VerticalMovieList extends StatelessWidget {
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 5),
-                                    child: RatingInformation(movies[index], false),
+                                child: RatingInformation(movies[index], false),
                               ),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -189,3 +194,203 @@ class VerticalMovieList extends StatelessWidget {
     );
   }
 }
+
+class MovieCoverFlow extends StatefulWidget {
+  final List<Movie> movies;
+
+  MovieCoverFlow(this.movies);
+
+  @override
+  State<StatefulWidget> createState() {
+    return MovieCoverFlowState(movies: movies);
+  }
+}
+
+class MovieCoverFlowState extends State<MovieCoverFlow> {
+  final List<Movie> movies;
+
+  double currentPage;
+  var _visible = true;
+  int _pageIndex = 0;
+
+  MovieCoverFlowState({this.movies}) {
+    currentPage = movies.length - 1.0;
+    _pageIndex = currentPage.toInt();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    PageController controller = PageController(initialPage: movies.length - 1);
+
+    controller.addListener(() {
+      setState(() {
+        currentPage = controller.page;
+
+        if (currentPage - currentPage.toInt() == 0) {
+          _visible = true;
+          _pageIndex = currentPage.toInt();
+        } else {
+          _visible = false;
+        }
+      });
+    });
+
+    return InkWell(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            Movie movie = movies[currentPage.round()];
+            return MovieDetailsPage(
+                movie: movie, heroID: HeroID.make(movie.id, 'box_office'));
+          }));
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                AnimatedOpacity(
+                    opacity: _visible ? 1.0 : 0.0,
+                    duration: Duration(milliseconds: 250),
+                    child: Hero(
+                        tag: HeroID.make(movies[_pageIndex].id, 'backdrop'),
+                        child: BackDropImage(movies[_pageIndex].backDropUrl))),
+                Container(
+                    padding: EdgeInsets.only(top: 35),
+                    child: CardControllWidget(currentPage, movies)),
+                Positioned.fill(
+                  child: PageView.builder(
+                    itemCount: movies.length,
+                    controller: controller,
+                    reverse: true,
+                    itemBuilder: (context, index) {
+                      return Container();
+                    },
+                  ),
+                )
+              ],
+            ),
+            AnimatedOpacity(
+              opacity: _visible ? 1.0 : 0.0,
+              duration: Duration(milliseconds: 250),
+              child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        '${movies[_pageIndex].title}',
+                        style: Theme.of(context).textTheme.title,
+                      ),
+                      RatingInformation(movies[_pageIndex], true),
+                      FutureBuilder(
+                          future: MovieDBApi.getGenres(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return CategoryChips(
+                                  movies[_pageIndex].genre_ids, snapshot.data);
+                            }
+                            else {
+                              return Container();
+
+                            }
+                          })
+                    ],
+                  )),
+            ),
+          ],
+        ));
+  }
+}
+
+
+class CardControllWidget extends StatelessWidget {
+  var currentPage;
+  final padding = 10.0;
+  final verticalInset = 10.0;
+  final List<Movie> movieDataList;
+
+  final cardAspectRatio  = 12.0 / 16.0;
+  double widgetAspectRatio;
+
+  CardControllWidget(this.currentPage, this.movieDataList) {
+    widgetAspectRatio = cardAspectRatio * 1.2;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AspectRatio(
+      aspectRatio: widgetAspectRatio,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          var width = constraints.maxWidth;
+          var height = constraints.maxHeight;
+
+          var safeWidth = width - 2 * padding;
+          var safeHeight = height - 2 * padding;
+
+          var heightOfPrimaryCard = safeHeight;
+          var widthOfPrimaryCard = heightOfPrimaryCard * cardAspectRatio;
+
+          var primaryCardLeft = safeWidth - widthOfPrimaryCard;
+          var horizontalInset = primaryCardLeft / 2;
+
+          List<Widget> cardList = List();
+
+          for (var i = 0; i < movieDataList.length; i++) {
+            var delta = i - currentPage;
+            bool isOnRight = delta > 0;
+
+            var start = padding +
+                max(
+                    primaryCardLeft -
+                        horizontalInset * -delta * (isOnRight ? 15 : 1),
+                    0.0);
+
+            var cardItem = Positioned.directional(
+              top: padding + verticalInset * max(-delta, 0.0),
+              bottom: padding + verticalInset * max(-delta, 0.0),
+              start: start,
+              textDirection: TextDirection.rtl,
+              child: Hero(
+                tag: HeroID.make(movieDataList[i].id, 'box_office'),
+                child: Container(
+                  margin: EdgeInsets.only(top: 60),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black54,
+                            offset: Offset(0, 4),
+                            blurRadius: 6)
+                      ]),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(14.0),
+                    child: AspectRatio(
+                      aspectRatio: cardAspectRatio,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: <Widget>[
+                          FadeInImage(
+                            image: NetworkImage(movieDataList[i].posterUrl),
+                            fit: BoxFit.cover,
+                            placeholder:
+                                AssetImage('assets/images/loading.gif'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+            cardList.add(cardItem);
+          }
+          return Stack(
+            children: cardList,
+          );
+        },
+      ),
+    );
+  }
+}
+

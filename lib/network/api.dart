@@ -7,8 +7,6 @@ import 'package:http/http.dart' as http;
 class MovieDBApi {
   static final _KEY = '2bafb8eb9137df7d37ed1fe043ad7596';
 
-  static final _URL_GENRE_LIST =
-      "https://api.themoviedb.org/3/genre/movie/list";
 
   static String moviesForGenreURL(int genreId, int page) {
     return 'https://api.themoviedb.org/3/discover/movie?api_key=$_KEY'

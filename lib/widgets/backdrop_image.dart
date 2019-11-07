@@ -27,40 +27,5 @@ class BackDropImage extends StatelessWidget {
       ),
     );
 
-    // return Column(
-    //   children: <Widget>[
-    //     Stack(
-    //       children: <Widget>[
-    //         FadeInImage(
-    //           width: double.infinity,
-    //           height: 300,
-    //           image: NetworkImage(imageUrl),
-    //           fit: BoxFit.cover,
-    //           placeholder: AssetImage('assets/images/loading.gif'),
-    //         ),
-    //         Container(
-    //           decoration: BoxDecoration(
-    //               color: Colors.white,
-    //               gradient: LinearGradient(
-    //                   begin: FractionalOffset.bottomCenter,
-    //                   end: FractionalOffset.topCenter,
-    //                   colors: [
-    //                     theme.backgroundColor,
-    //                     theme.backgroundColor.withOpacity(0.3),
-    //                     theme.backgroundColor.withOpacity(0.2),
-    //                     theme.backgroundColor.withOpacity(0.1),
-    //                   ],
-    //                   stops: [
-    //                     0.0,
-    //                     0.25,
-    //                     0.5,
-    //                     0.75
-    //                   ])),
-    //         )
-    //       ],
-    //     ),
-
-    //   ],
-    // );
   }
 }
