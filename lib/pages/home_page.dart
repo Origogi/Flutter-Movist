@@ -7,6 +7,9 @@ import 'package:flutter_list/network/data.dart';
 import 'package:flutter_list/pages/movies_list_page.dart';
 import 'package:flutter_list/state/states.dart';
 import 'package:flutter_list/util/util.dart';
+import 'package:flutter_list/widgets/arc_banner_image.dart';
+import 'package:flutter_list/widgets/backdrop_image.dart';
+import 'package:flutter_list/widgets/category_chips.dart';
 import 'package:flutter_list/widgets/movie_list.dart';
 import 'package:flutter_list/widgets/rating_information.dart';
 import 'package:flutter_list/widgets/side_menu.dart';
@@ -199,7 +202,7 @@ class HomePageState extends State<HomePage> {
 
 class CardControllWidget extends StatelessWidget {
   var currentPage;
-  var padding = 20.0;
+  var padding = 10.0;
   var verticalInset = 10.0;
   final List<Movie> movieDataList;
 
@@ -243,6 +246,7 @@ class CardControllWidget extends StatelessWidget {
               child: Hero(
                 tag: HeroID.make(movieDataList[i].id, 'box_office'),
                 child: Container(
+                  margin: EdgeInsets.only(top: 60),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: [
@@ -335,7 +339,15 @@ class MovieCoverFlowState extends State<MovieCoverFlow> {
           children: <Widget>[
             Stack(
               children: <Widget>[
-                CardControllWidget(currentPage, movies),
+                AnimatedOpacity(
+                    opacity: _visible ? 1.0 : 0.0,
+                    duration: Duration(milliseconds: 250),
+                    child: Hero(
+                      tag: HeroID.make(movies[_pageIndex].id, 'backdrop'),
+                        child: BackDropImage(movies[_pageIndex].backDropUrl))),
+                Container(
+                    padding: EdgeInsets.only(top: 35),
+                    child: CardControllWidget(currentPage, movies)),
                 Positioned.fill(
                   child: PageView.builder(
                     itemCount: movies.length,
@@ -360,7 +372,15 @@ class MovieCoverFlowState extends State<MovieCoverFlow> {
                         '${movies[_pageIndex].title}',
                         style: Theme.of(context).textTheme.title,
                       ),
-                      RatingInformation(movies[_pageIndex], true)
+                      RatingInformation(movies[_pageIndex], true),
+                      FutureBuilder(
+                          future: MovieDBApi.getGenres(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return CategoryChips(
+                                  movies[_pageIndex].genre_ids, snapshot.data);
+                            }
+                          })
                     ],
                   )),
             ),
