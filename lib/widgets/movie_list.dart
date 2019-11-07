@@ -306,7 +306,7 @@ class MovieCoverFlowState extends State<MovieCoverFlow> {
 class CardControllWidget extends StatelessWidget {
   var currentPage;
   final padding = 10.0;
-  final verticalInset = 10.0;
+  final verticalInset = 40.0;
   final List<Movie> movieDataList;
 
   final cardAspectRatio  = 12.0 / 16.0;
