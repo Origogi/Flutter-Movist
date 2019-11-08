@@ -3,7 +3,7 @@ import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/widgets/movie_list.dart';
 
 class MovieSearchPage extends SearchDelegate<String> {
-
+  var result;
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -45,12 +45,18 @@ class MovieSearchPage extends SearchDelegate<String> {
   Widget buildResults(BuildContext context) {
     ThemeData themeData = Theme.of(context);
 
+    if (result != null && result.isNotEmpty) {
+      return VerticalMovieList(result, 'search');
+    }
+
     return Container(
         child: FutureBuilder(
       future: MovieDBApi.searchMovies(query),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           List movies = snapshot.data;
+
+          result = movies;
 
           if (movies == null || movies.isEmpty) {
             return Center(
@@ -68,7 +74,6 @@ class MovieSearchPage extends SearchDelegate<String> {
               ],
             ));
           }
-
           return VerticalMovieList(snapshot.data, 'search');
         } else {
           return Center(child: CircularProgressIndicator());
