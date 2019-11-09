@@ -100,7 +100,11 @@ class MovieDetailsPage extends StatelessWidget {
                           future: MovieDBApi.getCasts(movie.id),
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-                              return CrewList(crews: snapshot.data.crews);
+
+                              List<Crew> crews = snapshot.data.crews;
+
+                              crews = crews.where((crew) => crew.job == 'Director').toList();
+                              return CrewList(crews:crews);
                             } else {
                               return Container(
                                   height: 150,

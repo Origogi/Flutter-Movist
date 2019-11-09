@@ -16,7 +16,7 @@ class CrewList extends StatelessWidget {
       child: ListView.builder(
         padding: EdgeInsets.symmetric(horizontal: 10),
         scrollDirection: Axis.horizontal,
-        itemCount: 1,
+        itemCount: crews.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {

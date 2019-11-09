@@ -19,7 +19,13 @@ class MoviesListPage extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
+          
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icons.,
+          )
+        ],
       ),
       body: Container(
         child: FutureBuilder(
