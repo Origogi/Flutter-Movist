@@ -22,9 +22,7 @@ class MoviesListPage extends StatelessWidget {
           
         ),
         actions: <Widget>[
-          IconButton(
-            icon: Icons.,
-          )
+       
         ],
       ),
       body: Container(
