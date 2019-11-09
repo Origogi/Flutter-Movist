@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_list/network/data.dart';
+import 'package:flutter_list/model/models.dart';
 
 class StoryLine extends StatelessWidget {
   final Movie movie;

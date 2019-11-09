@@ -1,6 +1,7 @@
-import 'data.dart';
 
- class CacheData {
+ import 'package:flutter_list/model/models.dart';
+
+class CacheData {
 
   static Map<int, Movie> movieCache = {};
   static Map<int, String> genreCache = {};

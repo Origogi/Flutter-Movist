@@ -1,15 +1,15 @@
 import 'dart:convert';
 
+import 'package:flutter_list/model/models.dart';
 import 'package:flutter_list/network/cache.dart';
-import 'package:flutter_list/network/data.dart';
 import 'package:http/http.dart' as http;
 
 class MovieDBApi {
   static final _KEY = '2bafb8eb9137df7d37ed1fe043ad7596';
 
-
-  static String moviesForGenreURL(int genreId, int page) {
-    return 'https://api.themoviedb.org/3/discover/movie?api_key=$_KEY'
+  static String moviesForGenreUrl(int genreId, int page) {
+    return 'https://api.themoviedb.org/3/discover/movie'
+        '?api_key=$_KEY'
         '&language=ko-KR'
         '&sort_by=popularity.desc'
         '&page=$page'
@@ -18,8 +18,9 @@ class MovieDBApi {
 
   static String movieDetailsUrl(int movieId) {
     return 'https://api.themoviedb.org/3/movie/'
+        '?api_key=$_KEY'
         '$movieId'
-        '?api_key=$_KEY&append_to_response=credits,'
+        '&append_to_response=credits,'
         'images'
         '&language=ko-KR';
   }
@@ -91,13 +92,13 @@ class MovieDBApi {
 
   static Future<List<Movie>> getRelatedGenreMovies(int id) async {
     http.Response response =
-        await http.get(Uri.encodeFull(moviesForGenreURL(id, 1)), headers: {
+        await http.get(Uri.encodeFull(moviesForGenreUrl(id, 1)), headers: {
       "Content-type": "application/json",
     });
     Map responseMap = jsonDecode(response.body);
-    var apiResponse = MovieDBApiResponse.fromJson(responseMap);
+    var apiResponse = MovieResult.fromJson(responseMap);
 
-    return apiResponse.results;
+    return apiResponse.movies;
   }
 
   static Future<List<Movie>> getPlayNow() async {
@@ -105,21 +106,24 @@ class MovieDBApi {
         await http.get(Uri.encodeFull(moviePlayNowUrl()), headers: {
       "Content-type": "application/json",
     });
-    Map responseMap = jsonDecode(response.body);
-    var apiResponse = MovieDBApiResponse.fromJson(responseMap);
+    print(response.statusCode);
 
-    return apiResponse.results;
+    Map responseMap = jsonDecode(response.body);
+
+    var apiResponse = MovieResult.fromJson(responseMap);
+
+    return apiResponse.movies;
   }
 
-    static Future<List<Movie>> getTopRate() async {
+  static Future<List<Movie>> getTopRate() async {
     http.Response response =
         await http.get(Uri.encodeFull(popularUrl()), headers: {
       "Content-type": "application/json",
     });
     Map responseMap = jsonDecode(response.body);
-    var apiResponse = MovieDBApiResponse.fromJson(responseMap);
+    var apiResponse = MovieResult.fromJson(responseMap);
 
-    return apiResponse.results;
+    return apiResponse.movies;
   }
 
   static Future<List<Movie>> searchMovies(String query) async {
@@ -131,9 +135,9 @@ class MovieDBApi {
 
     print('hello :' + response.statusCode.toString());
     Map responseMap = jsonDecode(response.body);
-    var apiResponse = MovieDBApiResponse.fromJson(responseMap);
+    var apiResponse = MovieResult.fromJson(responseMap);
 
-    return apiResponse.results;
+    return apiResponse.movies;
   }
 
   static Future<Map<int, String>> getGenres() async {

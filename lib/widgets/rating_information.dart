@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_list/network/data.dart';
+import 'package:flutter_list/model/models.dart';
 
 class RatingInformation extends StatelessWidget {
   final Movie movie;
@@ -13,7 +13,7 @@ class RatingInformation extends StatelessWidget {
     var textTheme = theme.textTheme;
 
     var numberricRating =
-        Text(movie.vote_average.toString(), style: textTheme.body1);
+        Text(movie.voteAverage.toString(), style: textTheme.body1);
 
     var starRating = Icon(
       Icons.star,

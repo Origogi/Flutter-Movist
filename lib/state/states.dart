@@ -1,23 +1,21 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_list/constant/constant.dart';
-import 'package:flutter_list/network/api.dart';
-import 'package:flutter_list/network/data.dart';
+import 'package:flutter_list/model/models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoriteState extends ChangeNotifier {
-  Map<String, Movie> _movieMap = {};
+  List<Movie> _movies = [];
   bool isLoaded = false;
 
   FavoriteState() {
-    readPreference().then((List<int> ids) {
-      if (ids.isNotEmpty) {
-        MovieDBApi.getDetailMovies(ids).then((List<Movie> movies) {
-          movies.forEach((movie) {
-            _movieMap[movie.id.toString()] = movie;
-            isLoaded = true;
-            notifyListeners();
-          });
-        });
+    readPreference().then((List<Movie> movies) {
+      if (movies.isNotEmpty) {
+        _movies = movies;
+        isLoaded = true;
+
+        notifyListeners();
       } else {
         isLoaded = true;
         notifyListeners();
@@ -25,31 +23,31 @@ class FavoriteState extends ChangeNotifier {
     });
   }
 
-  Future<List<int>> readPreference() async {
+  Future<List<Movie>> readPreference() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    if (prefs.containsKey('ids')) {
-      List<int> ids = prefs.getStringList('ids').map(int.parse).toList();
-      return ids;
+    if (prefs.containsKey('favorite')) {
+      var moviesJson = jsonDecode(prefs.getString('favorite'));
+      return MovieResult.fromJson(moviesJson).movies;
     } else {
       return [];
     }
   }
 
-  Future<void> writePreference(List<String> ids) async {
-    print('write preference : ' + ids.toString());
+  Future<void> writePreference(List<Movie> movies) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setStringList('ids', ids);
+
+    String moviesJson = jsonEncode(MovieResult(movies));
+
+    prefs.setString('favorite', moviesJson);
   }
 
-  void addMovie(int id, Movie movie) {
-    print('add id : $id');
+  void addMovie(Movie movie) {
+    _movies.add(movie);
 
-    _movieMap[id.toString()] = movie;
+    print(_movies.length);
 
-    print(_movieMap.length);
-
-    writePreference(_movieMap.keys.toList()).then((_) {
+    writePreference(_movies).then((_) {
       notifyListeners();
     });
   }
@@ -57,25 +55,40 @@ class FavoriteState extends ChangeNotifier {
   void removeMovie(int id) {
     print('remove id : $id');
 
-    _movieMap.remove(id.toString());
+    Movie target;
 
-    print(_movieMap.length);
+    for (Movie movie in _movies) {
+      if (movie.id == id) {
+        target = movie;
+      }
+    }
 
-    writePreference(_movieMap.keys.toList()).then((_) {
-      notifyListeners();
-    });
+    if (target != null) {
+      _movies.remove(target);
+
+      writePreference(_movies).then((_) {
+        notifyListeners();
+      });
+    }
   }
 
   List<Movie> getMovies() {
-    return _movieMap.values.toList();
+    print(_movies.length);
+    return _movies;
   }
 
   bool containMovie(int id) {
-    return _movieMap[id.toString()] != null;
+    for (Movie movie in _movies) {
+      if (movie.id == id) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   bool isEmpty() {
-    return _movieMap.isEmpty;
+    return _movies.isEmpty;
   }
 }
 

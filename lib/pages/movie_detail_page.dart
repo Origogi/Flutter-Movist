@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_list/model/models.dart';
 import 'package:flutter_list/network/api.dart';
-import 'package:flutter_list/network/data.dart';
 import 'package:flutter_list/state/states.dart';
 import 'package:flutter_list/util/util.dart';
 import 'package:flutter_list/widgets/arc_banner_image.dart';
@@ -56,7 +56,7 @@ class MovieDetailsPage extends StatelessWidget {
                             state.removeMovie(movie.id);
                             content = Text("'나의 즐겨찾기'에서 삭제 되었습니다.");
                           } else {
-                            state.addMovie(movie.id, movie);
+                            state.addMovie(movie);
                             content = Text("'나의 즐겨찾기'에 추가 되었습니다.");
                           }
 
@@ -116,7 +116,7 @@ class MovieDetailHeader extends StatelessWidget {
           height: 5.0,
         ),
         Row(
-          children: <Widget>[Text('개봉 날짜 : '), Text(movie.release_date)],
+          children: <Widget>[Text('개봉 날짜 : '), Text(movie.releaseDate)],
         ),
         SizedBox(height: 5.0),
         FutureBuilder(
@@ -124,12 +124,12 @@ class MovieDetailHeader extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 Map<int, String> genresMap = snapshot.data;
-                print(movie.genre_ids.toString());
+                print(movie.genreIDs.toString());
 
                 List<int> movieRelatedGenres = [];
 
-                if (movie.genre_ids != null) {
-                  movieRelatedGenres = movie.genre_ids;
+                if (movie.genreIDs != null) {
+                  movieRelatedGenres = movie.genreIDs;
                 } else {
                   movieRelatedGenres =
                       movie.genres.map((genre) => genre.id).toList();

@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_list/model/models.dart';
 import 'package:flutter_list/network/api.dart';
-import 'package:flutter_list/network/data.dart';
 import 'package:flutter_list/pages/movie_detail_page.dart';
 import 'package:flutter_list/util/util.dart';
 import 'package:flutter_list/widgets/rating_information.dart';
@@ -144,7 +144,7 @@ class VerticalMovieList extends StatelessWidget {
                                     style: Theme.of(context).textTheme.body1,
                                   ),
                                   Text(
-                                    movies[index].release_date,
+                                    movies[index].releaseDate,
                                     style: Theme.of(context).textTheme.body1,
                                   )
                                 ],
@@ -287,7 +287,7 @@ class MovieCoverFlowState extends State<MovieCoverFlow> {
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               return CategoryChips(
-                                  movies[_pageIndex].genre_ids, snapshot.data);
+                                  movies[_pageIndex].genreIDs, snapshot.data);
                             }
                             else {
                               return Container();
