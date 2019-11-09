@@ -25,6 +25,13 @@ class MovieDBApi {
         '&language=ko-KR';
   }
 
+  static String creditsUrl(int id) {
+    return 'https://api.themoviedb.org/3/movie/$id/credits'
+        '?api_key=$_KEY'
+        '&language=ko-KR'
+        '&page=1/';
+  }
+
   static String moviePlayNowUrl() {
     return 'https://api.themoviedb.org/3/movie/now_playing'
         '?api_key=$_KEY'
@@ -158,5 +165,19 @@ class MovieDBApi {
     CacheData.setGanreCache(apiResponse.genresMap);
 
     return apiResponse.genresMap;
+  }
+
+  static Future<CreaditResult> getCasts(int movieID) async {
+    http.Response response =
+        await http.get(Uri.encodeFull(creditsUrl(movieID)), headers: {
+      "Content-type": "application/json",
+    });
+    print('cast  : ' + response.statusCode.toString());
+
+    Map responseMap = jsonDecode(response.body);
+
+    var apiResponse = CreaditResult.fromJson(responseMap);
+
+    return apiResponse;
   }
 }

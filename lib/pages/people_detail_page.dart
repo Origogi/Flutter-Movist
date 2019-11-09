@@ -6,7 +6,6 @@ import 'package:flutter_list/util/util.dart';
 import 'package:flutter_list/widgets/arc_banner_image.dart';
 import 'package:flutter_list/widgets/cast_list.dart';
 import 'package:flutter_list/widgets/category_chips.dart';
-import 'package:flutter_list/widgets/crew_list.dart';
 import 'package:flutter_list/widgets/poster.dart';
 import 'package:flutter_list/widgets/rating_information.dart';
 
@@ -89,37 +88,21 @@ class MovieDetailsPage extends StatelessWidget {
                       SizedBox(
                         height: 15,
                       ),
-                      Text(
-                        '감독',
-                        style: Theme.of(context).textTheme.subhead,
-                      ),
-                      SizedBox(
+                      Text('배우', style: Theme.of(context).textTheme.subhead,),
+                                       SizedBox(
                         height: 5,
                       ),
                       FutureBuilder(
                           future: MovieDBApi.getCasts(movie.id),
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-                              return CrewList(crews: snapshot.data.crews);
-                            } else {
-                              return Container(
-                                  height: 150,
-                                  child: Center(
-                                      child: CircularProgressIndicator()));
-                            }
-                          }),
-                      Text(
-                        '배우',
-                        style: Theme.of(context).textTheme.subhead,
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      FutureBuilder(
-                          future: MovieDBApi.getCasts(movie.id),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return CastList(casts: snapshot.data.casts);
+
+                              List<Crew> crews = snapshot.data;
+                              crews = crews.where((crew){
+                                return crew.job == 'Director';
+                              }).toList();
+
+                              return CastList(casts : snapshot.data);
                             } else {
                               return Container(
                                   height: 150,

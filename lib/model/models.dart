@@ -9,16 +9,12 @@ class MovieResult {
   @JsonKey(name: 'results')
   List<Movie> movies;
 
-  // @JsonKey(name: 'cast')
-  // List<Cast> casts;
-
   MovieResult(this.movies);
 
   factory MovieResult.fromJson(Map<String, dynamic> json) =>
       _$MovieResultFromJson(json);
 
-  Map<String, dynamic> toJson() => _$MovieResultToJson(this); 
-
+  Map<String, dynamic> toJson() => _$MovieResultToJson(this);
 }
 
 @JsonSerializable()
@@ -78,7 +74,7 @@ class Movie {
 
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
 
-  Map<String, dynamic> toJson() => _$MovieToJson(this); 
+  Map<String, dynamic> toJson() => _$MovieToJson(this);
 
   @override
   String toString() {
@@ -104,8 +100,6 @@ class GenresApiResponse {
 
   factory GenresApiResponse.fromJson(Map<String, dynamic> json) =>
       _$GenresApiResponseFromJson(json);
-
-
 }
 
 @JsonSerializable()
@@ -131,6 +125,27 @@ class Genre {
 //       "name": "Edward Norton",
 //       "order": 0,
 //       "profile_path":
+
+@JsonSerializable()
+class CreaditResult {
+  @JsonKey(name: 'cast')
+  List<Cast> casts;
+
+  @JsonKey(name: 'crew')
+  List<Crew> crews;
+
+  // @JsonKey(name: 'cast')
+  // List<Cast> casts;
+
+  CreaditResult(this.casts);
+
+  factory CreaditResult.fromJson(Map<String, dynamic> json) =>
+      _$CreaditResultFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CreaditResultToJson(this);
+}
+
+
 @JsonSerializable()
 class Cast {
   @JsonKey(name: 'cast_id')
@@ -144,6 +159,16 @@ class Cast {
   @JsonKey(name: 'profile_path')
   final profilePath;
 
+  static final URL = "https://image.tmdb.org/t/p/w500";
+
+  String get profileUrl {
+    if (profilePath == null) {
+      return '';
+    }
+
+    return URL + profilePath;
+  }
+
   Cast(
       {this.castID,
       this.character,
@@ -154,4 +179,41 @@ class Cast {
       this.profilePath});
 
   factory Cast.fromJson(Map<String, dynamic> json) => _$CastFromJson(json);
+}
+
+//  "credit_id": "52fe4250c3a36847f8014a47",
+//       "department": "Directing",
+//       "gender": 2,
+//       "id": 7467,
+//       "job": "Director",
+//       "name": "David Fincher",
+//       "profile_path": "/dcBHejOsKvzVZVozWJAPzYthb8X.jpg"
+@JsonSerializable()
+class Crew {
+  @JsonKey(name: 'credit_id')
+  final creditID;
+
+  final department;
+  final gender;
+  final id;
+  final job;
+  final name;
+
+  @JsonKey(name: 'profile_path')
+  final profilePath;
+
+  static final URL = "https://image.tmdb.org/t/p/w500";
+
+  String get profileUrl {
+    if (profilePath == null) {
+      return '';
+    }
+
+    return URL + profilePath;
+  }
+
+  Crew(this.creditID, this.department, this.gender, this.id, this.job,
+      this.name, this.profilePath);
+
+  factory Crew.fromJson(Map<String, dynamic> json) => _$CrewFromJson(json);
 }

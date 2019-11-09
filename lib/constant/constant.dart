@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 
 final String fontFamilty = 'goyang-R';
 
-
 final Color darkColor = Color(0xFF2d3447);
 final Color purpleColor = Colors.blue[300];
 final Color amoledColor = Colors.black;
 
 final List<String> themes = ['Light', 'Dark', 'Amoled'];
-
 
 final ThemeData kDarkTheme = _buildDarkTheme();
 
@@ -25,16 +23,21 @@ ThemeData _buildDarkTheme() {
         fontWeight: FontWeight.bold,
         color: Colors.white,
         fontSize: 20),
+    subhead: TextStyle(
+        fontFamily: fontFamilty,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+        fontSize: 18),
     body1: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.bold,
         color: Colors.white,
-        fontSize: 16),
+        fontSize: 14),
     body2: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.normal,
         color: Colors.white,
-        fontSize: 14),
+        fontSize: 12),
     caption: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.bold,
@@ -55,13 +58,10 @@ ThemeData _buildDarkTheme() {
       appBarTheme: AppBarTheme(
           textTheme: textTheme,
           color: darkColor,
-          
           iconTheme: IconThemeData(color: Colors.white)),
       textTheme: textTheme,
-      
       iconTheme: IconThemeData(color: Colors.white));
 }
-
 
 final ThemeData kAmoledTheme = _buildAmoledTheme();
 
@@ -78,16 +78,21 @@ ThemeData _buildAmoledTheme() {
         fontWeight: FontWeight.bold,
         color: Colors.white,
         fontSize: 20),
+    subhead: TextStyle(
+        fontFamily: fontFamilty,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+        fontSize: 18),
     body1: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.bold,
         color: Colors.white,
-        fontSize: 16),
+        fontSize: 14),
     body2: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.normal,
         color: Colors.white,
-        fontSize: 14),
+        fontSize: 12),
     caption: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.bold,
@@ -113,7 +118,6 @@ ThemeData _buildAmoledTheme() {
       iconTheme: IconThemeData(color: Colors.white));
 }
 
-
 final ThemeData kLightTheme = _buildLightTheme();
 
 ThemeData _buildLightTheme() {
@@ -130,16 +134,21 @@ ThemeData _buildLightTheme() {
         fontWeight: FontWeight.bold,
         color: Colors.black,
         fontSize: 20),
+    subhead: TextStyle(
+        fontFamily: fontFamilty,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+        fontSize: 18),
     body1: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.bold,
         color: Colors.black,
-        fontSize: 16),
+        fontSize: 14),
     body2: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.normal,
         color: Colors.black,
-        fontSize: 14),
+        fontSize: 12),
     caption: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.bold,

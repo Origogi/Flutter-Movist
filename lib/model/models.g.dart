@@ -61,6 +61,19 @@ Genre _$GenreFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$GenreToJson(Genre instance) =>
     <String, dynamic>{'id': instance.id, 'name': instance.name};
 
+CreaditResult _$CreaditResultFromJson(Map<String, dynamic> json) {
+  return CreaditResult((json['cast'] as List)
+      ?.map((e) => e == null ? null : Cast.fromJson(e as Map<String, dynamic>))
+      ?.toList())
+    ..crews = (json['crew'] as List)
+        ?.map(
+            (e) => e == null ? null : Crew.fromJson(e as Map<String, dynamic>))
+        ?.toList();
+}
+
+Map<String, dynamic> _$CreaditResultToJson(CreaditResult instance) =>
+    <String, dynamic>{'cast': instance.casts, 'crew': instance.crews};
+
 Cast _$CastFromJson(Map<String, dynamic> json) {
   return Cast(
       castID: json['cast_id'],
@@ -79,5 +92,20 @@ Map<String, dynamic> _$CastToJson(Cast instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'order': instance.order,
+      'profile_path': instance.profilePath
+    };
+
+Crew _$CrewFromJson(Map<String, dynamic> json) {
+  return Crew(json['credit_id'], json['department'], json['gender'], json['id'],
+      json['job'], json['name'], json['profile_path']);
+}
+
+Map<String, dynamic> _$CrewToJson(Crew instance) => <String, dynamic>{
+      'credit_id': instance.creditID,
+      'department': instance.department,
+      'gender': instance.gender,
+      'id': instance.id,
+      'job': instance.job,
+      'name': instance.name,
       'profile_path': instance.profilePath
     };
