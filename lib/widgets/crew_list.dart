@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_list/model/models.dart';
+import 'package:flutter_list/pages/profile_page.dart';
+import 'package:flutter_list/util/util.dart';
 
 class CrewList extends StatelessWidget {
   final List<Crew> crews;
@@ -21,11 +23,14 @@ class CrewList extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               print(index);
-              // Navigator.push(context, MaterialPageRoute(builder: (context) {
-              //   C movie = casts[index];
-              //   return MovieDetailsPage(
-              //       movie: movie, heroID: HeroID.make(movie.id, name));
-              // }));
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                Crew crew = crews[index];
+                return ProfilePage(
+                    id: crew.id,
+                    name: crew.name,
+                    imageUrl: crew.profileUrl,
+                    heroID: HeroID.make(crew.id, 'crew'));
+              }));
             },
             child: Container(
               width: _imageHeight * 0.85,
@@ -34,7 +39,9 @@ class CrewList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                Container(
+                  Hero(
+                    tag: HeroID.make(crews[index].id, 'crew'),
+                    child: Container(
                         margin:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         width: _imageHeight * 0.7,
@@ -55,12 +62,10 @@ class CrewList extends StatelessWidget {
                               placeholder:
                                   AssetImage('assets/images/loading.gif'),
                             ))),
-                  
+                  ),
                   Text(crews[index].name,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.body1),
-
-                  
                 ],
               ),
             ),

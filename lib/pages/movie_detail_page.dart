@@ -13,13 +13,35 @@ import 'package:flutter_list/widgets/rating_information.dart';
 import 'package:flutter_list/widgets/story_line.dart';
 import 'package:provider/provider.dart';
 
-class MovieDetailsPage extends StatelessWidget {
+class MovieDetailsPage extends StatefulWidget {
+  final Movie movie;
+  final String heroID;
+  MovieDetailsPage({this.movie, this.heroID});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _MovieDetailsPageState(movie: movie, heroID: heroID);
+  }
+}
+
+class _MovieDetailsPageState extends State<MovieDetailsPage> {
   final Movie movie;
   final String heroID;
 
-  MovieDetailsPage({this.movie, this.heroID}) {
+  Future<CreaditResult> creditResultFuture;
+  Future<Map<int, String>> genresMapFuture;
+
+  _MovieDetailsPageState({this.movie, this.heroID}) {
     print(movie.title);
   }
+
+  @override
+  void initState() {
+    super.initState();
+    creditResultFuture = MovieDBApi.getCasts(movie.id);
+    genresMapFuture = MovieDBApi.getGenres();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +49,7 @@ class MovieDetailsPage extends StatelessWidget {
         children: <Widget>[
           Stack(
             children: <Widget>[
-              MovieDetailHeader(movie, heroID),
+              MovieDetailHeaderWidget(movie: movie, heroID: heroID),
               Padding(
                 padding: const EdgeInsets.only(top: 25, left: 5, right: 5),
                 child: Row(
@@ -81,7 +103,8 @@ class MovieDetailsPage extends StatelessWidget {
             child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.only(
+                      top: 10, left: 20, right: 20, bottom: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -97,7 +120,7 @@ class MovieDetailsPage extends StatelessWidget {
                         height: 5,
                       ),
                       FutureBuilder(
-                          future: MovieDBApi.getCasts(movie.id),
+                          future: creditResultFuture,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               List<Crew> crews = snapshot.data.crews;
@@ -121,7 +144,7 @@ class MovieDetailsPage extends StatelessWidget {
                         height: 5,
                       ),
                       FutureBuilder(
-                          future: MovieDBApi.getCasts(movie.id),
+                          future: creditResultFuture,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               return CastList(casts: snapshot.data.casts);
@@ -142,11 +165,29 @@ class MovieDetailsPage extends StatelessWidget {
   }
 }
 
-class MovieDetailHeader extends StatelessWidget {
+class MovieDetailHeaderWidget extends StatefulWidget {
   final Movie movie;
   final String heroID;
 
-  MovieDetailHeader(this.movie, this.heroID);
+  MovieDetailHeaderWidget({this.movie, this.heroID});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _MovieDetailHeaderState(movie: movie, heroID: heroID);
+  }
+}
+
+class _MovieDetailHeaderState extends State<MovieDetailHeaderWidget> {
+  final Movie movie;
+  final String heroID;
+
+  Future<Map<int, String>> genresMapFuture;
+  _MovieDetailHeaderState({this.movie, this.heroID});
+
+  void initState() {
+    super.initState();
+    genresMapFuture = MovieDBApi.getGenres();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +219,7 @@ class MovieDetailHeader extends StatelessWidget {
         ),
         SizedBox(height: 5.0),
         FutureBuilder(
-            future: MovieDBApi.getGenres(),
+            future: genresMapFuture,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 Map<int, String> genresMap = snapshot.data;

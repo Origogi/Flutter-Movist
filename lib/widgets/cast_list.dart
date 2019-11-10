@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_list/model/models.dart';
-import 'package:flutter_list/pages/person_detail_page.dart';
+import 'package:flutter_list/pages/profile_page.dart';
 import 'package:flutter_list/util/util.dart';
 
 class CastList extends StatelessWidget {
@@ -26,7 +26,10 @@ class CastList extends StatelessWidget {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 final cast = casts[index];
                 return ProfilePage(
-                    cast.id, cast.name, cast.profileUrl, HeroID.make(casts[index].id, 'cast'));
+                    id: cast.id,
+                    name: cast.name,
+                    imageUrl: cast.profileUrl,
+                    heroID: HeroID.make(casts[index].id, 'cast'));
               }));
             },
             child: Container(

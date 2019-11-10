@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_list/model/models.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/pages/movies_list_page.dart';
 import 'package:flutter_list/state/states.dart';
@@ -17,9 +17,14 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  Future<List<Movie>> playNowMoviesFuture;
+  Future<List<Movie>> popularMoviesFuture;
+
   @override
   void initState() {
     super.initState();
+    playNowMoviesFuture = MovieDBApi.getPlayNow();
+    popularMoviesFuture = MovieDBApi.getTopRate();
   }
 
   @override
@@ -76,7 +81,7 @@ class HomePageState extends State<HomePage> {
               ),
             ),
             FutureBuilder(
-              future: MovieDBApi.getTopRate(),
+              future: popularMoviesFuture,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return MovieCoverFlow(snapshot.data.reversed.toList());
@@ -115,7 +120,7 @@ class HomePageState extends State<HomePage> {
               ),
             ),
             FutureBuilder(
-                future: MovieDBApi.getPlayNow(),
+                future: playNowMoviesFuture,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return new HorizontalMovieList(
@@ -188,5 +193,3 @@ class HomePageState extends State<HomePage> {
     return t;
   }
 }
-
-

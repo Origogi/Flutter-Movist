@@ -32,14 +32,17 @@ Provider
     - [x] Provider 모델
     - [x] System Property 이용
 - [x] Category 구현
-- [ ] 애니메이션
+- [x] 애니메이션
     - [x] Hero
-    - [ ] ListAnimation
-- [ ] 메인 화면 완성
-    - [ ] Top Rating List 추가
-- [ ] Movie Detail 화면 완성
-    - [ ] Actor 정보 List 추가
-- [ ] Actor detail view 추가
+- [x] 메인 화면 완성
+    - [x] Top Rating List 추가
+- [x] Movie Detail 화면 완성
+    - [x] Cast 정보 List 추가
+    - [x] Crew 정보 List 추가
+- [x] People detail view 추가
+
+## 6. Bug
+- FutureBuilder가 Navigation pop 될 때마다 수행 되는 문제
 
 ### Commit Note
 
@@ -50,3 +53,5 @@ Provider
 - 10/18 Theme 변경 기능 구현
 - 10/31 검색 기능 구현
 - 11/2 Preference 구현
+- 11/10 People detail view 추가
+

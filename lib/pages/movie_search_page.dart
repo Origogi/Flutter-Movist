@@ -50,7 +50,7 @@ class MovieSearchPage extends SearchDelegate<String> {
     }
 
     return Container(
-        child: FutureBuilder(
+      child: FutureBuilder(
       future: MovieDBApi.searchMovies(query),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
@@ -87,7 +87,7 @@ class MovieSearchPage extends SearchDelegate<String> {
     ThemeData themeData = Theme.of(context);
 
     result = null;
-    
+
     return Container(
       color: themeData.backgroundColor,
       child: Center(

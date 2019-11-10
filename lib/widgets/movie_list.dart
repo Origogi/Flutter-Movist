@@ -212,10 +212,16 @@ class MovieCoverFlowState extends State<MovieCoverFlow> {
   double currentPage;
   var _visible = true;
   int _pageIndex = 0;
+  Future<Map<int, String>> genresMapFuture;
 
   MovieCoverFlowState({this.movies}) {
     currentPage = movies.length - 1.0;
     _pageIndex = currentPage.toInt();
+  }
+
+  void initState() {
+    super.initState();
+    genresMapFuture = MovieDBApi.getGenres();
   }
 
   @override
@@ -283,15 +289,13 @@ class MovieCoverFlowState extends State<MovieCoverFlow> {
                       ),
                       RatingInformation(movies[_pageIndex], true),
                       FutureBuilder(
-                          future: MovieDBApi.getGenres(),
+                          future: genresMapFuture,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               return CategoryChips(
                                   movies[_pageIndex].genreIDs, snapshot.data);
-                            }
-                            else {
+                            } else {
                               return Container();
-
                             }
                           })
                     ],
@@ -302,14 +306,13 @@ class MovieCoverFlowState extends State<MovieCoverFlow> {
   }
 }
 
-
 class CardControllWidget extends StatelessWidget {
   var currentPage;
   final padding = 10.0;
   final verticalInset = 40.0;
   final List<Movie> movieDataList;
 
-  final cardAspectRatio  = 12.0 / 16.0;
+  final cardAspectRatio = 12.0 / 16.0;
   double widgetAspectRatio;
 
   CardControllWidget(this.currentPage, this.movieDataList) {
@@ -393,4 +396,3 @@ class CardControllWidget extends StatelessWidget {
     );
   }
 }
-
