@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_list/model/models.dart';
 import 'package:flutter_list/network/api.dart';
+import 'package:flutter_list/widgets/back_button.dart';
 import 'package:flutter_list/widgets/movie_list.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -15,7 +16,8 @@ class ProfilePage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _ProfilePageState(id : id, name : name, imageUrl: imageUrl, heroID: heroID );
+    return _ProfilePageState(
+        id: id, name: name, imageUrl: imageUrl, heroID: heroID);
   }
 }
 
@@ -26,12 +28,14 @@ class _ProfilePageState extends State<ProfilePage> {
   final String heroID;
 
   Future<Person> personFuture;
+  Future<List<Movie>> creditsMoviesFuture;
 
   _ProfilePageState({this.id, this.name, this.imageUrl, this.heroID});
 
   void initState() {
     super.initState();
     personFuture = MovieDBApi.getPerson(id);
+    creditsMoviesFuture = MovieDBApi.getMovieCredits(id);
   }
 
   @override
@@ -86,24 +90,36 @@ class _ProfilePageState extends State<ProfilePage> {
                                   child: Center(
                                       child: CircularProgressIndicator()));
                             }
-                          })
+                          }),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text('출연작', style: Theme.of(context).textTheme.title),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      FutureBuilder(
+                        future: creditsMoviesFuture,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return HorizontalMovieList(
+                                movies: snapshot.data,
+                                name: id.toString());
+                          } else {
+                            return Container(
+                                height: 100,
+                                child:
+                                    Center(child: CircularProgressIndicator()));
+                          }
+                        },
+                      )
                     ],
                   ),
                 )),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 5, top: 30),
-            child: IconButton(
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.white,
-                size: 30,
-              ),
-              onPressed: () {
-                print('11');
-                Navigator.pop(context);
-              },
-            ),
+            child: CustomBackButton()
           ),
         ],
       ),
@@ -120,22 +136,16 @@ class DetailProfileWidget extends StatefulWidget {
   State<StatefulWidget> createState() {
     return DetailProfileWidgetState(person);
   }
-
-
 }
 
 class DetailProfileWidgetState extends State<DetailProfileWidget> {
   final Person person;
-  Future<List<Movie>> creditsMoviesFuture;
-
 
   DetailProfileWidgetState(this.person);
 
-    void initState() {
+  void initState() {
     super.initState();
-    creditsMoviesFuture = MovieDBApi.getMovieCredits(person.id);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -161,26 +171,6 @@ class DetailProfileWidgetState extends State<DetailProfileWidget> {
             tapHeaderToExpand: true,
             hasIcon: true,
           ),
-          SizedBox(
-            height: 20,
-          ),
-          Text('출연작', style: theme.title),
-          SizedBox(
-            height: 20,
-          ),
-          FutureBuilder(
-            future: creditsMoviesFuture,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return HorizontalMovieList(
-                    movies: snapshot.data, name: person.id.toString());
-              } else {
-                return Container(
-                    height: 100,
-                    child: Center(child: CircularProgressIndicator()));
-              }
-            },
-          )
         ],
       ),
     );

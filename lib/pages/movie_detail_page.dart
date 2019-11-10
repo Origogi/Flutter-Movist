@@ -4,6 +4,7 @@ import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/state/states.dart';
 import 'package:flutter_list/util/util.dart';
 import 'package:flutter_list/widgets/arc_banner_image.dart';
+import 'package:flutter_list/widgets/back_button.dart';
 import 'package:flutter_list/widgets/cast_list.dart';
 import 'package:flutter_list/widgets/category_chips.dart';
 import 'package:flutter_list/widgets/crew_list.dart';
@@ -55,16 +56,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    IconButton(
-                      icon: Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
+                    CustomBackButton(),
                     Consumer<FavoriteState>(builder: (context, state, child) {
                       return IconButton(
                         icon: Icon(
