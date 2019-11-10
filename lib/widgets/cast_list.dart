@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_list/model/models.dart';
+import 'package:flutter_list/pages/person_detail_page.dart';
+import 'package:flutter_list/util/util.dart';
 
 class CastList extends StatelessWidget {
   final List<Cast> casts;
@@ -12,7 +14,7 @@ class CastList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: _imageHeight + 80,
+      height: _imageHeight + 90,
       child: ListView.builder(
         padding: EdgeInsets.symmetric(horizontal: 10),
         scrollDirection: Axis.horizontal,
@@ -21,11 +23,11 @@ class CastList extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               print(index);
-              // Navigator.push(context, MaterialPageRoute(builder: (context) {
-              //   C movie = casts[index];
-              //   return MovieDetailsPage(
-              //       movie: movie, heroID: HeroID.make(movie.id, name));
-              // }));
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                final cast = casts[index];
+                return ProfilePage(
+                    cast.id, cast.name, cast.profileUrl, HeroID.make(casts[index].id, 'cast'));
+              }));
             },
             child: Container(
               width: _imageHeight * 0.85,
@@ -34,27 +36,30 @@ class CastList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      width: _imageHeight * 0.7,
-                      height: _imageHeight,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black54,
-                                offset: Offset(0, 4),
-                                blurRadius: 6)
-                          ]),
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: FadeInImage(
-                            image: NetworkImage(casts[index].profileUrl),
-                            fit: BoxFit.cover,
-                            placeholder:
-                                AssetImage('assets/images/loading.gif'),
-                          ))),
+                  Hero(
+                    tag: HeroID.make(casts[index].id, 'cast'),
+                    child: Container(
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        width: _imageHeight * 0.7,
+                        height: _imageHeight,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black54,
+                                  offset: Offset(0, 4),
+                                  blurRadius: 6)
+                            ]),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: FadeInImage(
+                              image: NetworkImage(casts[index].profileUrl),
+                              fit: BoxFit.cover,
+                              placeholder:
+                                  AssetImage('assets/images/loading.gif'),
+                            ))),
+                  ),
                   Text(casts[index].name,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.body1),

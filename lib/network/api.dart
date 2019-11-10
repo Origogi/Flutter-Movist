@@ -59,6 +59,18 @@ class MovieDBApi {
         '&api_key=$_KEY';
   }
 
+  static String personDetailUrl(int id) {
+    return 'https://api.themoviedb.org/3/person/$id'
+        '?api_key=$_KEY';
+    // '&language=ko-KR';
+  }
+
+  static String movieCreaditsUrl(int id) {
+    return 'https://api.themoviedb.org/3/person/$id/movie_credits'
+        '?api_key=$_KEY'
+        '&language=ko-KR';
+  }
+
   static Future<Movie> getDetailMovie(int id) async {
     if (CacheData.getMovieCache(id) != null) {
       return CacheData.getMovieCache(id);
@@ -179,5 +191,35 @@ class MovieDBApi {
     var apiResponse = CreaditResult.fromJson(responseMap);
 
     return apiResponse;
+  }
+
+  static Future<Person> getPserson(int personID) async {
+    http.Response response =
+        await http.get(Uri.encodeFull(personDetailUrl(personID)), headers: {
+      "Content-type": "application/json",
+    });
+
+    print(response.body);
+
+    Map responseMap = jsonDecode(response.body);
+
+    var apiResponse = Person.fromJson(responseMap);
+
+    return apiResponse;
+  }
+
+  static Future<List<Movie>> getMovieCredits(int personID) async {
+    http.Response response =
+        await http.get(Uri.encodeFull(movieCreaditsUrl(personID)), headers: {
+      "Content-type": "application/json",
+    });
+
+    print(response.body);
+
+    Map responseMap = jsonDecode(response.body);
+
+    var apiResponse = MovieCredits.fromJson(responseMap);
+
+    return apiResponse.movies;
   }
 }

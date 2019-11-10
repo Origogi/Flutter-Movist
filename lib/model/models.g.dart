@@ -15,6 +15,15 @@ MovieResult _$MovieResultFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$MovieResultToJson(MovieResult instance) =>
     <String, dynamic>{'results': instance.movies};
 
+MovieCredits _$MovieCreditsFromJson(Map<String, dynamic> json) {
+  return MovieCredits((json['cast'] as List)
+      ?.map((e) => e == null ? null : Movie.fromJson(e as Map<String, dynamic>))
+      ?.toList());
+}
+
+Map<String, dynamic> _$MovieCreditsToJson(MovieCredits instance) =>
+    <String, dynamic>{'cast': instance.movies};
+
 Movie _$MovieFromJson(Map<String, dynamic> json) {
   return Movie(
       id: json['id'] as int,
@@ -108,4 +117,37 @@ Map<String, dynamic> _$CrewToJson(Crew instance) => <String, dynamic>{
       'job': instance.job,
       'name': instance.name,
       'profile_path': instance.profilePath
+    };
+
+Person _$PersonFromJson(Map<String, dynamic> json) {
+  return Person(
+      json['creditID'],
+      json['birthday'],
+      json['known_for_department'],
+      json['id'],
+      json['name'],
+      (json['also_known_as'] as List)?.map((e) => e as String)?.toList(),
+      json['gender'],
+      json['biography'],
+      json['popularity'],
+      json['place_of_birth'],
+      json['profile_path'],
+      json['imdb_id'],
+      json['homepage']);
+}
+
+Map<String, dynamic> _$PersonToJson(Person instance) => <String, dynamic>{
+      'creditID': instance.creditID,
+      'birthday': instance.birthday,
+      'known_for_department': instance.knownForDepartment,
+      'id': instance.id,
+      'name': instance.name,
+      'also_known_as': instance.alsoKnownAs,
+      'gender': instance.gender,
+      'biography': instance.biography,
+      'popularity': instance.popularity,
+      'place_of_birth': instance.placeOfBirth,
+      'profile_path': instance.profilePath,
+      'imdb_id': instance.imdbID,
+      'homepage': instance.homepage
     };

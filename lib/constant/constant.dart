@@ -32,12 +32,12 @@ ThemeData _buildDarkTheme() {
         fontFamily: fontFamilty,
         fontWeight: FontWeight.bold,
         color: Colors.white,
-        fontSize: 14),
+        fontSize: 16),
     body2: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.normal,
         color: Colors.white,
-        fontSize: 12),
+        fontSize: 14),
     caption: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.bold,
@@ -87,12 +87,12 @@ ThemeData _buildAmoledTheme() {
         fontFamily: fontFamilty,
         fontWeight: FontWeight.bold,
         color: Colors.white,
-        fontSize: 14),
+        fontSize: 16),
     body2: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.normal,
         color: Colors.white,
-        fontSize: 12),
+        fontSize: 14),
     caption: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.bold,
@@ -143,12 +143,12 @@ ThemeData _buildLightTheme() {
         fontFamily: fontFamilty,
         fontWeight: FontWeight.bold,
         color: Colors.black,
-        fontSize: 14),
+        fontSize: 16),
     body2: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.normal,
         color: Colors.black,
-        fontSize: 12),
+        fontSize: 14),
     caption: TextStyle(
         fontFamily: fontFamilty,
         fontWeight: FontWeight.bold,

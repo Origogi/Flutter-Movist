@@ -12,7 +12,7 @@ class CrewList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: _imageHeight + 60,
+      height: _imageHeight + 70,
       child: ListView.builder(
         padding: EdgeInsets.symmetric(horizontal: 10),
         scrollDirection: Axis.horizontal,

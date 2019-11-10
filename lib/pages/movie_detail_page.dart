@@ -100,11 +100,12 @@ class MovieDetailsPage extends StatelessWidget {
                           future: MovieDBApi.getCasts(movie.id),
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-
                               List<Crew> crews = snapshot.data.crews;
 
-                              crews = crews.where((crew) => crew.job == 'Director').toList();
-                              return CrewList(crews:crews);
+                              crews = crews
+                                  .where((crew) => crew.job == 'Director')
+                                  .toList();
+                              return CrewList(crews: crews);
                             } else {
                               return Container(
                                   height: 150,
@@ -113,7 +114,7 @@ class MovieDetailsPage extends StatelessWidget {
                             }
                           }),
                       Text(
-                        '배우',
+                        '주요 출연진',
                         style: Theme.of(context).textTheme.subhead,
                       ),
                       SizedBox(
@@ -167,7 +168,13 @@ class MovieDetailHeader extends StatelessWidget {
           height: 5.0,
         ),
         Row(
-          children: <Widget>[Text('개봉 날짜 : '), Text(movie.releaseDate)],
+          children: <Widget>[
+            Text(
+              '개봉 : ',
+              style: textTheme.body2,
+            ),
+            Text(movie.releaseDate, style: textTheme.body2)
+          ],
         ),
         SizedBox(height: 5.0),
         FutureBuilder(

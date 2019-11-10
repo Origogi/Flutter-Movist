@@ -140,12 +140,12 @@ class VerticalMovieList extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: <Widget>[
                                   Text(
-                                    '개봉 날짜 : ',
-                                    style: Theme.of(context).textTheme.body1,
+                                    '개봉 : ',
+                                    style: Theme.of(context).textTheme.body2,
                                   ),
                                   Text(
                                     movies[index].releaseDate,
-                                    style: Theme.of(context).textTheme.body1,
+                                    style: Theme.of(context).textTheme.body2,
                                   )
                                 ],
                               )
