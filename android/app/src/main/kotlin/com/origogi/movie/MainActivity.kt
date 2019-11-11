@@ -1,4 +1,4 @@
-package com.example.flutter_list
+package com.origogi.movie
 
 import android.os.Bundle
 
