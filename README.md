@@ -6,7 +6,7 @@ Google에서 새로 개발한 Cross Flatform인 Flutter를 이용하여 개발�
 
 | PlayStore | AppStore |
 |:--------:|:--------:|
-| <a href='https://play.google.com/store/apps/details?id=com.origogi.movie&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='다운로드하기 Google Play' src='https://play.google.com/intl/ko/badges/static/images/badges/ko_badge_web_generic.png' width="50%"/></a> |<img src ="https://developer.apple.com/assets/elements/icons/download-on-the-app-store/download-on-the-app-store.svg" width="90%">|
+| <a href='https://play.google.com/store/apps/details?id=com.origogi.movie&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='다운로드하기 Google Play' src='https://play.google.com/intl/ko/badges/static/images/badges/ko_badge_web_generic.png' width="100%"/></a> |<img src ="https://tascam.jp/content/images/universal/misc/logo_w_app_store.jpg" width="90%">|
 | 19.11.11 릴리즈 | 19.11.30 릴리즈 예정|
 
 
