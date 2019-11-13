@@ -71,3 +71,6 @@ Provider
 - 11/2 Preference 구현
 - 11/10 People detail view 추가
 
+## 9. 참고 소스
+
+https://github.com/bimsina/Matinee-Flutter
