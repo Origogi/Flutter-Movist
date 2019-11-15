@@ -46,112 +46,114 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              MovieDetailHeaderWidget(movie: movie, heroID: heroID),
-              Padding(
-                padding: const EdgeInsets.only(top: 25, left: 5, right: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    CustomBackButton(),
-                    Consumer<FavoriteState>(builder: (context, state, child) {
-                      return IconButton(
-                        icon: Icon(
-                          state.containMovie(movie.id)
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          color: Colors.red,
-                          size: 30,
-                        ),
-                        onPressed: () {
-                          var content;
-                          if (state.containMovie(movie.id)) {
-                            state.removeMovie(movie.id);
-                            content = Text("'나의 즐겨찾기'에서 삭제 되었습니다.");
-                          } else {
-                            state.addMovie(movie);
-                            content = Text("'나의 즐겨찾기'에 추가 되었습니다.");
-                          }
-
-                          Scaffold.of(context).showSnackBar(SnackBar(
-                            content: content,
-                            action: SnackBarAction(
-                              label: '확인',
-                              onPressed: () {},
-                            ),
-                          ));
-                        },
-                      );
-                    }),
-                  ],
-                ),
-              )
-            ],
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 10, left: 20, right: 20, bottom: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                MovieDetailHeaderWidget(movie: movie, heroID: heroID),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      StoryLine(movie),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Text(
-                        '감독',
-                        style: Theme.of(context).textTheme.subhead,
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      FutureBuilder(
-                          future: creditResultFuture,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              List<Crew> crews = snapshot.data.crews;
+                      CustomBackButton(),
+                      Consumer<FavoriteState>(builder: (context, state, child) {
+                        return IconButton(
+                          icon: Icon(
+                            state.containMovie(movie.id)
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: Colors.red,
+                            size: 30,
+                          ),
+                          onPressed: () {
+                            var content;
+                            if (state.containMovie(movie.id)) {
+                              state.removeMovie(movie.id);
+                              content = Text("'나의 즐겨찾기'에서 삭제 되었습니다.");
+                            } else {
+                              state.addMovie(movie);
+                              content = Text("'나의 즐겨찾기'에 추가 되었습니다.");
+                            }
 
-                              crews = crews
-                                  .where((crew) => crew.job == 'Director')
-                                  .toList();
-                              return CrewList(crews: crews);
-                            } else {
-                              return Container(
-                                  height: 150,
-                                  child: Center(
-                                      child: CircularProgressIndicator()));
-                            }
-                          }),
-                      Text(
-                        '주요 출연진',
-                        style: Theme.of(context).textTheme.subhead,
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      FutureBuilder(
-                          future: creditResultFuture,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return CastList(casts: snapshot.data.casts);
-                            } else {
-                              return Container(
-                                  height: 150,
-                                  child: Center(
-                                      child: CircularProgressIndicator()));
-                            }
-                          })
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: content,
+                              action: SnackBarAction(
+                                label: '확인',
+                                onPressed: () {},
+                              ),
+                            ));
+                          },
+                        );
+                      }),
                     ],
                   ),
-                )),
-          )
-        ],
+                )
+              ],
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 10, left: 20, right: 20, bottom: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        StoryLine(movie),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          '감독',
+                          style: Theme.of(context).textTheme.subhead,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        FutureBuilder(
+                            future: creditResultFuture,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                List<Crew> crews = snapshot.data.crews;
+
+                                crews = crews
+                                    .where((crew) => crew.job == 'Director')
+                                    .toList();
+                                return CrewList(crews: crews);
+                              } else {
+                                return Container(
+                                    height: 150,
+                                    child: Center(
+                                        child: CircularProgressIndicator()));
+                              }
+                            }),
+                        Text(
+                          '주요 출연진',
+                          style: Theme.of(context).textTheme.subhead,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        FutureBuilder(
+                            future: creditResultFuture,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return CastList(casts: snapshot.data.casts);
+                              } else {
+                                return Container(
+                                    height: 150,
+                                    child: Center(
+                                        child: CircularProgressIndicator()));
+                              }
+                            })
+                      ],
+                    ),
+                  )),
+            )
+          ],
+        ),
       ),
     );
   }
