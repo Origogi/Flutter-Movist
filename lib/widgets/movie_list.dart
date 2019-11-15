@@ -109,19 +109,12 @@ class VerticalMovieList extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(top: 60.0),
-                      child: Container(
-                        width: double.infinity,
-                        // height: 110,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.circular(8.0),
-                            border: Border.all(
-                              width: 2,
-                              color: Theme.of(context).accentColor,
-                            )),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 125.0, top: 10.0, bottom: 10),
+                      child: Card(
+                        color: Theme.of(context).cardColor,
+                        child: Container(
+                          margin: EdgeInsets.only(top: 15, left: 125, bottom: 15, right: 10),
+                          // padding: const EdgeInsets.only(
+                          //     left: 125.0, top: 10.0, bottom: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

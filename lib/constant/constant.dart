@@ -53,6 +53,7 @@ ThemeData _buildDarkTheme() {
       highlightColor: darkColor,
       backgroundColor: darkColor,
       splashColor: darkColor,
+      cardColor: darkColor.withOpacity(0.3),
       primaryIconTheme: IconThemeData(color: Colors.white),
       focusColor: darkColor,
       appBarTheme: AppBarTheme(
@@ -60,6 +61,7 @@ ThemeData _buildDarkTheme() {
           color: darkColor,
           iconTheme: IconThemeData(color: Colors.white)),
       textTheme: textTheme,
+      
       iconTheme: IconThemeData(color: Colors.white));
 }
 
@@ -108,7 +110,8 @@ ThemeData _buildAmoledTheme() {
       highlightColor: amoledColor,
       backgroundColor: amoledColor,
       splashColor: amoledColor,
-      primaryIconTheme: IconThemeData(color: Colors.black),
+      cardColor: Colors.grey[900],
+      primaryIconTheme: IconThemeData(color: Colors.white),
       focusColor: amoledColor,
       appBarTheme: AppBarTheme(
           textTheme: textTheme,
