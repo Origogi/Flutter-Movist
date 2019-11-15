@@ -65,6 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               child: Padding(
                   padding: EdgeInsets.only(top: 450),
                   child: Container(

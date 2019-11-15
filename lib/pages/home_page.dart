@@ -34,7 +34,7 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
       drawer: SideMenu(),
       appBar: AppBar(
-        title: Text('Movie DB'),
+        title: Text('Movist'),
         centerTitle: true,
         actions: <Widget>[
           IconButton(

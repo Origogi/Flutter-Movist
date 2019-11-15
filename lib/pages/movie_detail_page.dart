@@ -94,6 +94,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
             ),
             Expanded(
               child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   child: Padding(
                     padding: const EdgeInsets.only(
