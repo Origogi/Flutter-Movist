@@ -23,7 +23,7 @@ https://developers.themoviedb.org/3
 
 <img src="https://user-images.githubusercontent.com/35194820/68576611-bf188880-04b1-11ea-942c-b5f58576a239.png" width="30%">  <img src="https://user-images.githubusercontent.com/35194820/68576879-4fef6400-04b2-11ea-896c-781e730b78d1.png" width="30%"> <img src="https://user-images.githubusercontent.com/35194820/68576625-c50e6980-04b1-11ea-9b96-d92e5098cb62.png" width="30%"> 
 
- <img src="https://user-images.githubusercontent.com/35194820/68576630-c63f9680-04b1-11ea-89f2-362d8481cf07.png" width="30%">  <img src="https://user-images.githubusercontent.com/35194820/68576632-c8095a00-04b1-11ea-89ba-68d385981fc0.png" width="30%"> <img src="https://user-images.githubusercontent.com/35194820/68577154-df951280-04b2-11ea-85de-6ae946bc8076.png" width="30%"> 
+ <img src="https://user-images.githubusercontent.com/35194820/68576630-c63f9680-04b1-11ea-89f2-362d8481cf07.png" width="30%">  <img src="https://user-images.githubusercontent.com/35194820/68948645-ab478c00-07fb-11ea-8ca1-e3543835aaba.png" width="33%"> <img src="https://user-images.githubusercontent.com/35194820/68577154-df951280-04b2-11ea-85de-6ae946bc8076.png" width="30%"> 
 
 
 
