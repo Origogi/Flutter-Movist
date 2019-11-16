@@ -5,26 +5,22 @@ import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/pages/movies_list_page.dart';
 
 class CategoryChips extends StatelessWidget {
+  final List<int> genresIDs;
+  final Map<int, String> genresMap;
 
-final List<int> genresIDs;
-final Map<int, String> genresMap;
-
-CategoryChips(this.genresIDs, this.genresMap);
-
+  CategoryChips(this.genresIDs, this.genresMap);
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: _buildCategoryChips(context, genresIDs, genresMap)
-    );
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: _buildCategoryChips(context, genresIDs, genresMap));
   }
 
-  List<Widget> _buildCategoryChips(BuildContext context, List<int> genresIDs,
-      Map<int, String> genresMap) {
-
+  List<Widget> _buildCategoryChips(
+      BuildContext context, List<int> genresIDs, Map<int, String> genresMap) {
     var theme = Theme.of(context).textTheme;
-    
+
     return genresIDs.map((id) {
       return Padding(
         padding: const EdgeInsets.only(right: 8.0),
@@ -55,8 +51,4 @@ CategoryChips(this.genresIDs, this.genresMap);
       );
     }).toList();
   }
-
 }
-
-
- 

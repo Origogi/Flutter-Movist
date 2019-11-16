@@ -7,7 +7,7 @@ class ArcBannerImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var sreenWidth = MediaQuery.of(context).size.width;
-
+    
     dynamic image;
 
     if (imageUrl.isEmpty) {

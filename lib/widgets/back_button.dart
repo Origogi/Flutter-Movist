@@ -5,9 +5,8 @@ class CustomBackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipOval(
       child: Container(
-        color: Colors.grey[100].withOpacity(0.3), // button color
+        color: Colors.grey[100].withOpacity(0.3),
         child: InkWell(
-          // splashColor: Colors.red, // inkwell color
           child: SizedBox(
               width: 40, height: 40, child: Icon(Icons.arrow_back_ios, color: Colors.white,)),
           onTap: () {
