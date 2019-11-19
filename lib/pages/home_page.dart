@@ -152,7 +152,7 @@ class HomePageState extends State<HomePage> {
                               MaterialPageRoute(
                                 builder: (context) => MoviesListPage(
                                   title: '나의 즐겨찾기',
-                                  movies: typeCastToFuture(state.getMovies()),
+                                  movies: Future.value(state.getMovies()),
                                 ),
                               ));
                         });

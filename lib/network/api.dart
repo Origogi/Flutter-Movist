@@ -133,9 +133,6 @@ class MovieDBApi {
       "Content-type": "application/json",
     });
 
-    DLog.d('searchMovies : ' + response.statusCode.toString());
-
-
     Map responseMap = jsonDecode(response.body);
     var apiResponse = MovieResult.fromJson(responseMap);
 
