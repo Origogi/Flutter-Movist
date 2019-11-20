@@ -112,9 +112,10 @@ class VerticalMovieList extends StatelessWidget {
                       child: Card(
                         color: Theme.of(context).cardColor,
                         child: Container(
-                          margin: EdgeInsets.only(top: 15, left: 125, bottom: 15, right: 10),
-                          // padding: const EdgeInsets.only(
-                          //     left: 125.0, top: 10.0, bottom: 10),
+                          margin: EdgeInsets.only(
+                               left: 125, right: 10),
+                          padding: const EdgeInsets.only(
+                               top: 10.0, bottom: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -285,8 +286,11 @@ class MovieCoverFlowState extends State<MovieCoverFlow> {
                           future: genresMapFuture,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-                              return CategoryChips(
-                                  movies[_pageIndex].genreIDs, snapshot.data);
+                              return SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: CategoryChips(
+                                    movies[_pageIndex].genreIDs, snapshot.data),
+                              );
                             } else {
                               return Container();
                             }
