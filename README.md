@@ -70,6 +70,7 @@ Provider
 - 10/31 검색 기능 구현
 - 11/2 Preference 구현
 - 11/10 People detail view 추가
+- 11/11 Android release를 위한 gradle 수정
 
 ## 9. 참고 소스
 
