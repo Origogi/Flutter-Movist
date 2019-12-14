@@ -7,7 +7,7 @@ Google에서 새로 개발한 Cross Flatform인 Flutter를 이용하여 개발�
 | PlayStore | AppStore |
 |:--------:|:--------:|
 | <a href='https://play.google.com/store/apps/details?id=com.origogi.movie&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='다운로드하기 Google Play' src='https://play.google.com/intl/ko/badges/static/images/badges/ko_badge_web_generic.png' width="100%"/></a> |<img src ="https://tascam.jp/content/images/universal/misc/logo_w_app_store.jpg" width="90%">|
-| 19.11.11 릴리즈 | 19.11.30 릴리즈 예정|
+| 19.11.11 릴리즈 | 20.1.1 릴리즈 예정|
 
 
 ## 2. REST API
@@ -71,6 +71,8 @@ Provider
 - 11/2 Preference 구현
 - 11/10 People detail view 추가
 - 11/11 Android release를 위한 gradle 수정
+- 11/11 1.0.0 버전 출시
+- 12/14 1.0.2 버전 출시
 
 ## 9. 참고 소스
 
