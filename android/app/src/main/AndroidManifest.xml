@@ -5,7 +5,7 @@
     <application
         android:label="Movist"
         android:name="io.flutter.app.FlutterApplication"
-        android:icon="@mipmap/ic_launcher_movie">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

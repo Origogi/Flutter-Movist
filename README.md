@@ -7,8 +7,7 @@ Google에서 새로 개발한 Cross Flatform인 Flutter를 이용하여 개발�
 | PlayStore | AppStore |
 |:--------:|:--------:|
 | <a href='https://play.google.com/store/apps/details?id=com.origogi.movie&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='다운로드하기 Google Play' src='https://play.google.com/intl/ko/badges/static/images/badges/ko_badge_web_generic.png' width="100%"/></a> |<img src ="https://tascam.jp/content/images/universal/misc/logo_w_app_store.jpg" width="90%">|
-| 19.11.11 릴리즈 | 20.1.1 릴리즈 예정|
-
+| 19.11.11 릴리즈 | 20.01.31 릴리즈 예정|
 
 ## 2. REST API
 
@@ -77,3 +76,7 @@ Provider
 ## 9. 참고 소스
 
 https://github.com/bimsina/Matinee-Flutter
+
+## 10. 잡설
+
+App store 등록이 계속 늦어지는 이유에 대해서는 개발자 등록 비용이 13만원이 되는 관계로 내무부장관님 결제를 받아야 하기 때문에 계속 딜레이 되고 있습니다. ㅠㅠ
