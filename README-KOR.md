@@ -1,13 +1,13 @@
 # Flutter Movie app 
 
-This is a simple app for viewing movie information from the server.
+Google에서 새로 개발한 Cross Flatform인 Flutter를 이용하여 개발한 Application입니다.
 
 ## 1. Release
 
 | PlayStore | AppStore |
 |:--------:|:--------:|
 | <a href='https://play.google.com/store/apps/details?id=com.origogi.movie&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='다운로드하기 Google Play' src='https://play.google.com/intl/ko/badges/static/images/badges/ko_badge_web_generic.png' width="100%"/></a> |<img src ="https://tascam.jp/content/images/universal/misc/logo_w_app_store.jpg" width="90%">|
-| 19.11.11 Release | Comming Soon |
+| 19.11.11 릴리즈 | 20.01.31 릴리즈 예정|
 
 ## 2. REST API
 
@@ -32,50 +32,51 @@ Provider
 
 ## 5. Font
 
-[Goyang-ilsan](http://www.goyang.go.kr/www/www05/www05_3/www05_3_6/www05_3_6_tab3.jsp)
+[고양 일산체](http://www.goyang.go.kr/www/www05/www05_3/www05_3_6/www05_3_6_tab3.jsp)
 
-## 6. Source Tree
+## 6. TODO
 
+- [x] 검색 기능 구현
+    - [x] SearchDelegate hint 제거
+    - [x] api연결
+- [x] Theme 구현
+    - [x] Theme class 연결
+    - [x] 버튼 눌렀을 때 변경
+- [x] My List 구현
+    - [x] Provider 모델
+    - [x] System Property 이용
+- [x] Category 구현
+- [x] 애니메이션
+    - [x] Hero
+- [x] 메인 화면 완성
+    - [x] Top Rating List 추가
+- [x] Movie Detail 화면 완성
+    - [x] Cast 정보 List 추가
+    - [x] Crew 정보 List 추가
+- [x] People detail view 추가
 
-```
-lib
-├─ constant
-│  └─ constant.dart
-├─ flutter.code-workspace
-├─ logger
-│  └─ logger.dart
-├─ main.dart
-├─ model
-│  ├─ models.dart
-│  └─ models.g.dart
-├─ network
-│  └─ api.dart
-├─ pages
-│  ├─ home_page.dart
-│  ├─ movies_list_page.dart
-│  ├─ movie_detail_page.dart
-│  ├─ movie_search_page.dart
-│  └─ profile_page.dart
-├─ state
-│  └─ states.dart
-├─ util
-│  └─ util.dart
-└─ widgets
-   ├─ arc_banner_image.dart
-   ├─ backdrop_image.dart
-   ├─ back_button.dart
-   ├─ cast_list.dart
-   ├─ category_chips.dart
-   ├─ crew_list.dart
-   ├─ movie_list.dart
-   ├─ poster.dart
-   ├─ rating_information.dart
-   ├─ side_menu.dart
-   └─ story_line.dart
+## 7. Bug
 
-```
+~~FutureBuilder가 Navigation pop 될 때마다 수행 되는 문제~~
 
-## 7. Reference
+## 8. Commit Note
 
-- https://github.com/bimsina/Matinee-Flutter
-- https://github.com/devefy/Flutter-Story-App-UI
+- 9/22 Stack Cover flow 구현 (First commit)
+- 9/28 Movie DB API 연동
+- 10/3 Detail Page 구현
+- 10/13 즐겨찾기 기능 구현
+- 10/18 Theme 변경 기능 구현
+- 10/31 검색 기능 구현
+- 11/2 Preference 구현
+- 11/10 People detail view 추가
+- 11/11 Android release를 위한 gradle 수정
+- 11/11 1.0.0 버전 출시
+- 12/14 1.0.2 버전 출시
+
+## 9. 참고 소스
+
+https://github.com/bimsina/Matinee-Flutter
+
+## 10. 잡설
+
+App store 등록이 계속 늦어지는 이유에 대해서는 개발자 등록 비용이 13만원이 되는 관계로 내무부장관님 결제를 받아야 하기 때문에 계속 딜레이 되고 있습니다. ㅠㅠ
