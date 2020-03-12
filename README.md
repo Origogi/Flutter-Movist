@@ -1,7 +1,4 @@
-# Flutter Movie app 
-
-This is a simple app for viewing movie information from the server.
-
+![스크린샷 2020-03-12 오후 4 35 23](https://user-images.githubusercontent.com/35194820/76498146-a92acc80-647f-11ea-965d-b3eaa0af2deb.png)
 ## 1. Release
 
 | PlayStore | AppStore |
