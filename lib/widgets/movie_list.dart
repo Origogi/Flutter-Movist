@@ -255,7 +255,7 @@ class MovieCoverFlowState extends State<MovieCoverFlow> {
                         tag: HeroID.make(movies[_pageIndex].id, 'backdrop'),
                         child: BackDropImage(movies[_pageIndex].backDropUrl))),
                 Container(
-                    padding: EdgeInsets.only(top: 35),
+                    padding: EdgeInsets.only(top: 70),
                     child: CardControllWidget(currentPage, movies)),
                 Positioned.fill(
                   child: PageView.builder(
