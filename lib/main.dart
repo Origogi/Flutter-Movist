@@ -10,8 +10,8 @@ void main() {
   runApp(
     MultiProvider(
         providers: [
-          ChangeNotifierProvider(builder: (_) => FavoriteState()),
-          ChangeNotifierProvider(builder: (_) => ThemeState()),
+          ChangeNotifierProvider(create : (_) => FavoriteState()),
+          ChangeNotifierProvider(create: (_) => ThemeState()),
         ],
         child: MyApp()),
   );
