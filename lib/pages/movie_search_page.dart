@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_list/constant/constant.dart';
+import 'package:flutter_list/locale/translations.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/widgets/movie_list.dart';
 
@@ -50,7 +52,7 @@ class MovieSearchPage extends SearchDelegate<String> {
     }
 
     return Container(
-      child: FutureBuilder(
+        child: FutureBuilder(
       future: MovieDBApi.searchMovies(query),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {

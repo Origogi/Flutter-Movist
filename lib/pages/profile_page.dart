@@ -1,6 +1,8 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_list/constant/constant.dart';
+import 'package:flutter_list/locale/translations.dart';
 import 'package:flutter_list/model/models.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/widgets/back_button.dart';
@@ -34,6 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void initState() {
     super.initState();
+
     personFuture = MovieDBApi.getPerson(id);
     creditsMoviesFuture = MovieDBApi.getMovieCredits(id);
   }
@@ -96,7 +99,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizedBox(
                           height: 20,
                         ),
-                        Text('출연작', style: Theme.of(context).textTheme.title),
+                        Text(Translations.of(context)
+                                    .trans(transKeyBiography), style: Theme.of(context).textTheme.title),
                         SizedBox(
                           height: 20,
                         ),
@@ -161,7 +165,8 @@ class DetailProfileWidgetState extends State<DetailProfileWidget> {
             height: 20,
           ),
           ExpandablePanel(
-            header: Text('약력', style: theme.title),
+            header: Text(Translations.of(context).trans(transKeyKnowFor),
+                style: theme.title),
             collapsed: Text(person.biography,
                 softWrap: true,
                 maxLines: 3,

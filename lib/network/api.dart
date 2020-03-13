@@ -5,73 +5,74 @@ import 'package:flutter_list/model/models.dart';
 import 'package:http/http.dart' as http;
 
 class MovieDBApi {
-  static final _KEY = '2bafb8eb9137df7d37ed1fe043ad7596';
+  static final _api_key = '2bafb8eb9137df7d37ed1fe043ad7596';
+  static var localeCode = "";
 
-  static String moviesForGenreUrl(int genreId, int page) {
+  static String moviesForGenreUrl(genreId, page) {
     return 'https://api.themoviedb.org/3/discover/movie'
-        '?api_key=$_KEY'
-        '&language=ko-KR'
+        '?api_key=$_api_key'
+        '&language=$localeCode'
         '&sort_by=popularity.desc'
         '&page=$page'
         '&with_genres=$genreId';
   }
 
-  static String movieDetailsUrl(int movieId) {
+  static String movieDetailsUrl(movieId) {
     return 'https://api.themoviedb.org/3/movie/'
-        '?api_key=$_KEY'
+        '?api_key=$_api_key'
         '$movieId'
         '&append_to_response=credits,'
         'images'
-        '&language=ko-KR';
+        '&language=$localeCode';
   }
 
-  static String creditsUrl(int id) {
+  static String creditsUrl(id) {
     return 'https://api.themoviedb.org/3/movie/$id/credits'
-        '?api_key=$_KEY'
-        '&language=ko-KR'
+        '?api_key=$_api_key'
+        '&language=$localeCode'
         '&page=1/';
   }
 
   static String moviePlayNowUrl() {
     return 'https://api.themoviedb.org/3/movie/now_playing'
-        '?api_key=$_KEY'
-        '&language=ko-KR'
+        '?api_key=$_api_key'
+        '&language=$localeCode'
         '&page=1/';
   }
 
   static String popularUrl() {
     return 'https://api.themoviedb.org/3/movie/popular'
-        '?api_key=$_KEY'
-        '&language=ko-KR'
+        '?api_key=$_api_key'
+        '&language=$localeCode'
         '&page=1/';
   }
 
   static String getGenresUrl() {
     return 'https://api.themoviedb.org/3/genre/movie/list'
-        '?api_key=$_KEY'
-        '&language=ko-KR';
+        '?api_key=$_api_key'
+        '&language=$localeCode';
   }
 
   static String movieSearchUrl(String query) {
     return 'https://api.themoviedb.org/3/search/movie'
         '?query=$query'
-        '&language=ko-KR'
-        '&api_key=$_KEY';
+        '&language=$localeCode'
+        '&api_key=$_api_key';
   }
 
   static String personDetailUrl(int id) {
     return 'https://api.themoviedb.org/3/person/$id'
-        '?api_key=$_KEY';
+        '?api_key=$_api_key';
     // '&language=ko-KR';
   }
 
   static String movieCreditsUrl(int id) {
     return 'https://api.themoviedb.org/3/person/$id/movie_credits'
-        '?api_key=$_KEY'
-        '&language=ko-KR';
+        '?api_key=$_api_key'
+        '&language=$localeCode';
   }
 
-  static Future<Movie> getDetailMovie(int id) async {
+  static Future<Movie> getDetailMovie(int id, localeCode) async {
     http.Response response =
         await http.get(Uri.encodeFull(movieDetailsUrl(id)), headers: {
       "Content-type": "application/json",
@@ -146,14 +147,13 @@ class MovieDBApi {
     });
     DLog.d('getGenres : ' + response.statusCode.toString());
 
-
     Map responseMap = jsonDecode(response.body);
     var apiResponse = GenresApiResponse.fromJson(responseMap);
 
     return apiResponse.genresMap;
   }
 
-  static Future<CreaditResult> getCasts(int movieID) async {
+  static Future<CreaditResult> getCasts(movieID) async {
     http.Response response =
         await http.get(Uri.encodeFull(creditsUrl(movieID)), headers: {
       "Content-type": "application/json",
@@ -167,7 +167,7 @@ class MovieDBApi {
     return apiResponse;
   }
 
-  static Future<Person> getPerson(int personID) async {
+  static Future<Person> getPerson(personID) async {
     http.Response response =
         await http.get(Uri.encodeFull(personDetailUrl(personID)), headers: {
       "Content-type": "application/json",
@@ -182,7 +182,7 @@ class MovieDBApi {
     return apiResponse;
   }
 
-  static Future<List<Movie>> getMovieCredits(int personID) async {
+  static Future<List<Movie>> getMovieCredits(personID) async {
     http.Response response =
         await http.get(Uri.encodeFull(movieCreditsUrl(personID)), headers: {
       "Content-type": "application/json",

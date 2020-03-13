@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_list/constant/constant.dart';
+import 'package:flutter_list/locale/translations.dart';
 import 'package:flutter_list/model/models.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/state/states.dart';
@@ -39,6 +41,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
   @override
   void initState() {
     super.initState();
+
     creditResultFuture = MovieDBApi.getCasts(movie.id);
     genresMapFuture = MovieDBApi.getGenres();
   }
@@ -71,16 +74,23 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                             var content;
                             if (state.containMovie(movie.id)) {
                               state.removeMovie(movie.id);
-                              content = Text("'나의 즐겨찾기'에서 삭제 되었습니다.");
+                              content = Text(
+                                Translations.of(context)
+                                    .trans(transKeyRemoveFavoriteMessage),
+                              );
                             } else {
                               state.addMovie(movie);
-                              content = Text("'나의 즐겨찾기'에 추가 되었습니다.");
+                              content = Text(
+                                Translations.of(context)
+                                    .trans(transKeyAddFavoriteMessage),
+                              );
                             }
 
                             Scaffold.of(context).showSnackBar(SnackBar(
                               content: content,
                               action: SnackBarAction(
-                                label: '확인',
+                                label: Translations.of(context)
+                                    .trans(transKeyConfirm),
                                 onPressed: () {},
                               ),
                             ));
@@ -107,7 +117,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                           height: 15,
                         ),
                         Text(
-                          '감독',
+                          Translations.of(context).trans(transKeyDirector),
                           style: Theme.of(context).textTheme.subhead,
                         ),
                         SizedBox(
@@ -131,7 +141,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                               }
                             }),
                         Text(
-                          '주요 출연진',
+                          Translations.of(context).trans(transKeyCasts),
                           style: Theme.of(context).textTheme.subhead,
                         ),
                         SizedBox(
@@ -181,6 +191,7 @@ class _MovieDetailHeaderState extends State<MovieDetailHeaderWidget> {
 
   void initState() {
     super.initState();
+
     genresMapFuture = MovieDBApi.getGenres();
   }
 
@@ -206,7 +217,7 @@ class _MovieDetailHeaderState extends State<MovieDetailHeaderWidget> {
         Row(
           children: <Widget>[
             Text(
-              '개봉 : ',
+              '${Translations.of(context).trans(transKeyOpenDate)} : ',
               style: textTheme.body2,
             ),
             Text(movie.releaseDate, style: textTheme.body2)

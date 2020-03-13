@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_list/constant/constant.dart';
+import 'package:flutter_list/locale/translations.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/pages/movies_list_page.dart';
 
@@ -30,7 +31,8 @@ class CategoryChips extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => MoviesListPage(
-                    title: '장르 : ${genresMap[id]}',
+                    title:
+                        '${Translations.of(context).trans(transKeyGenre)} : ${genresMap[id]}',
                     movies: MovieDBApi.getRelatedGenreMovies(id),
                   ),
                 ));

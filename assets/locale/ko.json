@@ -1,0 +1,17 @@
+{
+    "box_office": "박스 오피스",
+    "now_playing": "현재 상영중",
+    "my_favorite": "나의 즐겨찾기",
+    "open_date": "개봉 날짜",
+    "summary": "줄거리",
+    "director": "감독",
+    "casts": "배우",
+    "biography": "약력",
+    "known_for": "출연작",
+    "genre": "장르",
+    "favorite_empty_message": "즐겨 찾기에 등록된 영화가 없습니다.",
+    "no_information": "상세 정보 없음.",
+    "confirm": "확인",
+    "add_favorite_message": "'나의 즐겨찾기'에 추가 되었습니다.",
+    "remove_favorite_message": "'나의 즐겨찾기'에서 삭제 되었습니다."
+}

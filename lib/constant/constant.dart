@@ -10,6 +10,23 @@ final List<String> themes = ['Light', 'Dark', 'Amoled'];
 
 final ThemeData kDarkTheme = _buildDarkTheme();
 
+final transKeyBoxOffice = "box_office";
+final transKeyNowPlaying = "now_playing";
+final transKeyMyFavorite = "my_favorite";
+final transKeyOpenDate = "open_date";
+final transKeySummary = "summary";
+final transKeyDirector = "director";
+final transKeyCasts = "casts";
+final transKeyBiography = "biography";
+final transKeyKnowFor = "known_for";
+final transKeyGenre = "genre";
+final transKeyLocaleCode = "locale_code";
+final transKeyFavoriteEmptyMessage = "favorite_empty_message";
+final transKeyNoInfo = "no_information";
+final transKeyConfirm = "confirm";
+final transKeyAddFavoriteMessage = "add_favorite_message";
+final transKeyRemoveFavoriteMessage = "remove_favorite_message";
+
 ThemeData _buildDarkTheme() {
   final ThemeData base = ThemeData.dark();
   final TextTheme textTheme = TextTheme(
@@ -66,6 +83,8 @@ ThemeData _buildDarkTheme() {
 }
 
 final ThemeData kAmoledTheme = _buildAmoledTheme();
+
+var locationCode = '';
 
 ThemeData _buildAmoledTheme() {
   final ThemeData base = ThemeData.dark();

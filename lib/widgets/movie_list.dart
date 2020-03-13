@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_list/constant/constant.dart';
+import 'package:flutter_list/locale/translations.dart';
 import 'package:flutter_list/model/models.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/pages/movie_detail_page.dart';
@@ -112,10 +114,8 @@ class VerticalMovieList extends StatelessWidget {
                       child: Card(
                         color: Theme.of(context).cardColor,
                         child: Container(
-                          margin: EdgeInsets.only(
-                               left: 125, right: 10),
-                          padding: const EdgeInsets.only(
-                               top: 10.0, bottom: 10),
+                          margin: EdgeInsets.only(left: 125, right: 10),
+                          padding: const EdgeInsets.only(top: 10.0, bottom: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -134,7 +134,8 @@ class VerticalMovieList extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: <Widget>[
                                   Text(
-                                    '개봉 : ',
+                                    '${Translations.of(context)
+                                    .trans(transKeyOpenDate)} : ',
                                     style: Theme.of(context).textTheme.body2,
                                   ),
                                   Text(
@@ -215,7 +216,9 @@ class MovieCoverFlowState extends State<MovieCoverFlow> {
 
   void initState() {
     super.initState();
+    
     genresMapFuture = MovieDBApi.getGenres();
+
   }
 
   @override

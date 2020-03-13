@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_list/constant/constant.dart';
+import 'package:flutter_list/locale/translations.dart';
 import 'package:flutter_list/model/models.dart';
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/pages/movies_list_page.dart';
@@ -23,6 +25,7 @@ class HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+
     playNowMoviesFuture = MovieDBApi.getPlayNow();
     popularMoviesFuture = MovieDBApi.getTopRate();
   }
@@ -30,6 +33,7 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
+    final localeCode = Translations.of(context).trans(transKeyLocaleCode);
 
     return Scaffold(
       drawer: SideMenu(),
@@ -60,7 +64,8 @@ class HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('박스 오피스', style: themeData.textTheme.headline),
+                  Text(Translations.of(context).trans(transKeyBoxOffice),
+                      style: themeData.textTheme.headline),
                   IconButton(
                     icon: Icon(
                       Icons.view_list,
@@ -71,7 +76,8 @@ class HomePageState extends State<HomePage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => MoviesListPage(
-                              title: '박스 오피스',
+                              title: Translations.of(context)
+                                  .trans(transKeyBoxOffice),
                               movies: MovieDBApi.getTopRate(),
                             ),
                           ));
@@ -100,7 +106,8 @@ class HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('현재 상영중', style: themeData.textTheme.headline),
+                  Text(Translations.of(context).trans(transKeyNowPlaying),
+                      style: themeData.textTheme.headline),
                   IconButton(
                       icon: Icon(
                         Icons.view_list,
@@ -111,7 +118,8 @@ class HomePageState extends State<HomePage> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => MoviesListPage(
-                                title: '현재 상영중',
+                                title: Translations.of(context)
+                                    .trans(transKeyNowPlaying),
                                 movies: MovieDBApi.getPlayNow(),
                               ),
                             ));
@@ -139,7 +147,8 @@ class HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('나의 즐겨찾기', style: themeData.textTheme.headline),
+                  Text(Translations.of(context).trans(transKeyMyFavorite),
+                      style: themeData.textTheme.headline),
                   Consumer<FavoriteState>(builder: (context, state, child) {
                     return IconButton(
                         icon: Icon(
@@ -151,7 +160,8 @@ class HomePageState extends State<HomePage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => MoviesListPage(
-                                  title: '나의 즐겨찾기',
+                                  title: Translations.of(context)
+                                      .trans(transKeyMyFavorite),
                                   movies: Future.value(state.getMovies()),
                                 ),
                               ));
@@ -175,7 +185,8 @@ class HomePageState extends State<HomePage> {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 100),
                   child: Center(
-                    child: Text('즐겨 찾기에 등록된 영화가 없습니다.',
+                    child: Text(Translations.of(context)
+                                    .trans(transKeyFavoriteEmptyMessage),
                         style: themeData.textTheme.body1),
                   ),
                 );

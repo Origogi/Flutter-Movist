@@ -1,0 +1,17 @@
+{
+    "box_office": "Box Office",
+    "now_playing": "Now Playing",
+    "my_favorite": "My Favorite",
+    "open_date": "Open Date",
+    "summary": "Summary",
+    "director": "Director",
+    "casts": "Casts",
+    "biography": "Biography",
+    "known_for": "Known for",
+    "genre": "Genre",
+    "favorite_empty_message": "favorite movie list is empty.",
+    "no_information": "No information.",
+    "confirm": "Confirm",
+    "add_favorite_message": "Added to 'My Favorites'.",
+    "remove_favorite_message": "Removed to 'My Favorites'."
+}

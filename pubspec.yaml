@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   cupertino_icons: ^0.1.2
   json_annotation: ^2.0.0
   http: ^0.12.0+2
@@ -16,8 +18,6 @@ dependencies:
   shared_preferences:
   expandable: ^3.0.1
   logger: ^0.7.0+2
-
-
 
 dev_dependencies:
   flutter_test:
@@ -36,7 +36,9 @@ flutter:
   uses-material-design: true
 
   assets:
-   - assets/images/
+    - assets/images/
+    - assets/locale/en.json
+    - assets/locale/ko.json
 
   fonts:
       - family: SF-Pro-Text-Regular

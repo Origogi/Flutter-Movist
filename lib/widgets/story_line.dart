@@ -1,5 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_list/constant/constant.dart';
+import 'package:flutter_list/locale/translations.dart';
 import 'package:flutter_list/model/models.dart';
 
 class StoryLine extends StatelessWidget {
@@ -20,7 +22,7 @@ class StoryLine extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           ExpandablePanel(
-            header: Text('줄거리', style: textTheme.subhead),
+            header: Text(Translations.of(context).trans(transKeySummary), style: textTheme.subhead),
             collapsed: Text(overview,
                 softWrap: true,
                 maxLines: 3,
