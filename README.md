@@ -2,7 +2,7 @@
 
 ## 1. Release
 
-| PlayStore | AppStore |
+| Google Play | App Store |
 |:--------:|:--------:|
 | <a href='https://play.google.com/store/apps/details?id=com.origogi.movie&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='다운로드하기 Google Play' src='https://play.google.com/intl/ko/badges/static/images/badges/ko_badge_web_generic.png' width="100%"/></a> |<img src ="https://tascam.jp/content/images/universal/misc/logo_w_app_store.jpg" width="90%">|
 | 20.03.14 updated | Comming Soon |
