@@ -18,9 +18,9 @@ https://developers.themoviedb.org/3
 
 <img src="https://media.giphy.com/media/THNQxnJh1dJq8AOcNc/giphy.gif" width="30%">   <img src="https://media.giphy.com/media/kI9wXR9yPDQPBntgOQ/giphy.gif" width="30%">  <img src="https://media.giphy.com/media/U2M6gqbGIl7Ru2K1no/giphy.gif" width="30%">
 
-<img src="https://user-images.githubusercontent.com/35194820/68576611-bf188880-04b1-11ea-942c-b5f58576a239.png" width="30%">  <img src="https://user-images.githubusercontent.com/35194820/68576879-4fef6400-04b2-11ea-896c-781e730b78d1.png" width="30%"> <img src="https://user-images.githubusercontent.com/35194820/68576625-c50e6980-04b1-11ea-9b96-d92e5098cb62.png" width="30%"> 
+<img src="https://user-images.githubusercontent.com/35194820/76675446-ef596a80-65fc-11ea-9e0d-9704e9be28a4.png" width="30%">  <img src="https://user-images.githubusercontent.com/35194820/76675449-f4b6b500-65fc-11ea-8efc-55735461a326.png" width="30%"> <img src="https://user-images.githubusercontent.com/35194820/76675451-fa13ff80-65fc-11ea-8802-a6d5f1e4dc64.png" width="30%"> 
 
- <img src="https://user-images.githubusercontent.com/35194820/68576630-c63f9680-04b1-11ea-89f2-362d8481cf07.png" width="30%">  <img src="https://user-images.githubusercontent.com/35194820/68948645-ab478c00-07fb-11ea-8ca1-e3543835aaba.png" width="33%"> <img src="https://user-images.githubusercontent.com/35194820/68577154-df951280-04b2-11ea-85de-6ae946bc8076.png" width="30%"> 
+ <img src="https://user-images.githubusercontent.com/35194820/76675453-fda78680-65fc-11ea-81ec-a428b91cbe1e.png" width="30%">  <img src="https://user-images.githubusercontent.com/35194820/76675457-00a27700-65fd-11ea-94ed-bc470a3e7272.png" width="30%"> <img src="https://user-images.githubusercontent.com/35194820/76675459-039d6780-65fd-11ea-8dff-931fd405c04a.png" width="30%"> 
 
 
 
