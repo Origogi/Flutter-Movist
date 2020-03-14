@@ -5,12 +5,12 @@ import 'package:flutter_list/model/models.dart';
 import 'package:http/http.dart' as http;
 
 class MovieDBApi {
-  static final _api_key = '2bafb8eb9137df7d37ed1fe043ad7596';
+  static final _apiKey = '2bafb8eb9137df7d37ed1fe043ad7596';
   static var localeCode = "";
 
   static String moviesForGenreUrl(genreId, page) {
     return 'https://api.themoviedb.org/3/discover/movie'
-        '?api_key=$_api_key'
+        '?api_key=$_apiKey'
         '&language=$localeCode'
         '&sort_by=popularity.desc'
         '&page=$page'
@@ -19,7 +19,7 @@ class MovieDBApi {
 
   static String movieDetailsUrl(movieId) {
     return 'https://api.themoviedb.org/3/movie/'
-        '?api_key=$_api_key'
+        '?api_key=$_apiKey'
         '$movieId'
         '&append_to_response=credits,'
         'images'
@@ -28,28 +28,28 @@ class MovieDBApi {
 
   static String creditsUrl(id) {
     return 'https://api.themoviedb.org/3/movie/$id/credits'
-        '?api_key=$_api_key'
+        '?api_key=$_apiKey'
         '&language=$localeCode'
         '&page=1/';
   }
 
   static String moviePlayNowUrl() {
     return 'https://api.themoviedb.org/3/movie/now_playing'
-        '?api_key=$_api_key'
+        '?api_key=$_apiKey'
         '&language=$localeCode'
         '&page=1/';
   }
 
   static String popularUrl() {
     return 'https://api.themoviedb.org/3/movie/popular'
-        '?api_key=$_api_key'
+        '?api_key=$_apiKey'
         '&language=$localeCode'
         '&page=1/';
   }
 
   static String getGenresUrl() {
     return 'https://api.themoviedb.org/3/genre/movie/list'
-        '?api_key=$_api_key'
+        '?api_key=$_apiKey'
         '&language=$localeCode';
   }
 
@@ -57,18 +57,18 @@ class MovieDBApi {
     return 'https://api.themoviedb.org/3/search/movie'
         '?query=$query'
         '&language=$localeCode'
-        '&api_key=$_api_key';
+        '&api_key=$_apiKey';
   }
 
   static String personDetailUrl(int id) {
     return 'https://api.themoviedb.org/3/person/$id'
-        '?api_key=$_api_key';
+        '?api_key=$_apiKey';
     // '&language=ko-KR';
   }
 
   static String movieCreditsUrl(int id) {
     return 'https://api.themoviedb.org/3/person/$id/movie_credits'
-        '?api_key=$_api_key'
+        '?api_key=$_apiKey'
         '&language=$localeCode';
   }
 

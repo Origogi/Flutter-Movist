@@ -33,7 +33,7 @@ class CastList extends StatelessWidget {
               }));
             },
             child: Container(
-              width: _imageHeight * 0.85,
+              width: _imageHeight * 0.9,
               margin: EdgeInsets.all(8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -67,6 +67,7 @@ class CastList extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.body1),
                   Text(casts[index].character,
+                  textAlign: TextAlign.center,
                       overflow: TextOverflow.visible,
                       style: Theme.of(context).textTheme.body2),
                 ],

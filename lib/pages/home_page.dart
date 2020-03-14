@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_list/constant/constant.dart';
 import 'package:flutter_list/locale/translations.dart';
@@ -33,7 +35,6 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
-    final localeCode = Translations.of(context).trans(transKeyLocaleCode);
 
     return Scaffold(
       drawer: SideMenu(),
@@ -185,8 +186,9 @@ class HomePageState extends State<HomePage> {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 100),
                   child: Center(
-                    child: Text(Translations.of(context)
-                                    .trans(transKeyFavoriteEmptyMessage),
+                    child: Text(
+                        Translations.of(context)
+                            .trans(transKeyFavoriteEmptyMessage),
                         style: themeData.textTheme.body1),
                   ),
                 );

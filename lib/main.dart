@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: themeData,
       home: HomePage(),
-      supportedLocales: [const Locale('ko', 'KR'), const Locale('en', 'US')],
+      supportedLocales: [const Locale('en', 'US'), const Locale('ko', 'KR')],
       localizationsDelegates: [
         const TranslationsDelegate(),
         GlobalWidgetsLocalizations.delegate,
@@ -46,7 +46,6 @@ class MyApp extends StatelessWidget {
 
             MovieDBApi.localeCode =
                 '${supportedLocale.languageCode}-${supportedLocale.countryCode}';
-
             return supportedLocale;
           }
         }
@@ -58,4 +57,6 @@ class MyApp extends StatelessWidget {
       },
     );
   }
+
+
 }
