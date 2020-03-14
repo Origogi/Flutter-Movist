@@ -16,7 +16,7 @@ https://developers.themoviedb.org/3
 
 [Youtube](https://www.youtube.com/watch?v=aiHJ_ZqFgUE)
 
-<img src="https://media.giphy.com/media/THNQxnJh1dJq8AOcNc/giphy.gif" width="30%">   <img src="https://media.giphy.com/media/kI9wXR9yPDQPBntgOQ/giphy.gif" width="30%">  <img src="https://media.giphy.com/media/U2M6gqbGIl7Ru2K1no/giphy.gif" width="30%">
+<img src="https://media.giphy.com/media/THNQxnJh1dJq8AOcNc/giphy.gif" width="30%">   <img src="https://user-images.githubusercontent.com/35194820/76675726-b4a50180-65ff-11ea-98ae-e4eccccc9d88.gif" width="30%">  <img src="https://user-images.githubusercontent.com/35194820/76675728-bc64a600-65ff-11ea-9e1b-a7d2fe6fa7eb.gif" width="30%">
 
 <img src="https://user-images.githubusercontent.com/35194820/76675446-ef596a80-65fc-11ea-9e0d-9704e9be28a4.png" width="30%">  <img src="https://user-images.githubusercontent.com/35194820/76675449-f4b6b500-65fc-11ea-8efc-55735461a326.png" width="30%"> <img src="https://user-images.githubusercontent.com/35194820/76675451-fa13ff80-65fc-11ea-8802-a6d5f1e4dc64.png" width="30%"> 
 
