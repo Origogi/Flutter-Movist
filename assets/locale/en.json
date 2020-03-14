@@ -14,6 +14,6 @@
     "confirm": "Confirm",
     "add_favorite_message": "Added to 'My Favorites'.",
     "remove_favorite_message": "Removed to 'My Favorites'.",
-    "search_movie_message": "Input movie name'.",
-    "not_find_movie_message": "Did not find '$query'"
+    "search_movie_message": "Input movie name.",
+    "not_find_movie_message": "Not found"
 }
