@@ -13,5 +13,7 @@
     "no_information": "상세 정보 없음.",
     "confirm": "확인",
     "add_favorite_message": "'나의 즐겨찾기'에 추가 되었습니다.",
-    "remove_favorite_message": "'나의 즐겨찾기'에서 삭제 되었습니다."
+    "remove_favorite_message": "'나의 즐겨찾기'에서 삭제 되었습니다.",
+    "search_movie_message": "영화 이름을 입력하세요",
+    "not_find_movie_message": "'$query' 을 찾을수 없습니다."
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_list/constant/constant.dart';
 import 'package:flutter_list/locale/translations.dart';
+
 import 'package:flutter_list/network/api.dart';
 import 'package:flutter_list/widgets/movie_list.dart';
 
@@ -72,7 +73,10 @@ class MovieSearchPage extends SearchDelegate<String> {
                 SizedBox(
                   height: 10,
                 ),
-                Text("'$query'를 찾을 수 없습니다.", style: themeData.textTheme.body1)
+                Text(
+                    Translations.of(context)
+                        .trans(transKeyNotFoundMovieMessage),
+                    style: themeData.textTheme.body1)
               ],
             ));
           }
@@ -103,7 +107,8 @@ class MovieSearchPage extends SearchDelegate<String> {
           SizedBox(
             height: 10,
           ),
-          Text('영화 이름을 입력해 주세요.', style: themeData.textTheme.body1)
+          Text(Translations.of(context).trans(transKeySearchMovieMessage),
+              style: themeData.textTheme.body1)
         ],
       )),
     );

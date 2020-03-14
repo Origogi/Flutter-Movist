@@ -13,5 +13,7 @@
     "no_information": "No information.",
     "confirm": "Confirm",
     "add_favorite_message": "Added to 'My Favorites'.",
-    "remove_favorite_message": "Removed to 'My Favorites'."
+    "remove_favorite_message": "Removed to 'My Favorites'.",
+    "search_movie_message": "Input movie name'.",
+    "not_find_movie_message": "Did not find '$query'"
 }

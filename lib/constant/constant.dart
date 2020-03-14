@@ -26,6 +26,8 @@ final transKeyNoInfo = "no_information";
 final transKeyConfirm = "confirm";
 final transKeyAddFavoriteMessage = "add_favorite_message";
 final transKeyRemoveFavoriteMessage = "remove_favorite_message";
+final transKeySearchMovieMessage = "search_movie_message";
+final transKeyNotFoundMovieMessage = "not_find_movie_message";
 
 ThemeData _buildDarkTheme() {
   final ThemeData base = ThemeData.dark();
