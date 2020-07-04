@@ -15,7 +15,7 @@ dependencies:
   json_annotation: ^2.0.0
   http: ^0.12.0+2
   provider: ^3.0.0+1
-  shared_preferences:
+  shared_preferences: ^0.5.7+3
   expandable: ^3.0.1
   logger: ^0.7.0+2
 
